@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { useInfos } from "../contexts/InfosContext";
 import Button from "../components/Button";
+import React from "react";
+import Track from "../components/Track";
 
 function TopTracks() {
   const [userTopTracks, setUserTopTracks] = useState<Track[]>();
@@ -36,7 +38,11 @@ function TopTracks() {
       <div>
         {userTopTracks &&
           userTopTracks.map((item) => {
-            return <div key={item.id}>{item.name}</div>;
+            return (
+              <React.Fragment key={item.id}>
+                <Track infos={item} />
+              </React.Fragment>
+            );
           })}
       </div>
     </div>
