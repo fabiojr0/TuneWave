@@ -68,7 +68,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       Cookies.set("access_token", response.data.access_token, {
         expires: response.data.expires_in / 86400,
       });
-      Cookies.set("refresh_token", response.data.access_token, {
+      Cookies.set("refresh_token", response.data.refresh_token, {
         expires: 60,
       });
 
@@ -82,6 +82,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const refreshTokens = async () => {
     try {
       const refresh_token = Cookies.get("refresh_token");
+      console.log(refresh_token);
 
       if (!refresh_token) {
         return false;
@@ -106,7 +107,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       Cookies.set("access_token", response.data.access_token, {
         expires: response.data.expires_in / 86400,
       });
-      Cookies.set("refresh_token", response.data.access_token, {
+      Cookies.set("refresh_token", response.data.refresh_token, {
         expires: 60,
       });
 
