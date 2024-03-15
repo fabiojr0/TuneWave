@@ -16,10 +16,10 @@ function TopTracks() {
   useEffect(() => {
     setLoadingNewInfos(true);
     infosContext
-      .fetchTopTracks(time_range)
+      .fetchTopUser("tracks", time_range)
       .then((data) => {
         if (data) {
-          setUserTopTracks(data);
+          setUserTopTracks(data as Track[]);
         }
       })
       .catch((error) => {

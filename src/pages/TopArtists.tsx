@@ -16,10 +16,10 @@ function TopArtists() {
   useEffect(() => {
     setLoadingNewInfos(true);
     infosContext
-      .fetchTopArtists(time_range)
+      .fetchTopUser("artists", time_range)
       .then((data) => {
         if (data) {
-          setUserTopArtists(data);
+          setUserTopArtists(data as Artist[]);
         }
       })
       .catch((error) => {

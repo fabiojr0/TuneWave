@@ -11,8 +11,10 @@ import axios from "axios";
 interface InfosContextType {
   myInfos: User | null;
   fetchMyInfos: () => void;
-  fetchTopTracks: (time_range?: string) => Promise<Track[] | undefined>;
-  fetchTopArtists: (time_range?: string) => Promise<Artist[] | undefined>;
+  fetchTopUser: (
+    type: string,
+    time_range?: string
+  ) => Promise<Artist[] | Track[] | undefined>;
 }
 
 const InfosContext = createContext<InfosContextType | undefined>(undefined);
@@ -46,13 +48,16 @@ export const InfosProvider = ({ children }: InfosProviderProps) => {
     }
   };
 
-  const fetchTopTracks = async (time_range: string = "medium_term") => {
+  const fetchTopUser = async (
+    type: string,
+    time_range: string = "medium_term"
+  ) => {
     try {
       const header = {
         Authorization: `Bearer ${Cookies.get("access_token")}`,
       };
 
-      const response = await axios(`${base_url}/me/top/tracks`, {
+      const response = await axios(`${base_url}/me/top/${type}`, {
         headers: header,
         params: {
           limit: 50,
@@ -60,46 +65,22 @@ export const InfosProvider = ({ children }: InfosProviderProps) => {
         },
       });
 
-      const response1 = await axios(response.data.next, {
-        headers: header,
-      });
+      const nextPageUrl = response.data.next;
+      const data = nextPageUrl
+        ? [
+            ...response.data.items,
+            ...(await axios(nextPageUrl, { headers: header })).data.items,
+          ]
+        : [...response.data.items];
 
-      const data = [...response.data.items, ...response1.data.items];
-      return data;
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const fetchTopArtists = async (time_range: string = "medium_term") => {
-    try {
-      const header = {
-        Authorization: `Bearer ${Cookies.get("access_token")}`,
-      };
-
-      const response = await axios(`${base_url}/me/top/artists`, {
-        headers: header,
-        params: {
-          limit: 50,
-          time_range: time_range,
-        },
-      });
-
-      const response1 = await axios(response.data.next, {
-        headers: header,
-      });
-
-      const data = [...response.data.items, ...response1.data.items];
-      return data;
+      return data as Artist[] | Track[];
     } catch (error) {
       console.log(error);
     }
   };
 
   return (
-    <InfosContext.Provider
-      value={{ myInfos, fetchMyInfos, fetchTopTracks, fetchTopArtists }}
-    >
+    <InfosContext.Provider value={{ myInfos, fetchMyInfos, fetchTopUser }}>
       {children}
     </InfosContext.Provider>
   );

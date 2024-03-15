@@ -65,7 +65,7 @@ function App() {
                   ? routeTitle[
                       window.location.pathname as keyof typeof routeTitle
                     ].title
-                  : "Route not found"}
+                  : window.location.pathname.replace("/", "")}
               </p>
               <AuthUser />
             </div>
