@@ -1,0 +1,18 @@
+export const SCOPES = [
+  "user-read-playback-state",
+  "user-modify-playback-state",
+  "user-read-currently-playing",
+  "user-read-email",
+  "user-read-private",
+  "playlist-read-collaborative",
+  "playlist-modify-public",
+  "playlist-read-private",
+  "playlist-modify-private",
+  "user-library-modify",
+  "user-library-read",
+  "user-top-read",
+  "user-read-playback-position",
+  "user-read-recently-played",
+  "user-follow-read",
+  "user-follow-modify",
+];
