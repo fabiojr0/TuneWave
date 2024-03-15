@@ -2,12 +2,12 @@ import { useState, useEffect } from "react";
 import { useInfos } from "../contexts/InfosContext";
 import Button from "../components/Button";
 import React from "react";
-import Track from "../components/Track";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import Artist from "../components/Artist";
 
-function TopTracks() {
-  const [userTopTracks, setUserTopTracks] = useState<Track[]>();
+function TopArtists() {
+  const [userTopArtists, setUserTopArtists] = useState<Artist[]>();
   const [time_range, setTime_range] = useState<TimeRange>("medium_term");
   const [loading, setLoading] = useState<boolean>(true);
   const [loadingNewInfos, setLoadingNewInfos] = useState<boolean>(false);
@@ -16,10 +16,10 @@ function TopTracks() {
   useEffect(() => {
     setLoadingNewInfos(true);
     infosContext
-      .fetchTopTracks(time_range)
+      .fetchTopArtists(time_range)
       .then((data) => {
         if (data) {
-          setUserTopTracks(data);
+          setUserTopArtists(data);
         }
       })
       .catch((error) => {
@@ -82,11 +82,11 @@ function TopTracks() {
         </div>
       ) : (
         <div className="space-y-4">
-          {userTopTracks &&
-            userTopTracks.map((item, index) => {
+          {userTopArtists &&
+            userTopArtists.map((item, index) => {
               return (
                 <React.Fragment key={item.id}>
-                  <Track infos={item} index={index + 1} />
+                  <Artist infos={item} index={index + 1} />
                 </React.Fragment>
               );
             })}
@@ -96,4 +96,4 @@ function TopTracks() {
   );
 }
 
-export default TopTracks;
+export default TopArtists;

@@ -14,6 +14,7 @@ import {
   MicrophoneStage,
   MusicNotesPlus,
 } from "@phosphor-icons/react";
+import TopArtists from "./pages/TopArtists";
 
 function App() {
   const authContext = useAuth();
@@ -24,6 +25,8 @@ function App() {
       infosContext.fetchMyInfos();
     }
   }, [authContext.accessToken, infosContext]);
+
+  const prettyRoutes = ["/", "/TopTracks", "/TopArtists", "/Discover"];
 
   const routeTitle = {
     "/": {
@@ -45,28 +48,31 @@ function App() {
   };
 
   return (
-    <div className="bg-black text-white min-w:w-screen min-h:h-screen max-lg:pb-20">
+    <div className="bg-black text-white w-screen min-h-screen max-lg:pb-20">
       <Router>
         <div className="p-4 w-full h-full">
           <div className="lg:bg-blackfy lg:rounded-lg w-full h-full space-y-4">
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between ">
               <p className="text-xl font-bold flex items-center gap-2">
-                {window.location.pathname
+                {window.location.pathname &&
+                prettyRoutes.includes(window.location.pathname)
                   ? routeTitle[
                       window.location.pathname as keyof typeof routeTitle
                     ].icon
                   : ""}
-                {window.location.pathname
+                {window.location.pathname &&
+                prettyRoutes.includes(window.location.pathname)
                   ? routeTitle[
                       window.location.pathname as keyof typeof routeTitle
                     ].title
-                  : "Rota não Encontrada"}
+                  : "Route not found"}
               </p>
               <AuthUser />
             </div>
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/TopTracks" element={<TopTracks />} />
+              <Route path="/TopArtists" element={<TopArtists />} />
               <Route path="/callback" element={<Callback />} />
             </Routes>
           </div>
