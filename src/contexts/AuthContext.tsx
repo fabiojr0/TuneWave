@@ -29,7 +29,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   useEffect(() => {
     const access_token = Cookies.get("access_token");
-    
+
     if (!access_token) {
       refreshTokens();
     } else {
@@ -109,7 +109,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       Cookies.set("refresh_token", response.data.refresh_token, {
         expires: 60,
       });
-
+      
       return true;
     } catch (error) {
       console.log(error);

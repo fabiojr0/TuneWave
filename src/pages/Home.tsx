@@ -21,17 +21,18 @@ function Home() {
 
   return (
     <div className="w-full h-full space-y-4">
-      <h2 className="font-semibold text-lg">Fabiojr0's Playlists</h2>
-      <div className="space-y-4 gap-4">
-        {fabiojr0Playlists &&
-          fabiojr0Playlists.map((item) => {
+      {fabiojr0Playlists && (
+        <div className="space-y-4 gap-4">
+          <h2 className="font-semibold text-lg">DJ FB o Corte's Playlists</h2>
+          {fabiojr0Playlists.map((item) => {
             return (
               <React.Fragment key={item.id}>
                 <Playlist infos={item} />
               </React.Fragment>
             );
           })}
-      </div>
+        </div>
+      )}
     </div>
   );
 }

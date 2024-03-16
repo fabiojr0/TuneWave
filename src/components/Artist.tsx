@@ -6,7 +6,7 @@ function Artist({ infos, index }: { infos: Artist; index: number }) {
         <img
           src={infos.images[0].url}
           alt={`${infos.name} cover`}
-          className="w-16 h-16 object-cover rounded"
+          className="w-16 h-16 aspect-square object-cover rounded"
         />
       )}
       <div className="w-full">

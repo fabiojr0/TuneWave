@@ -16,6 +16,7 @@ function Callback() {
         const response = await authContext.changeCode(code);
         if (response) {
           navigate("/");
+          window.location.reload();
         }
       }
       setLoading(false);
@@ -23,11 +24,7 @@ function Callback() {
     login();
   }, [authContext, location.search, navigate]);
 
-  return (
-    <div>
-      {loading && <p>Loading...</p>}
-    </div>
-  );
+  return <div>{loading && <p>Loading...</p>}</div>;
 }
 
 export default Callback;

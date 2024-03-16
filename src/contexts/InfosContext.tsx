@@ -41,14 +41,16 @@ export const InfosProvider = ({ children }: InfosProviderProps) => {
   }, []);
 
   const fetchMyInfos = async () => {
-    try {
-      const response = await axios(`${base_url}/me`, {
-        headers: header,
-      });
-      const data = await response.data;
-      setMyInfos(data);
-    } catch (error) {
-      console.log(error);
+    if (Cookies.get("access_token")) {
+      try {
+        const response = await axios(`${base_url}/me`, {
+          headers: header,
+        });
+        const data = await response.data;
+        setMyInfos(data);
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 
@@ -56,66 +58,71 @@ export const InfosProvider = ({ children }: InfosProviderProps) => {
     type: string,
     time_range: string = "medium_term"
   ) => {
-    try {
-      const response = await axios(`${base_url}/me/top/${type}`, {
-        headers: header,
-        params: {
-          limit: 50,
-          time_range: time_range,
-        },
-      });
+    if (Cookies.get("access_token")) {
+      try {
+        const response = await axios(`${base_url}/me/top/${type}`, {
+          headers: header,
+          params: {
+            limit: 50,
+            time_range: time_range,
+          },
+        });
 
-      const nextPageUrl = response.data.next;
-      const data = nextPageUrl
-        ? [
-            ...response.data.items,
-            ...(await axios(nextPageUrl, { headers: header })).data.items,
-          ]
-        : [...response.data.items];
+        const nextPageUrl = response.data.next;
+        const data = nextPageUrl
+          ? [
+              ...response.data.items,
+              ...(await axios(nextPageUrl, { headers: header })).data.items,
+            ]
+          : [...response.data.items];
 
-      return data as Artist[] | Track[];
-    } catch (error) {
-      console.log(error);
+        return data as Artist[] | Track[];
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 
   const fetchFabiojr0sPlaylists = async () => {
-    try {
-      const response = await axios.get(
-        `${base_url}/users/${fabiojr0_id}/playlists`,
-        {
-          headers: header,
-          params: {
-            limit: 50,
-          },
-        }
-      );
-      const data = await response.data.items;
-
-      const playlist_ids = data
-        .map((playlist: Playlist) => playlist.id)
-        .join(",");
-
-      const userFollowedPlaylists = await axios.get(
-        `${base_url}/me/playlists/`,
-        {
-          headers: header,
-        }
-      );
-
-      const followedPlaylists = userFollowedPlaylists.data.items.filter(
-        (item: Playlist) => playlist_ids.includes(item.id)
-      );
-
-      data.forEach((playlist: Playlist) => {
-        playlist.followed = followedPlaylists.some(
-          (item: Playlist) => item.id === playlist.id
+    if (Cookies.get("access_token")) {
+      try {
+        const response = await axios.get(
+          `${base_url}/users/${fabiojr0_id}/playlists`,
+          {
+            headers: header,
+            params: {
+              limit: 50,
+            },
+          }
         );
-      });
+        const data = await response.data.items;
 
-      return data;
-    } catch (error) {
-      console.log(error);
+        // const playlist_ids = data.map((playlist: Playlist) => playlist.id);
+
+        const userFollowedPlaylists = await axios.get(
+          `${base_url}/me/playlists/`,
+          {
+            headers: header,
+            params: {
+              limit: 50,
+            },
+          }
+        );
+
+        const user_playlist_ids = await userFollowedPlaylists.data.items.map(
+          (playlist: Playlist) => playlist.id
+        );
+
+        data.forEach((playlist: Playlist) => {
+          playlist.followed = user_playlist_ids.find(
+            (item: string) => item === playlist.id
+          );
+        });
+
+        return data;
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 
