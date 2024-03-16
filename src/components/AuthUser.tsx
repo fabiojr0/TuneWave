@@ -5,14 +5,11 @@ import Button from "./Button";
 
 function AuthUser() {
   const [showLogout, setShowLogout] = useState<boolean>(false);
-  const [loading, setLoading] = useState<boolean>(false);
   const infosContext = useInfos();
   const authContext = useAuth();
 
   const login = () => {
-    setLoading(true);
     authContext.redirectToSpotify();
-    setLoading(false);
   };
 
   const logout = () => {
@@ -47,7 +44,7 @@ function AuthUser() {
           </div>
         </span>
       ) : (
-        <Button onClick={login} loading={loading}>
+        <Button onClick={login} loading={infosContext.myInfos === null}>
           <img src="./Spotify_Icon_RGB_White.png" className="h-6 w-6" />
           Login
         </Button>

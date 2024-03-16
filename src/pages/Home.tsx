@@ -45,7 +45,10 @@ function Home() {
     <div className="w-full h-full space-y-4">
       {fabiojr0Playlists ? (
         <div className="space-y-4 gap-4">
-          <h2 className="font-semibold text-lg">DJ FB o Corte's Playlists</h2>
+          <span>
+            <h2 className="font-semibold text-lg">DJ FB o Corte's Playlists</h2>
+            <p className="text-zinc-300 text-sm">The Playlists you will ever seen!</p>
+          </span>
           {fabiojr0Playlists.map((item) => {
             return (
               <React.Fragment key={item.id}>
