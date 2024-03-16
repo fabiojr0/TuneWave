@@ -8,6 +8,7 @@ import {
 import Cookies from "js-cookie";
 import axios from "axios";
 import { useAuth } from "./AuthContext";
+import { getTopKeys } from "../utils/utils";
 
 interface InfosContextType {
   myInfos: User | null;
@@ -15,8 +16,13 @@ interface InfosContextType {
   fetchTopUser: (
     type: string,
     time_range?: string
-  ) => Promise<Artist[] | Track[] | undefined>;
-  fetchFabiojr0sPlaylists: () => Promise<Playlist[] | undefined>;
+  ) => Promise<Artist[] | Track[] | unknown>;
+  fetchFabiojr0sPlaylists: () => Promise<Playlist[]>;
+  fetchTopGenres: (
+    genreCount: number,
+    time_range?: string
+  ) => Promise<string[] | undefined>;
+  fetchReccomendations: (seed_genres: string[]) => Promise<Track[] | undefined>;
   followPlaylist: (playlist_id: string) => Promise<boolean | undefined>;
   unfollowPlaylist: (playlist_id: string) => Promise<boolean | undefined>;
 }
@@ -81,9 +87,10 @@ export const InfosProvider = ({ children }: InfosProviderProps) => {
             ]
           : [...response.data.items];
 
-        return data as Artist[] | Track[];
+        return type === "artists" ? (data as Artist[]) : (data as Track[]);
       } catch (error) {
         console.log(error);
+        return [];
       }
     }
   };
@@ -125,6 +132,7 @@ export const InfosProvider = ({ children }: InfosProviderProps) => {
         return data;
       } catch (error) {
         console.log(error);
+        return [];
       }
     }
   };
@@ -163,6 +171,51 @@ export const InfosProvider = ({ children }: InfosProviderProps) => {
     }
   };
 
+  const fetchTopGenres = async (
+    genreCount: number,
+    time_range: string = "medium_term"
+  ) => {
+    const artists = await fetchTopUser("artists", time_range);
+    if (artists) {
+      const allGenres = (artists as Artist[]).flatMap(
+        (artist) => artist.genres
+      );
+
+      const genresObj = allGenres.reduce(
+        (acc: { [key: string]: number }, genre) => {
+          if (typeof genre === "string") {
+            acc[genre] = (acc[genre] || 0) + 1;
+          }
+          return acc;
+        },
+        {} as { [key: string]: number }
+      );
+
+      const topGenres = getTopKeys(genresObj, genreCount);
+      
+      return topGenres;
+    }
+  };
+
+  const fetchReccomendations = async (seed_genres: string[]) => {
+    if (Cookies.get("access_token") || authContext.accessToken) {
+      try {
+        const response = await axios.get(`${base_url}/recommendations`, {
+          headers,
+          params: {
+            seed_genres: seed_genres.join(","),
+            limit: 50,
+          },
+        });
+        const data = await response.data;
+        return data.tracks as Track[];
+      } catch (error) {
+        console.log(error);
+        return [];
+      }
+    }
+  };
+
   return (
     <InfosContext.Provider
       value={{
@@ -172,6 +225,8 @@ export const InfosProvider = ({ children }: InfosProviderProps) => {
         fetchFabiojr0sPlaylists,
         followPlaylist,
         unfollowPlaylist,
+        fetchTopGenres,
+        fetchReccomendations,
       }}
     >
       {children}

@@ -16,3 +16,17 @@ export const SCOPES = [
   "user-follow-read",
   "user-follow-modify",
 ];
+
+type ObjType = {
+  [key: string]: number;
+};
+
+export const getTopKeys = (obj: ObjType, quantity: number): string[] => {
+  const objToSortedArray = Object.entries(obj).sort((a, b) => b[1] - a[1]);
+
+  const topQuantity = objToSortedArray
+    .slice(0, quantity)
+    .map((item) => item[0]);
+    
+  return topQuantity;
+};

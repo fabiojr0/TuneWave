@@ -16,6 +16,7 @@ import {
 } from "@phosphor-icons/react";
 import TopArtists from "./pages/TopArtists";
 import Header from "./components/Header";
+import Discover from "./pages/Discover";
 
 type routeTitle = {
   title: string;
@@ -76,6 +77,7 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/TopTracks" element={<TopTracks />} />
               <Route path="/TopArtists" element={<TopArtists />} />
+              <Route path="/Discover" element={<Discover />} />
               <Route path="/Callback" element={<Callback />} />
             </Routes>
           </div>
