@@ -10,7 +10,6 @@ import Callback from "./pages/Callback";
 import { useEffect, useState } from "react";
 import { useAuth } from "./contexts/AuthContext";
 import { useInfos } from "./contexts/InfosContext";
-import Navbar from "./components/Navbar";
 import TopTracks from "./pages/TopTracks";
 import {
   House,
@@ -69,12 +68,20 @@ function App() {
   };
 
   return (
-    <div className="bg-black text-white w-screen min-h-screen max-lg:pb-20">
+    <div className="bg-black text-white w-screen min-h-screen">
       <Router>
         <UseLocationListener setRoute={setRoute} routeTitle={routeTitle} />
         <div className="p-4 w-full h-full">
           <div className="lg:bg-blackfy lg:rounded-lg w-full h-full space-y-4">
-            <Header route={route || routeTitle["/"]} />
+            <Header
+              route={route || routeTitle["/"]}
+              navbarItems={[
+                routeTitle["/"],
+                routeTitle["/TopTracks"],
+                routeTitle["/TopArtists"],
+                routeTitle["/Discover"],
+              ]}
+            />
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/TopTracks" element={<TopTracks />} />
@@ -84,14 +91,6 @@ function App() {
             </Routes>
           </div>
         </div>
-        <Navbar
-          navbarItems={[
-            routeTitle["/"],
-            routeTitle["/TopTracks"],
-            routeTitle["/TopArtists"],
-            routeTitle["/Discover"],
-          ]}
-        />
       </Router>
     </div>
   );

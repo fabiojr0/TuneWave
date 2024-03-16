@@ -19,7 +19,7 @@ function AuthUser() {
   return (
     <>
       {infosContext.myInfos ? (
-        <span className="relative">
+        <span className="relative z-0">
           <div
             onClick={() => setShowLogout(!showLogout)}
             className="flex items-center gap-2"
