@@ -29,8 +29,9 @@ function TopArtists() {
         setLoadingNewInfos(false);
         setLoading(false);
       });
-  }, [infosContext, time_range]);
+  }, [time_range]);
 
+  //TODO: Show wich button is selected
   return (
     <div className="w-full h-full space-y-4">
       <div className="flex items-center justify-center gap-4">

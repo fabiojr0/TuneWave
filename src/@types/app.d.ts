@@ -98,4 +98,25 @@ type Track = {
 };
 
 
+type Playlist = {
+    collaborative: boolean;
+    description: string;
+    external_urls: ExternalUrls;
+    href: string;
+    id: string;
+    images: Image[];
+    name: string;
+    owner: User;
+    primary_color: null; // Assumindo que não há mais informações sobre o tipo de dado
+    public: boolean;
+    snapshot_id: string;
+    tracks: {
+        href: string;
+        total: number;
+    };
+    type: string;
+    uri: string;
+    followed?: boolean;
+};
+
 type TimeRange = 'short_term' | 'medium_term' | 'long_term';

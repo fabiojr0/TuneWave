@@ -29,7 +29,7 @@ function TopTracks() {
         setLoadingNewInfos(false);
         setLoading(false);
       });
-  }, [infosContext, time_range]);
+  }, [time_range]);
 
   return (
     <div className="w-full h-full space-y-4">
