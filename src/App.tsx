@@ -67,10 +67,20 @@ function App() {
     },
   };
 
+  const [showNavbar, setShowNavbar] = useState(false);
+
+  const handleShowNavbar = () => {
+    setShowNavbar(!showNavbar);
+  };
+
   return (
     <div className="bg-black text-white w-screen min-h-screen">
       <Router>
-        <UseLocationListener setRoute={setRoute} routeTitle={routeTitle} />
+        <UseLocationListener
+          setRoute={setRoute}
+          routeTitle={routeTitle}
+          setShowNavbar={setShowNavbar}
+        />
         <div className="p-4 w-full h-full">
           <div className="lg:bg-blackfy lg:rounded-lg w-full h-full space-y-4">
             <Header
@@ -81,6 +91,8 @@ function App() {
                 routeTitle["/TopArtists"],
                 routeTitle["/Discover"],
               ]}
+              handleShowNavbar={handleShowNavbar}
+              showNavbar={showNavbar}
             />
             <Routes>
               <Route path="/" element={<Home />} />
@@ -99,9 +111,11 @@ function App() {
 function UseLocationListener({
   setRoute,
   routeTitle,
+  setShowNavbar,
 }: {
   setRoute: (routeTitle: routeTitle) => void;
   routeTitle: { [key: string]: routeTitle };
+  setShowNavbar: (showNavbar: boolean) => void;
 }) {
   const location = useLocation();
 
@@ -113,6 +127,7 @@ function UseLocationListener({
     } else {
       setRoute(routeTitle["/"]);
     }
+    setShowNavbar(false);
   }, [location]);
 
   return null;

@@ -1,23 +1,21 @@
 import { List, Waveform, X } from "@phosphor-icons/react";
 import AuthUser from "./AuthUser";
-import { useState } from "react";
 import Navbar from "./Navbar";
 
 function Header({
   route,
   navbarItems,
+  handleShowNavbar,
+  showNavbar,
 }: {
   route: { icon: React.ReactNode; title: string };
   navbarItems: { title: string; icon: JSX.Element; link: string }[];
+  handleShowNavbar: () => void;
+  showNavbar: boolean;
 }) {
-  const [showNavbar, setShowNavbar] = useState(false);
-
-  const handleShowNavbar = () => {
-    setShowNavbar(!showNavbar);
-  };
-
+  
   return (
-    <div className="space-y-2 bg-black">
+    <div className="space-y-2 bg-black ">
       <div className="flex items-center justify-between">
         <span className="flex items-center gap-2">
           <Waveform size={32} color="#ffffff" weight="fill" />
