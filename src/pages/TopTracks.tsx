@@ -38,6 +38,7 @@ function TopTracks() {
           type="time_range"
           onClick={() => setTime_range("short_term")}
           loading={time_range === "short_term" && loadingNewInfos}
+          selected={time_range === "short_term"}
         >
           4 Weeks ago
         </Button>
@@ -45,6 +46,7 @@ function TopTracks() {
           type="time_range"
           onClick={() => setTime_range("medium_term")}
           loading={time_range === "medium_term" && loadingNewInfos}
+          selected={time_range === "medium_term"}
         >
           6 Months ago
         </Button>
@@ -52,6 +54,7 @@ function TopTracks() {
           type="time_range"
           onClick={() => setTime_range("long_term")}
           loading={time_range === "long_term" && loadingNewInfos}
+          selected={time_range === "long_term"}
         >
           All time
         </Button>

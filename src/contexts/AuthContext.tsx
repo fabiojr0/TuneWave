@@ -91,12 +91,15 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         "https://accounts.spotify.com/api/token",
         {
           grant_type: "refresh_token",
-          refresh_token: refresh_token,
+          refresh_token,
           client_id: Credentials.CLIENT_ID,
         },
         {
           headers: {
             "Content-Type": "application/x-www-form-urlencoded",
+            Authorization:
+              "Basic " +
+              btoa(Credentials.CLIENT_ID + ":" + Credentials.CLIENT_SECRET),
           },
         }
       );
@@ -106,10 +109,11 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       Cookies.set("access_token", response.data.access_token, {
         expires: response.data.expires_in / 86400,
       });
-      Cookies.set("refresh_token", response.data.refresh_token, {
+      Cookies.set("refresh_token", refresh_token, {
         expires: 60,
       });
       
+      window.location.reload();
       return true;
     } catch (error) {
       console.log(error);

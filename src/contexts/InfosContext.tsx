@@ -7,6 +7,7 @@ import {
 } from "react";
 import Cookies from "js-cookie";
 import axios from "axios";
+import { useAuth } from "./AuthContext";
 
 interface InfosContextType {
   myInfos: User | null;
@@ -16,6 +17,8 @@ interface InfosContextType {
     time_range?: string
   ) => Promise<Artist[] | Track[] | undefined>;
   fetchFabiojr0sPlaylists: () => Promise<Playlist[] | undefined>;
+  followPlaylist: (playlist_id: string) => Promise<boolean | undefined>;
+  unfollowPlaylist: (playlist_id: string) => Promise<boolean | undefined>;
 }
 
 const InfosContext = createContext<InfosContextType | undefined>(undefined);
@@ -27,25 +30,27 @@ interface InfosProviderProps {
 const base_url = "https://api.spotify.com/v1";
 const fabiojr0_id = "21sgcpvydztoxlgbj7ay3u2la";
 
-const header = {
-  Authorization: `Bearer ${Cookies.get("access_token")}`,
-};
-
 export const InfosProvider = ({ children }: InfosProviderProps) => {
   const [myInfos, setMyInfos] = useState<User | null>(null);
 
+  const authContext = useAuth();
+
+  const headers = {
+    Authorization: `Bearer ${
+      Cookies.get("access_token") || authContext.accessToken
+    }`,
+  };
+
   useEffect(() => {
-    if (Cookies.get("access_token")) {
+    if (Cookies.get("access_token") || authContext.accessToken) {
       fetchMyInfos();
     }
   }, []);
 
   const fetchMyInfos = async () => {
-    if (Cookies.get("access_token")) {
+    if (Cookies.get("access_token") || authContext.accessToken) {
       try {
-        const response = await axios(`${base_url}/me`, {
-          headers: header,
-        });
+        const response = await axios(`${base_url}/me`, { headers });
         const data = await response.data;
         setMyInfos(data);
       } catch (error) {
@@ -58,10 +63,10 @@ export const InfosProvider = ({ children }: InfosProviderProps) => {
     type: string,
     time_range: string = "medium_term"
   ) => {
-    if (Cookies.get("access_token")) {
+    if (Cookies.get("access_token") || authContext.accessToken) {
       try {
         const response = await axios(`${base_url}/me/top/${type}`, {
-          headers: header,
+          headers,
           params: {
             limit: 50,
             time_range: time_range,
@@ -72,7 +77,7 @@ export const InfosProvider = ({ children }: InfosProviderProps) => {
         const data = nextPageUrl
           ? [
               ...response.data.items,
-              ...(await axios(nextPageUrl, { headers: header })).data.items,
+              ...(await axios(nextPageUrl, { headers })).data.items,
             ]
           : [...response.data.items];
 
@@ -84,12 +89,12 @@ export const InfosProvider = ({ children }: InfosProviderProps) => {
   };
 
   const fetchFabiojr0sPlaylists = async () => {
-    if (Cookies.get("access_token")) {
+    if (Cookies.get("access_token") || authContext.accessToken) {
       try {
         const response = await axios.get(
           `${base_url}/users/${fabiojr0_id}/playlists`,
           {
-            headers: header,
+            headers,
             params: {
               limit: 50,
             },
@@ -97,12 +102,10 @@ export const InfosProvider = ({ children }: InfosProviderProps) => {
         );
         const data = await response.data.items;
 
-        // const playlist_ids = data.map((playlist: Playlist) => playlist.id);
-
         const userFollowedPlaylists = await axios.get(
           `${base_url}/me/playlists/`,
           {
-            headers: header,
+            headers,
             params: {
               limit: 50,
             },
@@ -126,9 +129,50 @@ export const InfosProvider = ({ children }: InfosProviderProps) => {
     }
   };
 
+  const followPlaylist = async (playlist_id: string) => {
+    if (Cookies.get("access_token") || authContext.accessToken) {
+      try {
+        await axios.put(
+          `${base_url}/playlists/${playlist_id}/followers`,
+          { public: false },
+          {
+            headers,
+          }
+        );
+
+        return true;
+      } catch (error) {
+        console.log(error);
+        return false;
+      }
+    }
+  };
+
+  const unfollowPlaylist = async (playlist_id: string) => {
+    if (Cookies.get("access_token") || authContext.accessToken) {
+      try {
+        await axios.delete(`${base_url}/playlists/${playlist_id}/followers`, {
+          headers,
+        });
+
+        return true;
+      } catch (error) {
+        console.log(error);
+        return false;
+      }
+    }
+  };
+
   return (
     <InfosContext.Provider
-      value={{ myInfos, fetchMyInfos, fetchTopUser, fetchFabiojr0sPlaylists }}
+      value={{
+        myInfos,
+        fetchMyInfos,
+        fetchTopUser,
+        fetchFabiojr0sPlaylists,
+        followPlaylist,
+        unfollowPlaylist,
+      }}
     >
       {children}
     </InfosContext.Provider>
