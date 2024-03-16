@@ -1,4 +1,9 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useLocation,
+} from "react-router-dom";
 
 import Home from "./pages/Home";
 import Callback from "./pages/Callback";
@@ -63,13 +68,10 @@ function App() {
     },
   };
 
-  useEffect(() => {
-    setRoute(routeTitle[window.location.pathname as keyof typeof routeTitle]);
-  }, [window.location.pathname]);
-
   return (
     <div className="bg-black text-white w-screen min-h-screen max-lg:pb-20">
       <Router>
+        <UseLocationListener setRoute={setRoute} routeTitle={routeTitle} />
         <div className="p-4 w-full h-full">
           <div className="lg:bg-blackfy lg:rounded-lg w-full h-full space-y-4">
             <Header route={route || routeTitle["/"]} />
@@ -93,6 +95,28 @@ function App() {
       </Router>
     </div>
   );
+}
+
+function UseLocationListener({
+  setRoute,
+  routeTitle,
+}: {
+  setRoute: (routeTitle: routeTitle) => void;
+  routeTitle: { [key: string]: routeTitle };
+}) {
+  const location = useLocation();
+
+  useEffect(() => {
+    const currentRouteTitle =
+      routeTitle[location.pathname as keyof typeof routeTitle];
+    if (currentRouteTitle) {
+      setRoute(currentRouteTitle);
+    } else {
+      setRoute(routeTitle["/"]);
+    }
+  }, [location]);
+
+  return null;
 }
 
 export default App;
