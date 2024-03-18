@@ -23,6 +23,7 @@ interface InfosContextType {
     time_range?: string
   ) => Promise<string[] | undefined>;
   fetchReccomendations: (seed_genres: string[]) => Promise<Track[] | undefined>;
+  fetchTrackInfos: (id: string) => Promise<Track | undefined>;
   followPlaylist: (playlist_id: string) => Promise<boolean | undefined>;
   unfollowPlaylist: (playlist_id: string) => Promise<boolean | undefined>;
 }
@@ -90,7 +91,6 @@ export const InfosProvider = ({ children }: InfosProviderProps) => {
         return type === "artists" ? (data as Artist[]) : (data as Track[]);
       } catch (error) {
         console.log(error);
-        return [];
       }
     }
   };
@@ -132,7 +132,6 @@ export const InfosProvider = ({ children }: InfosProviderProps) => {
         return data;
       } catch (error) {
         console.log(error);
-        return [];
       }
     }
   };
@@ -192,7 +191,7 @@ export const InfosProvider = ({ children }: InfosProviderProps) => {
       );
 
       const topGenres = getTopKeys(genresObj, genreCount);
-      
+
       return topGenres;
     }
   };
@@ -211,7 +210,33 @@ export const InfosProvider = ({ children }: InfosProviderProps) => {
         return data.tracks as Track[];
       } catch (error) {
         console.log(error);
-        return [];
+      }
+    }
+  };
+
+  const fetchTrackInfos = async (id: string) => {
+    if (Cookies.get("access_token") || authContext.accessToken) {
+      try {
+        const response = await axios.get(`${base_url}/tracks/${id}`, {
+          headers,
+        });
+        const data = await response.data;
+
+        const checkFollowed = await axios.get(
+          `${base_url}/me/tracks/contains`,
+          {
+            headers,
+            params: {
+              ids: id,
+            },
+          }
+        );
+
+        data.followed = checkFollowed.data[0];
+
+        return data as Track;
+      } catch (error) {
+        console.log(error);
       }
     }
   };
@@ -227,6 +252,7 @@ export const InfosProvider = ({ children }: InfosProviderProps) => {
         unfollowPlaylist,
         fetchTopGenres,
         fetchReccomendations,
+        fetchTrackInfos,
       }}
     >
       {children}

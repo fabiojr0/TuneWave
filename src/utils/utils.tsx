@@ -27,6 +27,13 @@ export const getTopKeys = (obj: ObjType, quantity: number): string[] => {
   const topQuantity = objToSortedArray
     .slice(0, quantity)
     .map((item) => item[0]);
-    
+
   return topQuantity;
+};
+
+export const msToMinSeconds = (milliseconds: number) => {
+  const totalSeconds = Math.floor(milliseconds / 1000);
+  const minutes = Math.floor(totalSeconds / 60);
+  const seconds = totalSeconds % 60;
+  return `${minutes}:${seconds.toString().padStart(2, "0")}`;
 };

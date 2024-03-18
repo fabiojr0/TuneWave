@@ -17,7 +17,7 @@ function Navbar({
     >
       {navbarItems.map((item) => {
         return (
-          <Link to={item.link}>
+          <Link to={item.link} key={item.title}>
             <span className="font-semibold">{item.title}</span>
           </Link>
         );

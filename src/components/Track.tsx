@@ -1,8 +1,12 @@
+import { Link } from "react-router-dom";
 import Explicit from "./Explicit";
 
 function Track({ infos, index }: { infos: Track; index: number }) {
   return (
-    <div className="flex items-center justify-between gap-4">
+    <Link
+      to={`/ShowTrack/${infos.id}`}
+      className="flex items-center justify-between gap-4"
+    >
       <p className="text-sm font-semibold">{index}º</p>
       <img
         src={infos.album.images[0].url}
@@ -19,6 +23,7 @@ function Track({ infos, index }: { infos: Track; index: number }) {
             .slice(0, 3)
             .map((artist) => artist.name)
             .join(", ")}
+          {infos.artists.length > 3 && "..."}
         </p>
         <p className="text-sm font-medium text-zinc-300 line-clamp-1">
           {infos.album.name}
@@ -37,7 +42,7 @@ function Track({ infos, index }: { infos: Track; index: number }) {
           />
         </a>
       </div>
-    </div>
+    </Link>
   );
 }
 

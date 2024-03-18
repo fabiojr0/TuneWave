@@ -17,10 +17,12 @@ import {
   MicrophoneStage,
   MusicNotesPlus,
   AlignLeft,
+  VinylRecord,
 } from "@phosphor-icons/react";
 import TopArtists from "./pages/TopArtists";
 import Header from "./components/Header";
 import Discover from "./pages/Discover";
+import ShowTrack from "./pages/ShowTrack";
 
 type routeTitle = {
   title: string;
@@ -65,6 +67,11 @@ function App() {
       icon: <AlignLeft size={24} weight="fill" />,
       link: "/Callback",
     },
+    "/ShowTrack": {
+      title: "Show Track",
+      icon: <VinylRecord size={24} weight="fill" />,
+      link: "/ShowTrack/:id",
+    },
   };
 
   const [showNavbar, setShowNavbar] = useState(false);
@@ -100,6 +107,7 @@ function App() {
               <Route path="/TopArtists" element={<TopArtists />} />
               <Route path="/Discover" element={<Discover />} />
               <Route path="/Callback" element={<Callback />} />
+              <Route path="/ShowTrack/:id" element={<ShowTrack />} />
             </Routes>
           </div>
         </div>
@@ -120,8 +128,12 @@ function UseLocationListener({
   const location = useLocation();
 
   useEffect(() => {
-    const currentRouteTitle =
-      routeTitle[location.pathname as keyof typeof routeTitle];
+    const routeName = location.pathname.substring(
+      0,
+      location.pathname.lastIndexOf("/")
+    );
+
+    const currentRouteTitle = routeTitle[routeName as keyof typeof routeTitle];
     if (currentRouteTitle) {
       setRoute(currentRouteTitle);
     } else {
