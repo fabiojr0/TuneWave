@@ -22,7 +22,12 @@ interface InfosContextType {
     genreCount: number,
     time_range?: string
   ) => Promise<string[] | undefined>;
-  fetchReccomendations: (seed_genres: string[]) => Promise<Track[] | undefined>;
+  fetchReccomendations: (
+    seed_genres: string[] | null,
+    seed_artists: string[] | null,
+    seed_tracks: string[] | null,
+    limit?: number
+  ) => Promise<Track[] | undefined>;
   fetchTrackInfos: (id: string) => Promise<Track | undefined>;
   followPlaylist: (playlist_id: string) => Promise<boolean | undefined>;
   unfollowPlaylist: (playlist_id: string) => Promise<boolean | undefined>;
@@ -196,14 +201,21 @@ export const InfosProvider = ({ children }: InfosProviderProps) => {
     }
   };
 
-  const fetchReccomendations = async (seed_genres: string[]) => {
+  const fetchReccomendations = async (
+    seed_genres: string[] | null,
+    seed_artists: string[] | null,
+    seed_tracks: string[] | null,
+    limit: number = 50
+  ) => {
     if (Cookies.get("access_token") || authContext.accessToken) {
       try {
         const response = await axios.get(`${base_url}/recommendations`, {
           headers,
           params: {
-            seed_genres: seed_genres.join(","),
-            limit: 50,
+            seed_genres: seed_genres?.join(","),
+            seed_artists: seed_artists?.join(","),
+            seed_tracks: seed_tracks?.join(","),
+            limit: limit,
           },
         });
         const data = await response.data;

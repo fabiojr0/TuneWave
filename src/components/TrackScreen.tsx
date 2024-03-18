@@ -16,7 +16,7 @@ function TrackScreen({ infos }: { infos: Track }) {
       </span>
 
       <span className="flex items-center justify-between">
-        <p className="text-sm text-zinc-400 font-medium">
+        <p className="text-sm text-zinc-300 font-medium">
           {infos?.artists
             .slice(0, 3)
             .map((artist) => artist.name)
@@ -29,7 +29,7 @@ function TrackScreen({ infos }: { infos: Track }) {
           className="hover:scale-110 transition-all"
         >
           <img
-            src="./Spotify_Icon_RGB_Green.png"
+            src="../../Spotify_Icon_RGB_Green.png"
             alt="Open in Spotify"
             className="min-h-[24px] min-w-[24px] w-6 h-6"
           />
@@ -37,13 +37,15 @@ function TrackScreen({ infos }: { infos: Track }) {
       </span>
 
       {infos.album.name !== infos.name && (
-        <p className="text-sm text-zinc-400 font-medium">{infos.album.name}</p>
+        <p className="text-sm text-zinc-300 font-medium">{infos.album.name}</p>
       )}
 
       <span className="flex items-start">
         <p className="font-semibold">Preview</p>
         <Audio src={infos.preview_url} />
       </span>
+
+      
     </div>
   );
 }
