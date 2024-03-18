@@ -24,6 +24,8 @@ import Header from "./components/Header";
 import Discover from "./pages/Discover";
 import ShowTrack from "./pages/ShowTrack";
 
+import 'swiper/css';
+
 type routeTitle = {
   title: string;
   icon: JSX.Element;

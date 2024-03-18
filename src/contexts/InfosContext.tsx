@@ -32,6 +32,7 @@ interface InfosContextType {
     id: string,
     limit?: number
   ) => Promise<Track[] | undefined>;
+  addTrackToQueue: (uri: string) => Promise<boolean | undefined>;
   fetchTrackInfos: (id: string) => Promise<Track | undefined>;
   followPlaylist: (playlist_id: string) => Promise<boolean | undefined>;
   unfollowPlaylist: (playlist_id: string) => Promise<boolean | undefined>;
@@ -270,10 +271,30 @@ export const InfosProvider = ({ children }: InfosProviderProps) => {
           }
         );
         const data = await response.data.tracks;
-          
+
         return data as Track[];
       } catch (error) {
         console.log(error);
+      }
+    }
+  };
+
+  const addTrackToQueue = async (uri: string) => {
+    if (Cookies.get("access_token") || authContext.accessToken) {
+      try {
+        const response = await axios.post(`${base_url}/me/player/queue`, null, {
+          headers,
+          params: { uri },
+        });
+        if (response.status === 404) {
+          return false;
+        }
+        if (response.status === 204) {
+          return true;
+        }
+      } catch (error) {
+        console.log(error);
+        return false;
       }
     }
   };
@@ -291,6 +312,7 @@ export const InfosProvider = ({ children }: InfosProviderProps) => {
         fetchReccomendations,
         fetchTrackInfos,
         fetchArtistTopTracks,
+        addTrackToQueue,
       }}
     >
       {children}

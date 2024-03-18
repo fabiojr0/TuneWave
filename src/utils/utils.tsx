@@ -17,6 +17,23 @@ export const SCOPES = [
   "user-follow-modify",
 ];
 
+export const breakpointsSwiper = {
+  640: {
+    slidesPerView: 3,
+    spaceBetween: 20,
+  },
+  // Quando a largura da tela é >= 768px
+  768: {
+    slidesPerView: 4,
+    spaceBetween: 30,
+  },
+  // Quando a largura da tela é >= 1024px
+  1024: {
+    slidesPerView: 5,
+    spaceBetween: 40,
+  },
+};
+
 type ObjType = {
   [key: string]: number;
 };

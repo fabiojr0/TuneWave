@@ -17,10 +17,11 @@
     "ldrs": "^1.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-id-swiper": "^4.0.0",
     "react-loading-skeleton": "^3.4.0",
-    "react-responsive-carousel": "^3.2.23",
     "react-router-dom": "^6.22.3",
-    "spotify-web-api-js": "^1.5.2"
+    "spotify-web-api-js": "^1.5.2",
+    "swiper": "^11.0.7"
   },
   "devDependencies": {
     "@types/js-cookie": "^3.0.6",

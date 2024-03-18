@@ -5,6 +5,8 @@ import { ring2 } from "ldrs";
 import TrackScreen from "../components/TrackScreen";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import Track from "../components/Track";
+import { SwiperSlide, Swiper } from "swiper/react";
+import { breakpointsSwiper } from "../utils/utils";
 
 function ShowTrack() {
   const { id } = useParams();
@@ -42,28 +44,44 @@ function ShowTrack() {
         .catch((error) => console.log(error));
   }, [infos]);
 
+  const addToQueue = (uri: string) => {
+    infosContext.addTrackToQueue(uri);
+  };
+
   ring2.register();
 
   return (
     <div>
       {infos ? (
         <div className="space-y-4">
-          <TrackScreen infos={infos} />
+          <TrackScreen infos={infos} addToQueue={() => addToQueue(infos.uri)} />
           <div className="space-y-2">
-            <h2 className="font-semibold">Reccomended Tracks</h2>
-            <div className="flex gap-4 flex-wrap">
-              {reccomendations &&
-                reccomendations.map((track) => (
-                  <Track infos={track} key={track.id} collum />
-                ))}
-            </div>
-            <h2 className="font-semibold">More from {infos.artists[0].name}</h2>
-            <div className="flex gap-4 flex-wrap">
-              {artistTracks &&
-                artistTracks.map((track) => (
-                  <Track infos={track} key={track.id} collum />
-                ))}
-            </div>
+            {reccomendations && (
+              <>
+                <h2 className="font-semibold">Reccomended Tracks</h2>
+                <Swiper slidesPerView={3} loop breakpoints={breakpointsSwiper}>
+                  {reccomendations.map((track) => (
+                    <SwiperSlide key={track.id}>
+                      <Track infos={track} collum />
+                    </SwiperSlide>
+                  ))}
+                </Swiper>
+              </>
+            )}
+            {artistTracks && (
+              <>
+                <h2 className="font-semibold">
+                  More from {infos.artists[0].name}
+                </h2>
+                <Swiper slidesPerView={3} loop breakpoints={breakpointsSwiper}>
+                  {artistTracks.map((track) => (
+                    <SwiperSlide key={track.id}>
+                      <Track infos={track} collum />
+                    </SwiperSlide>
+                  ))}
+                </Swiper>
+              </>
+            )}
           </div>
         </div>
       ) : (

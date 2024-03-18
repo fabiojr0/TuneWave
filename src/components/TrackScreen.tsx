@@ -1,7 +1,14 @@
+import { ListPlus } from "@phosphor-icons/react";
 import { msToMinSeconds } from "../utils/utils";
 import Audio from "./Audio";
 
-function TrackScreen({ infos }: { infos: Track }) {
+function TrackScreen({
+  infos,
+  addToQueue,
+}: {
+  infos: Track;
+  addToQueue: () => void;
+}) {
   return (
     <div className="space-y-2">
       <img
@@ -12,7 +19,9 @@ function TrackScreen({ infos }: { infos: Track }) {
 
       <span className="flex items-center justify-between">
         <p className="text-lg font-bold">{infos.name}</p>
-        <p>{msToMinSeconds(infos.duration_ms)}</p>
+        <p className="text-zinc-300 text-sm font-medium">
+          {msToMinSeconds(infos.duration_ms)}
+        </p>
       </span>
 
       <span className="flex items-center justify-between">
@@ -40,12 +49,16 @@ function TrackScreen({ infos }: { infos: Track }) {
         <p className="text-sm text-zinc-300 font-medium">{infos.album.name}</p>
       )}
 
-      <span className="flex items-start">
-        <p className="font-semibold">Preview</p>
-        <Audio src={infos.preview_url} />
+      <span className="flex items-center justify-between">
+        <span className="flex items-start">
+          <p className="font-semibold">Preview</p>
+          <Audio src={infos.preview_url} />
+        </span>
+        <button onClick={addToQueue} className="flex items-center gap-2">
+          <p>Add To Queue</p>
+          <ListPlus size={24} color="#ffffff" weight="fill" />
+        </button>
       </span>
-
-      
     </div>
   );
 }

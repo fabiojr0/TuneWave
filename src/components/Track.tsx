@@ -12,20 +12,21 @@ function Track({
 }) {
   if (collum) {
     return (
-      <Link
-        to={`/ShowTrack/${infos.id}`}
-        className="flex flex-col w-24"
-      >
-        <img
-          src={infos.album.images[0].url}
-          alt={`${infos.name} cover`}
-          className="w-full aspect-square object-cover rounded"
-        />
-        <span className="flex items-center gap-2 w-full">
-          <p className="text-xs font-semibold line-clamp-1 w-full">{infos.name}</p>
-          {infos.explicit && <Explicit />}
-        </span>
-      </Link>
+      <div>
+        <Link to={`/ShowTrack/${infos.id}`} className="flex flex-col w-24">
+          <img
+            src={infos.album.images[0].url}
+            alt={`${infos.name} cover`}
+            className="w-full aspect-square object-cover rounded"
+          />
+          <span className="flex items-center gap-2 w-full">
+            <p className="text-xs font-semibold line-clamp-1 w-full">
+              {infos.name}
+            </p>
+            {infos.explicit && <Explicit />}
+          </span>
+        </Link>
+      </div>
     );
   }
   return (
