@@ -28,6 +28,10 @@ interface InfosContextType {
     seed_tracks: string[] | null,
     limit?: number
   ) => Promise<Track[] | undefined>;
+  fetchArtistTopTracks: (
+    id: string,
+    limit?: number
+  ) => Promise<Track[] | undefined>;
   fetchTrackInfos: (id: string) => Promise<Track | undefined>;
   followPlaylist: (playlist_id: string) => Promise<boolean | undefined>;
   unfollowPlaylist: (playlist_id: string) => Promise<boolean | undefined>;
@@ -215,7 +219,7 @@ export const InfosProvider = ({ children }: InfosProviderProps) => {
             seed_genres: seed_genres?.join(","),
             seed_artists: seed_artists?.join(","),
             seed_tracks: seed_tracks?.join(","),
-            limit: limit,
+            limit,
           },
         });
         const data = await response.data;
@@ -253,6 +257,27 @@ export const InfosProvider = ({ children }: InfosProviderProps) => {
     }
   };
 
+  const fetchArtistTopTracks = async (id: string, limit: number = 50) => {
+    if (Cookies.get("access_token") || authContext.accessToken) {
+      try {
+        const response = await axios.get(
+          `${base_url}/artists/${id}/top-tracks`,
+          {
+            headers,
+            params: {
+              limit,
+            },
+          }
+        );
+        const data = await response.data.tracks;
+          
+        return data as Track[];
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+
   return (
     <InfosContext.Provider
       value={{
@@ -265,6 +290,7 @@ export const InfosProvider = ({ children }: InfosProviderProps) => {
         fetchTopGenres,
         fetchReccomendations,
         fetchTrackInfos,
+        fetchArtistTopTracks,
       }}
     >
       {children}
