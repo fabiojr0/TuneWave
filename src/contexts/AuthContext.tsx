@@ -6,7 +6,6 @@ import {
   useEffect,
 } from "react";
 import { SCOPES } from "../utils/utils";
-import { Credentials } from "../credentials/Credentials";
 import Cookies from "js-cookie";
 import axios from "axios";
 
@@ -27,11 +26,15 @@ interface AuthProviderProps {
 export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [accessToken, setAccessToken] = useState<string | null>(null);
 
+  const client_id = process.env.CLIENT_ID;
+  const client_secret = process.env.CLIENT_SECRET;
+  const redirect_uri = process.env.REDIRECT_URI;
+
   useEffect(() => {
     const temporizador = setTimeout(() => {
       setAccessToken(null);
     }, 3600000);
-    
+
     return () => clearTimeout(temporizador);
   }, [accessToken]);
 
@@ -46,11 +49,9 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   }, []);
 
   const redirectToSpotify = () => {
-    window.location.href = `https://accounts.spotify.com/authorize?client_id=${
-      Credentials.CLIENT_ID
-    }&response_type=code&redirect_uri=${
-      Credentials.REDIRECT_URI
-    }&scope=${SCOPES.join("%20")}`;
+    window.location.href = `https://accounts.spotify.com/authorize?client_id=${client_id}&response_type=code&redirect_uri=${redirect_uri}&scope=${SCOPES.join(
+      "%20"
+    )}`;
   };
 
   const changeCode = async (code: string) => {
@@ -60,14 +61,12 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         {
           grant_type: "authorization_code",
           code,
-          redirect_uri: Credentials.REDIRECT_URI,
+          redirect_uri: redirect_uri,
         },
         {
           headers: {
             "Content-Type": "application/x-www-form-urlencoded",
-            Authorization:
-              "Basic " +
-              btoa(Credentials.CLIENT_ID + ":" + Credentials.CLIENT_SECRET),
+            Authorization: "Basic " + btoa(client_id + ":" + client_secret),
           },
         }
       );
@@ -100,14 +99,12 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         {
           grant_type: "refresh_token",
           refresh_token,
-          client_id: Credentials.CLIENT_ID,
+          client_id: client_id,
         },
         {
           headers: {
             "Content-Type": "application/x-www-form-urlencoded",
-            Authorization:
-              "Basic " +
-              btoa(Credentials.CLIENT_ID + ":" + Credentials.CLIENT_SECRET),
+            Authorization: "Basic " + btoa(client_id + ":" + client_secret),
           },
         }
       );
