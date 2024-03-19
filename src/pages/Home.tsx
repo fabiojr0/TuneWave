@@ -2,12 +2,15 @@ import React, { useEffect, useState } from "react";
 import { useInfos } from "../contexts/InfosContext";
 import Playlist from "../components/Playlist";
 import "ldrs/ring2";
+import { useAuth } from "../contexts/AuthContext";
+import Login from "../components/Login";
 
 function Home() {
   const [fabiojr0Playlists, setFabiojr0Playlists] = useState<Playlist[]>([
     ...Array(10),
   ]);
   const infosContext = useInfos();
+  const authContext = useAuth();
 
   useEffect(() => {
     infosContext
@@ -41,6 +44,10 @@ function Home() {
       }
     }
   };
+
+  if (!authContext.accessToken) {
+    return <Login />;
+  }
 
   return (
     <div className="w-full h-full space-y-4">

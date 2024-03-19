@@ -4,6 +4,8 @@ import { useInfos } from "../contexts/InfosContext";
 import { ring2 } from "ldrs";
 import Carousel from "../components/Carousel";
 import ShowTrack from "../components/ShowTrack";
+import { useAuth } from "../contexts/AuthContext";
+import Login from "../components/Login";
 
 function TrackScreen() {
   const { id } = useParams();
@@ -13,6 +15,7 @@ function TrackScreen() {
   ]);
   const [artistTracks, setArtistTracks] = useState<Track[]>([...Array(10)]);
   const infosContext = useInfos();
+  const authContext = useAuth();
 
   useEffect(() => {
     id &&
@@ -56,6 +59,10 @@ function TrackScreen() {
   }, [infos]);
 
   ring2.register();
+
+  if (!authContext.accessToken) {
+    return <Login />;
+  }
 
   return (
     <div>

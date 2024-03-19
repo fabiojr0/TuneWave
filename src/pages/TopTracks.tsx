@@ -4,12 +4,16 @@ import Button from "../components/Button";
 import React from "react";
 import Track from "../components/Track";
 import "react-loading-skeleton/dist/skeleton.css";
+import Login from "../components/Login";
+import { useAuth } from "../contexts/AuthContext";
 
 function TopTracks() {
   const [userTopTracks, setUserTopTracks] = useState<Track[]>([...Array(10)]);
   const [time_range, setTime_range] = useState<TimeRange>("medium_term");
   const [loadingNewInfos, setLoadingNewInfos] = useState<boolean>(false);
   const infosContext = useInfos();
+  const authContext = useAuth();
+
 
   useEffect(() => {
     setLoadingNewInfos(true);
@@ -27,6 +31,10 @@ function TopTracks() {
         setLoadingNewInfos(false);
       });
   }, [time_range]);
+
+  if (!authContext.accessToken) {
+    return <Login />;
+  }
 
   return (
     <div className="w-full h-full space-y-4">

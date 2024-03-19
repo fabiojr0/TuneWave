@@ -2,12 +2,15 @@ import { useEffect, useState } from "react";
 import { useInfos } from "../contexts/InfosContext";
 import React from "react";
 import Track from "../components/Track";
+import Login from "../components/Login";
+import { useAuth } from "../contexts/AuthContext";
 
 function Discover() {
   const [recommendations, setRecommendations] = useState<Track[]>([
     ...Array(10),
   ]);
   const infosContext = useInfos();
+  const authContext = useAuth();
 
   const fetchRecommendations = async () => {
     try {
@@ -31,6 +34,10 @@ function Discover() {
   useEffect(() => {
     fetchRecommendations();
   }, []);
+
+  if (!authContext.accessToken) {
+    return <Login />;
+  }
 
   return (
     <div>

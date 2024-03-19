@@ -4,6 +4,8 @@ import Button from "../components/Button";
 import React from "react";
 import "react-loading-skeleton/dist/skeleton.css";
 import Artist from "../components/Artist";
+import Login from "../components/Login";
+import { useAuth } from "../contexts/AuthContext";
 
 function TopArtists() {
   const [userTopArtists, setUserTopArtists] = useState<Artist[]>([
@@ -12,6 +14,8 @@ function TopArtists() {
   const [time_range, setTime_range] = useState<TimeRange>("medium_term");
   const [loadingNewInfos, setLoadingNewInfos] = useState<boolean>(false);
   const infosContext = useInfos();
+  const authContext = useAuth();
+
 
   useEffect(() => {
     setLoadingNewInfos(true);
@@ -29,6 +33,10 @@ function TopArtists() {
         setLoadingNewInfos(false);
       });
   }, [time_range]);
+
+  if (!authContext.accessToken) {
+    return <Login />;
+  }
 
   return (
     <div className="w-full h-full space-y-4">

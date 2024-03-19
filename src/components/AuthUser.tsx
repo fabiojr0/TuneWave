@@ -44,7 +44,14 @@ function AuthUser() {
           </div>
         </span>
       ) : (
-        <Button onClick={login} loading={infosContext.myInfos === null}>
+        <Button
+          onClick={login}
+          loading={
+            authContext.accessToken && infosContext.myInfos === null
+              ? true
+              : false
+          }
+        >
           <img src="./Spotify_Icon_RGB_White.png" className="h-6 w-6" />
           Login
         </Button>
