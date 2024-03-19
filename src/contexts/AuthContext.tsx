@@ -28,6 +28,14 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [accessToken, setAccessToken] = useState<string | null>(null);
 
   useEffect(() => {
+    const temporizador = setTimeout(() => {
+      setAccessToken(null);
+    }, 3600000);
+    
+    return () => clearTimeout(temporizador);
+  }, [accessToken]);
+
+  useEffect(() => {
     const access_token = Cookies.get("access_token");
 
     if (!access_token) {
@@ -112,7 +120,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       Cookies.set("refresh_token", refresh_token, {
         expires: 60,
       });
-      
+
       window.location.reload();
       return true;
     } catch (error) {

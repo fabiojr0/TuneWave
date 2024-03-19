@@ -2,10 +2,10 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useInfos } from "../contexts/InfosContext";
 import { ring2 } from "ldrs";
-import TrackScreen from "../components/TrackScreen";
 import Carousel from "../components/Carousel";
+import ShowTrack from "../components/ShowTrack";
 
-function ShowTrack() {
+function TrackScreen() {
   const { id } = useParams();
   const [infos, setInfos] = useState<Track>();
   const [reccomendations, setReccomendations] = useState<Track[]>([
@@ -60,7 +60,7 @@ function ShowTrack() {
   return (
     <div>
       <div className="space-y-4">
-        <TrackScreen infos={infos} />
+        <ShowTrack infos={infos} />
         <div className="space-y-2">
           <h2 className="font-semibold"></h2>
           <Carousel infos={reccomendations} title="Reccomended Tracks" />
@@ -74,4 +74,4 @@ function ShowTrack() {
   );
 }
 
-export default ShowTrack;
+export default TrackScreen;

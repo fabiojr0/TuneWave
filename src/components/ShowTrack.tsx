@@ -4,7 +4,7 @@ import Audio from "./Audio";
 import { useInfos } from "../contexts/InfosContext";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 
-function TrackScreen({ infos }: { infos?: Track }) {
+function ShowTrack({ infos }: { infos?: Track }) {
   const infosContext = useInfos();
 
   const addToQueue = (uri: string) => {
@@ -88,4 +88,4 @@ function TrackScreen({ infos }: { infos?: Track }) {
   );
 }
 
-export default TrackScreen;
+export default ShowTrack;

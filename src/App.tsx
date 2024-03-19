@@ -9,9 +9,9 @@ import TopTracks from "./pages/TopTracks";
 import TopArtists from "./pages/TopArtists";
 import Header from "./components/Header";
 import Discover from "./pages/Discover";
-import ShowTrack from "./pages/ShowTrack";
 
 import "swiper/css";
+import TrackScreen from "./pages/TrackScreen";
 
 function App() {
   const authContext = useAuth();
@@ -22,8 +22,6 @@ function App() {
       infosContext.fetchMyInfos();
     }
   }, [authContext.accessToken, infosContext]);
-
-  
 
   return (
     <div className="bg-black text-white w-screen min-h-screen">
@@ -37,7 +35,7 @@ function App() {
               <Route path="/TopArtists" element={<TopArtists />} />
               <Route path="/Discover" element={<Discover />} />
               <Route path="/Callback" element={<Callback />} />
-              <Route path="/Track/:id" element={<ShowTrack />} />
+              <Route path="/Track/:id" element={<TrackScreen />} />
             </Routes>
           </div>
         </div>
