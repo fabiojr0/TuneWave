@@ -1,14 +1,36 @@
 import { ListPlus } from "@phosphor-icons/react";
 import { msToMinSeconds } from "../utils/utils";
 import Audio from "./Audio";
+import { useInfos } from "../contexts/InfosContext";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 
-function TrackScreen({
-  infos,
-  addToQueue,
-}: {
-  infos: Track;
-  addToQueue: () => void;
-}) {
+function TrackScreen({ infos }: { infos?: Track }) {
+  const infosContext = useInfos();
+
+  const addToQueue = (uri: string) => {
+    infosContext.addTrackToQueue(uri);
+  };
+
+  if (!infos) {
+    return (
+      <div>
+        <SkeletonTheme
+          baseColor="#585555"
+          highlightColor="#444"
+          width={"100%"}
+          height={"100%"}
+        >
+          <div className="space-y-4">
+            <Skeleton width={"100%"} className="aspect-square" />
+            <Skeleton />
+            <Skeleton />
+            <Skeleton />
+          </div>
+        </SkeletonTheme>
+      </div>
+    );
+  }
+
   return (
     <div className="space-y-2">
       <img
@@ -25,7 +47,7 @@ function TrackScreen({
       </span>
 
       <span className="flex items-center justify-between">
-        <p className="text-sm text-zinc-300 font-medium">
+        <p className="text-sm text-zinc-300 font-medium line-clamp-1">
           {infos?.artists
             .slice(0, 3)
             .map((artist) => artist.name)
@@ -54,7 +76,10 @@ function TrackScreen({
           <p className="font-semibold">Preview</p>
           <Audio src={infos.preview_url} />
         </span>
-        <button onClick={addToQueue} className="flex items-center gap-2">
+        <button
+          onClick={() => addToQueue(infos.uri)}
+          className="flex items-center gap-2"
+        >
           <p>Add To Queue</p>
           <ListPlus size={24} color="#ffffff" weight="fill" />
         </button>

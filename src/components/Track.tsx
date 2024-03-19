@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import Explicit from "./Explicit";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 
 function Track({
   infos,
@@ -10,10 +11,27 @@ function Track({
   index?: number;
   collum?: boolean;
 }) {
+  if (collum && !infos) {
+    return (
+      <SkeletonTheme
+        baseColor="#585555"
+        highlightColor="#444"
+        key={index}
+        width={"100%"}
+        height={"100%"}
+      >
+        <div className="flex flex-col w-24">
+          <Skeleton className="w-full aspect-square object-cover rounded"/>
+          <Skeleton />
+        </div>
+      </SkeletonTheme>
+    );
+  }
+
   if (collum) {
     return (
       <div>
-        <Link to={`/ShowTrack/${infos.id}`} className="flex flex-col w-24">
+        <Link to={`/Track/${infos.id}`} className="flex flex-col w-24">
           <img
             src={infos.album.images[0].url}
             alt={`${infos.name} cover`}
@@ -29,10 +47,32 @@ function Track({
       </div>
     );
   }
+
+  if (!infos) {
+    return (
+      <SkeletonTheme
+        baseColor="#585555"
+        highlightColor="#444"
+        key={index}
+        width={"100%"}
+        height={"100%"}
+      >
+        <div className="flex items-center pl-4 gap-4 w-full">
+          <Skeleton height={64} width={64} />
+          <div className="w-full">
+            <Skeleton />
+            <Skeleton />
+            <Skeleton />
+          </div>
+          <Skeleton height={24} width={24} circle />
+        </div>
+      </SkeletonTheme>
+    );
+  }
   return (
     <div className="flex items-center justify-between gap-4">
       <Link
-        to={`/ShowTrack/${infos.id}`}
+        to={`/Track/${infos.id}`}
         className="flex items-center justify-between gap-4"
       >
         {index && <p className="text-sm font-semibold">{index}º</p>}

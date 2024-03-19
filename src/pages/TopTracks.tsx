@@ -3,13 +3,11 @@ import { useInfos } from "../contexts/InfosContext";
 import Button from "../components/Button";
 import React from "react";
 import Track from "../components/Track";
-import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
 function TopTracks() {
-  const [userTopTracks, setUserTopTracks] = useState<Track[]>();
+  const [userTopTracks, setUserTopTracks] = useState<Track[]>([...Array(10)]);
   const [time_range, setTime_range] = useState<TimeRange>("medium_term");
-  const [loading, setLoading] = useState<boolean>(true);
   const [loadingNewInfos, setLoadingNewInfos] = useState<boolean>(false);
   const infosContext = useInfos();
 
@@ -27,7 +25,6 @@ function TopTracks() {
       })
       .finally(() => {
         setLoadingNewInfos(false);
-        setLoading(false);
       });
   }, [time_range]);
 
@@ -59,42 +56,15 @@ function TopTracks() {
           All time
         </Button>
       </div>
-      {loading ? (
-        <div className="space-y-4">
-          {[...Array(10)].map((_, index) => {
-            return (
-              <SkeletonTheme
-                baseColor="#585555"
-                highlightColor="#444"
-                key={index}
-                width={"100%"}
-                height={"100%"}
-              >
-                <div className="flex items-center pl-4 gap-4 w-full">
-                  <Skeleton height={64} width={64} />
-                  <div className="w-full">
-                    <Skeleton />
-                    <Skeleton />
-                    <Skeleton />
-                  </div>
-                  <Skeleton height={24} width={24} circle />
-                </div>
-              </SkeletonTheme>
-            );
-          })}
-        </div>
-      ) : (
-        <div className="space-y-4">
-          {userTopTracks &&
-            userTopTracks.map((item, index) => {
-              return (
-                <React.Fragment key={item.id}>
-                  <Track infos={item} index={index + 1} />
-                </React.Fragment>
-              );
-            })}
-        </div>
-      )}
+      <div className="space-y-4">
+        {userTopTracks.map((item, index) => {
+          return (
+            <React.Fragment key={index}>
+              <Track infos={item} index={index + 1} />
+            </React.Fragment>
+          );
+        })}
+      </div>
     </div>
   );
 }

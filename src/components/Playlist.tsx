@@ -1,4 +1,5 @@
 import { HeartStraight } from "@phosphor-icons/react";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 
 function Playlist({
   infos,
@@ -10,6 +11,27 @@ function Playlist({
   const handleClickFollow = () => {
     handleFollow(infos.id);
   };
+
+  if (!infos) {
+    return (
+      <SkeletonTheme
+        baseColor="#585555"
+        highlightColor="#444"
+        width={"100%"}
+        height={"100%"}
+      >
+        <div className="flex items-center pl-4 gap-4 w-full">
+          <Skeleton height={64} width={64} />
+          <div className="w-full">
+            <Skeleton />
+            <Skeleton />
+            <Skeleton />
+          </div>
+          <Skeleton height={24} width={24} circle />
+        </div>
+      </SkeletonTheme>
+    );
+  }
 
   return (
     <div className="flex items-center gap-4 justify-between">

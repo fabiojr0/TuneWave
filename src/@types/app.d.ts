@@ -1,3 +1,8 @@
+type RouteInfo = {
+    title: string;
+    icon: JSX.Element;
+};
+
 type ShowsResponse<T> = {
     href: string;
     limit: number;
