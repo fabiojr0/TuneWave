@@ -81,7 +81,7 @@ function ShowTrack({ infos }: { infos?: Track }) {
           className="flex items-center gap-2"
         >
           <p>Add To Queue</p>
-          <ListPlus size={24} color="#ffffff" weight="fill" />
+          <ListPlus size={20} color="#ffffff" weight="fill" />
         </button>
       </span>
     </div>

@@ -1,18 +1,20 @@
 import {
   AlignLeft,
+  CaretLeft,
   House,
   List,
   MicrophoneStage,
   MusicNotes,
   MusicNotesPlus,
   VinylRecord,
-  Waveform,
   X,
 } from "@phosphor-icons/react";
 import AuthUser from "./AuthUser";
 import Navbar from "./Navbar";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
+import Logo from "./Logo";
 
 function Header() {
   const [showNavbar, setShowNavbar] = useState(false);
@@ -68,13 +70,22 @@ function Header() {
     }
   }, [location.pathname]);
 
+  const backPage = () => {
+    window.history.back();
+  };
+
   return (
     <div className="space-y-2 bg-black ">
       <div className="flex items-center justify-between">
-        <span className="flex items-center gap-2">
-          <Waveform size={32} color="#ffffff" weight="fill" />
+        {window.history.state.idx !== 0 && (
+          <button onClick={backPage}>
+            <CaretLeft size={32} color="#ffffff" weight="regular" />
+          </button>
+        )}
+        <Link to={"/"} className="flex items-center gap-2">
+          <Logo />
           <h1 className="font-bold text-lg">Sound Scout</h1>
-        </span>
+        </Link>
         <button onClick={handleShowNavbar}>
           {showNavbar ? (
             <X size={32} color="#ffffff" weight="regular" />

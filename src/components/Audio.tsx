@@ -33,13 +33,13 @@ function Audio({ src }: { src: string }) {
   };
 
   return (
-    <div>
+    <div className="flex items-center">
       <audio ref={audioRef} src={src}></audio>
       <button onClick={playPause} className="">
         {isPlaying ? (
-          <Pause size={24} color="#ffffff" weight="fill" />
+          <Pause size={20} color="#ffffff" weight="fill" />
         ) : (
-          <Play size={24} color="#ffffff" weight="fill" />
+          <Play size={20} color="#ffffff" weight="fill" />
         )}
       </button>
     </div>

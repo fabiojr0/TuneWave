@@ -68,7 +68,7 @@ function TrackScreen() {
     <div>
       <div className="space-y-4">
         <ShowTrack infos={infos} />
-        <div className="space-y-2">
+        <div className="space-y-4">
           <h2 className="font-semibold"></h2>
           <Carousel infos={reccomendations} title="Reccomended Tracks" />
           <Carousel
