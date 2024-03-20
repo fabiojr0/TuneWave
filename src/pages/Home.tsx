@@ -9,6 +9,7 @@ function Home() {
   const [fabiojr0Playlists, setFabiojr0Playlists] = useState<Playlist[]>([
     ...Array(10),
   ]);
+
   const infosContext = useInfos();
   const authContext = useAuth();
 

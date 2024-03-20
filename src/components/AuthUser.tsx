@@ -2,11 +2,14 @@ import { useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import { useInfos } from "../contexts/InfosContext";
 import Button from "./Button";
+import { useUserData } from "../hooks/useUserData";
 
 function AuthUser() {
   const [showLogout, setShowLogout] = useState<boolean>(false);
   const infosContext = useInfos();
   const authContext = useAuth();
+
+  const { data } = useUserData();
 
   const login = () => {
     authContext.redirectToSpotify();
@@ -24,13 +27,11 @@ function AuthUser() {
             onClick={() => setShowLogout(!showLogout)}
             className="flex items-center gap-2"
           >
-            <p className="text-sm font-semibold">
-              {infosContext.myInfos.display_name}
-            </p>
+            <p className="text-sm font-semibold">{data?.data.display_name}</p>
             <img
               className="rounded-full h-8 w-8 object-cover border-2 border-zinc-950"
-              src={infosContext.myInfos.images[0].url}
-              alt={`${infosContext.myInfos.display_name}'s avatar`}
+              src={data?.data.images[0].url}
+              alt={`${data?.data.display_name}'s avatar`}
             />
           </div>
           <div
