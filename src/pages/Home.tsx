@@ -1,49 +1,37 @@
-import React, { useEffect, useState } from "react";
-import { useInfos } from "../contexts/InfosContext";
+import React, { useEffect } from "react";
 import Playlist from "../components/Playlist";
-import "ldrs/ring2";
 import { useAuth } from "../contexts/AuthContext";
 import Login from "../components/Login";
+import { useFetchPlaylists } from "../hooks/useFetchPlaylists";
+import { useFetchFollowPlaylists } from "../hooks/useFetchFollow";
+import { useMutateFollowPlaylists } from "../hooks/useMutateFollow";
 
 function Home() {
-  const [fabiojr0Playlists, setFabiojr0Playlists] = useState<Playlist[]>([
-    ...Array(10),
-  ]);
-
-  const infosContext = useInfos();
   const authContext = useAuth();
 
+  const { data: playlists } = useFetchPlaylists();
+
+  const playlistIds =
+    playlists?.data.items.map((playlist) => playlist.id) ?? [];
+
+  const { data: followedPlaylists } = useFetchFollowPlaylists(playlistIds);
+
   useEffect(() => {
-    infosContext
-      .fetchFabiojr0sPlaylists()
-      .then((data) => {
-        if (data) {
-          setFabiojr0Playlists(data);
-        }
-      })
-      .catch((error) => {
-        console.log(error);
+    const user_playlist_ids = followedPlaylists?.data.items.map(
+      (playlist: Playlist) => playlist.id
+    );
+
+    user_playlist_ids &&
+      playlists?.data.items.forEach((playlist: Playlist) => {
+        playlist.followed = user_playlist_ids.some(
+          (item: string) => item === playlist.id
+        );
       });
-  }, []);
+  }, [playlists, followedPlaylists]);
 
+  const { mutate: mutateFollow } = useMutateFollowPlaylists();
   const handleFollow = async (playlist_id: string) => {
-    const infos = fabiojr0Playlists?.find((item) => item.id === playlist_id);
-
-    if (fabiojr0Playlists && infos) {
-      if (infos?.followed) {
-        const response = await infosContext.unfollowPlaylist(infos.id);
-        if (response) {
-          infos.followed = false;
-          setFabiojr0Playlists([...fabiojr0Playlists]);
-        }
-      } else {
-        const response = await infosContext.followPlaylist(infos.id);
-        if (response) {
-          infos.followed = true;
-          setFabiojr0Playlists([...fabiojr0Playlists]);
-        }
-      }
-    }
+    mutateFollow(playlist_id);
   };
 
   if (!authContext.accessToken) {
@@ -59,7 +47,7 @@ function Home() {
             The Playlists you will ever seen!
           </p>
         </span>
-        {fabiojr0Playlists.map((item, index) => {
+        {playlists?.data.items.map((item, index) => {
           return (
             <React.Fragment key={index}>
               <Playlist infos={item} handleFollow={handleFollow} />

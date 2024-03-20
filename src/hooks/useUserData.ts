@@ -3,14 +3,14 @@ import api from "../setup/api";
 import { AxiosPromise } from "axios";
 
 
-const fetchMyInfos = async (): AxiosPromise<User> => {
+const fetchData = async (): AxiosPromise<User> => {
     const response = await api.get(`/me`);
     return response;
 };
 
 export function useUserData() {
     const query = useQuery({
-        queryFn: fetchMyInfos,
+        queryFn: fetchData,
         queryKey: ["me"],
     });
 

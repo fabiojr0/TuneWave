@@ -10,7 +10,7 @@ type ShowsResponse<T> = {
     offset: number;
     previous: string | null;
     total: number;
-    items: T[];
+    items: T;
 };
 
 type User = {
