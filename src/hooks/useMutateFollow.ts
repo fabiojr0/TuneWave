@@ -2,10 +2,11 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import api from "../setup/api";
 
-const putData = async (playlist_id: string) => {
-    return await api.put(`/playlists/${playlist_id}/followers`, {
-        "public": false
-    });
+const putData = async (data: { playlist_id: string, follow: boolean }) => {
+    if (data.follow) {
+        return await api.delete(`/playlists/${data.playlist_id}/followers`);
+    }
+    return await api.put(`/playlists/${data.playlist_id}/followers`);
 };
 
 export function useMutateFollowPlaylists() {
@@ -13,7 +14,7 @@ export function useMutateFollowPlaylists() {
     const mutate = useMutation({
         mutationFn: putData,
         onSuccess: () => {
-            queryClient.invalidateQueries(["fabiojr0-playlists"]);
+            queryClient.invalidateQueries({ queryKey: ["fabiojr0-playlists"] });
         }
     });
 

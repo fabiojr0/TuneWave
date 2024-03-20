@@ -10,18 +10,15 @@ const fetchData = async ({ queryKey }): AxiosPromise<ShowsResponse<Playlist[]>> 
 
     const response = await api.get(`/me/playlists`, { params: { limit: 50, ids } });
     return response;
-
-
 };
 
 export function useFetchFollowPlaylists(idArray: string[]) {
-    const queryKey = ["fabiojr0-playlists", { idArray }];
 
     const query = useQuery({
         queryFn: fetchData,
-        queryKey,
+        queryKey: ["fabiojr0-playlists", { idArray }],
         retry: 3,
-        refetchInterval: 1000 * 60 * 60,
+        refetchInterval: 1000 * 60 * 1,
         enabled: !!idArray && idArray.length > 0,
     });
 

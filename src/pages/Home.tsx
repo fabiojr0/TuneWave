@@ -4,7 +4,6 @@ import { useAuth } from "../contexts/AuthContext";
 import Login from "../components/Login";
 import { useFetchPlaylists } from "../hooks/useFetchPlaylists";
 import { useFetchFollowPlaylists } from "../hooks/useFetchFollow";
-import { useMutateFollowPlaylists } from "../hooks/useMutateFollow";
 
 function Home() {
   const authContext = useAuth();
@@ -27,12 +26,7 @@ function Home() {
           (item: string) => item === playlist.id
         );
       });
-  }, [playlists, followedPlaylists]);
-
-  const { mutate: mutateFollow } = useMutateFollowPlaylists();
-  const handleFollow = async (playlist_id: string) => {
-    mutateFollow(playlist_id);
-  };
+  }, [playlistIds, followedPlaylists]);
 
   if (!authContext.accessToken) {
     return <Login />;
@@ -50,7 +44,7 @@ function Home() {
         {playlists?.data.items.map((item, index) => {
           return (
             <React.Fragment key={index}>
-              <Playlist infos={item} handleFollow={handleFollow} />
+              <Playlist infos={item} />
             </React.Fragment>
           );
         })}
