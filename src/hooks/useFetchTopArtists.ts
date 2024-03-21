@@ -4,7 +4,7 @@ import api from "../setup/api";
 
 
 interface FetchDataQueryKey {
-    time_range: string;
+    time_range: TimeRange;
 }
 
 const fetchData = async ({ queryKey }: QueryFunctionContext<[string, FetchDataQueryKey]>): Promise<Artist[]> => {
@@ -28,7 +28,7 @@ const fetchData = async ({ queryKey }: QueryFunctionContext<[string, FetchDataQu
     return response.data.items;
 };
 
-export function useFetchTopArtists(time_range: string) {
+export function useFetchTopArtists(time_range: TimeRange) {
     const query = useQuery({
         queryFn: fetchData,
         queryKey: ["top-artists", { time_range }],
