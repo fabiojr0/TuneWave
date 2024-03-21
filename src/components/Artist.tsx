@@ -1,4 +1,5 @@
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import { Link } from "react-router-dom";
 
 function Artist({ infos, index }: { infos: Artist; index?: number }) {
   if (!infos) {
@@ -22,26 +23,31 @@ function Artist({ infos, index }: { infos: Artist; index?: number }) {
 
   return (
     <div className="flex items-center justify-between gap-4">
-      <p className="text-sm font-semibold min-w-7">{index}º</p>
-      {infos.images && (
-        <img
-          src={infos.images[0].url}
-          alt={`${infos.name} cover`}
-          className="w-16 h-16 aspect-square object-cover rounded"
-        />
-      )}
-      <div className="w-full">
-        <p className="text-sm font-semibold line-clamp-1">{infos.name}</p>
-        {infos.genres && (
-          <p className="text-sm font-medium text-zinc-300 line-clamp-1">
-            {infos.genres
-              .slice(0, 3)
-              .map((genre) => genre)
-              .join(", ")}
-            {infos.genres.length > 3 && "..."}
-          </p>
+      <Link
+        to={`/Artist/${infos.id}`}
+        className="flex items-center justify-between gap-4"
+      >
+        <p className="text-sm font-semibold min-w-7">{index}º</p>
+        {infos.images && (
+          <img
+            src={infos.images[0].url}
+            alt={`${infos.name} cover`}
+            className="w-16 h-16 aspect-square object-cover rounded"
+          />
         )}
-      </div>
+        <div className="w-full">
+          <p className="text-sm font-semibold line-clamp-1">{infos.name}</p>
+          {infos.genres && (
+            <p className="text-sm font-medium text-zinc-300 line-clamp-1">
+              {infos.genres
+                .slice(0, 3)
+                .map((genre) => genre)
+                .join(", ")}
+              {infos.genres.length > 3 && "..."}
+            </p>
+          )}
+        </div>
+      </Link>
       <div>
         <a
           href={infos.external_urls.spotify}
