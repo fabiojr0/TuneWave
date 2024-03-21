@@ -1,12 +1,10 @@
 import { useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
-import { useInfos } from "../contexts/InfosContext";
 import Button from "./Button";
 import { useUserData } from "../hooks/useUserData";
 
 function AuthUser() {
   const [showLogout, setShowLogout] = useState<boolean>(false);
-  const infosContext = useInfos();
   const authContext = useAuth();
 
   const { data, isLoading } = useUserData();
@@ -47,11 +45,7 @@ function AuthUser() {
       ) : (
         <Button
           onClick={login}
-          loading={
-            authContext.accessToken && infosContext.myInfos === null
-              ? true
-              : false
-          }
+          loading={authContext.accessToken && data === null ? true : false}
         >
           <img src="./Spotify_Icon_RGB_White.png" className="h-6 w-6" />
           Login

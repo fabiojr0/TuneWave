@@ -1,14 +1,14 @@
 import { ListPlus } from "@phosphor-icons/react";
 import { msToMinSeconds } from "../utils/utils";
 import Audio from "./Audio";
-import { useInfos } from "../contexts/InfosContext";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import { useMutateAddToQueue } from "../hooks/useMutateAddToQueue";
 
 function ShowTrack({ infos }: { infos?: Track }) {
-  const infosContext = useInfos();
+  const { mutate: mutateAddToQueue } = useMutateAddToQueue();
 
   const addToQueue = (uri: string) => {
-    infosContext.addTrackToQueue(uri);
+    mutateAddToQueue(uri || "");
   };
 
   if (!infos) {

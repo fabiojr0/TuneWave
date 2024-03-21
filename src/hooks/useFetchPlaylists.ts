@@ -12,7 +12,7 @@ const fetchData = async (): Promise<Playlist[]> => {
 export function useFetchPlaylists() {
     const query = useQuery({
         queryFn: fetchData,
-        queryKey: ["myPlaylists"],
+        queryKey: ["my-playlists"],
         retry: 3,
         refetchInterval: 1000 * 60 * 60,
         staleTime: 1000 * 60 * 60,
