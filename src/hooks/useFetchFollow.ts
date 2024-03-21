@@ -1,15 +1,18 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useQuery } from "@tanstack/react-query";
 import api from "../setup/api";
-import { AxiosPromise } from "axios";
+import { QueryFunctionContext } from "@tanstack/react-query";
 
+interface FetchDataQueryKey {
+    idArray: string[];
+}
 
-const fetchData = async ({ queryKey }): AxiosPromise<ShowsResponse<Playlist[]>> => {
+const fetchData = async ({ queryKey }: QueryFunctionContext<[string, FetchDataQueryKey]>): Promise<Playlist[]> => {
     const [_, { idArray }] = queryKey;
     const ids = idArray.join(",");
 
     const response = await api.get(`/me/playlists`, { params: { limit: 50, ids } });
-    return response;
+    return response.data.items;
 };
 
 export function useFetchFollowPlaylists(idArray: string[]) {
