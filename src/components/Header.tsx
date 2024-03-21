@@ -59,6 +59,8 @@ function Header() {
   };
 
   useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+
     const pathname = location.pathname as routes;
 
     if (routeTitles[pathname as routes]) {

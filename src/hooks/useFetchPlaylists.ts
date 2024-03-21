@@ -15,6 +15,7 @@ export function useFetchPlaylists() {
         queryKey: ["myPlaylists"],
         retry: 3,
         refetchInterval: 1000 * 60 * 60,
+        staleTime: 1000 * 60 * 60,
         placeholderData: [...Array(10)] as Playlist[]
     });
 

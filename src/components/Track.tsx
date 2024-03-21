@@ -75,7 +75,7 @@ function Track({
         to={`/Track/${infos.id}`}
         className="flex items-center justify-between gap-4"
       >
-        {index && <p className="text-sm font-semibold">{index}º</p>}
+        {index && <p className="text-sm font-semibold min-w-7">{index}º</p>}
         <img
           src={infos.album.images[0].url}
           alt={`${infos.name} cover`}

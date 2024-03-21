@@ -12,6 +12,8 @@ export function useUserData() {
     const query = useQuery({
         queryFn: fetchData,
         queryKey: ["me"],
+        staleTime: 1000 * 60 * 60,
+
     });
 
     return query

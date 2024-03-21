@@ -22,7 +22,7 @@ function Artist({ infos, index }: { infos: Artist; index?: number }) {
 
   return (
     <div className="flex items-center justify-between gap-4">
-      <p className="text-sm font-semibold">{index}º</p>
+      <p className="text-sm font-semibold min-w-7">{index}º</p>
       {infos.images && (
         <img
           src={infos.images[0].url}

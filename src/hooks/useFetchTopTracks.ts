@@ -34,6 +34,7 @@ export function useFetchTopTracks(time_range: TimeRange) {
         queryKey: ["top-tracks", { time_range }],
         retry: 3,
         refetchInterval: 1000 * 60 * 60,
+        staleTime: 1000 * 60 * 60,
         placeholderData: [...Array(10)] as Track[]
     });
 
