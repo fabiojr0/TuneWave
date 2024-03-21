@@ -9,7 +9,7 @@ function AuthUser() {
   const infosContext = useInfos();
   const authContext = useAuth();
 
-  const { data } = useUserData();
+  const { data, isLoading } = useUserData();
 
   const login = () => {
     authContext.redirectToSpotify();
@@ -21,7 +21,7 @@ function AuthUser() {
 
   return (
     <>
-      {infosContext.myInfos ? (
+      {!isLoading ? (
         <span className="relative z-0">
           <div
             onClick={() => setShowLogout(!showLogout)}

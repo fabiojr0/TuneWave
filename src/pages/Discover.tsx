@@ -1,39 +1,23 @@
-import { useEffect, useState } from "react";
-import { useInfos } from "../contexts/InfosContext";
 import React from "react";
 import Track from "../components/Track";
 import Login from "../components/Login";
 import { useAuth } from "../contexts/AuthContext";
+import { useFetchTopArtists } from "../hooks/useFetchTopArtists";
+import { getTopGenres } from "../utils/utils";
+import { useFetchRecommendations } from "../hooks/useFetchRecommendations";
 
 function Discover() {
-  const [recommendations, setRecommendations] = useState<Track[]>([
-    ...Array(10),
-  ]);
-  const infosContext = useInfos();
   const authContext = useAuth();
 
-  const fetchRecommendations = async () => {
-    try {
-      const topGenres = await infosContext.fetchTopGenres(5);
+  const { data: topArtists } = useFetchTopArtists("long_term");
 
-      if (topGenres !== undefined) {
-        const data = await infosContext.fetchReccomendations(
-          topGenres,
-          null,
-          null
-        );
-        if (data) {
-          setRecommendations(data);
-        }
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const seed_genres = topArtists && getTopGenres(topArtists, 5);
 
-  useEffect(() => {
-    fetchRecommendations();
-  }, []);
+  const { data: recommendations } = useFetchRecommendations(
+    seed_genres || null,
+    null,
+    null
+  );
 
   if (!authContext.accessToken) {
     return <Login />;
@@ -50,7 +34,7 @@ function Discover() {
             <p className="text-zinc-300 text-sm">Based on your top genres</p>
           </span>
         </span>
-        {recommendations.map((item, index) => {
+        {recommendations?.map((item, index) => {
           return (
             <React.Fragment key={index}>
               <Track infos={item} index={index + 1} />

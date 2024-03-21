@@ -1,50 +1,29 @@
 import React, { useEffect, useState } from "react";
-import { useInfos } from "../contexts/InfosContext";
 import Playlist from "../components/Playlist";
-import "ldrs/ring2";
 import { useAuth } from "../contexts/AuthContext";
 import Login from "../components/Login";
+import { useFetchPlaylists } from "../hooks/useFetchPlaylists";
+import { useFetchFollowPlaylists } from "../hooks/useFetchFollow";
 
 function Home() {
-  const [fabiojr0Playlists, setFabiojr0Playlists] = useState<Playlist[]>([
-    ...Array(10),
-  ]);
-
-  const infosContext = useInfos();
+  const [playlists, setPlaylists] = useState<Playlist[]>();
   const authContext = useAuth();
 
+  const { data: fabiojr0_playlists } = useFetchPlaylists();
+
+  const playlistIds = fabiojr0_playlists?.map((playlist) => playlist?.id) ?? [];
+
+  const { data: followedPlaylists } = useFetchFollowPlaylists(playlistIds);
+
   useEffect(() => {
-    infosContext
-      .fetchFabiojr0sPlaylists()
-      .then((data) => {
-        if (data) {
-          setFabiojr0Playlists(data);
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
-
-  const handleFollow = async (playlist_id: string) => {
-    const infos = fabiojr0Playlists?.find((item) => item.id === playlist_id);
-
-    if (fabiojr0Playlists && infos) {
-      if (infos?.followed) {
-        const response = await infosContext.unfollowPlaylist(infos.id);
-        if (response) {
-          infos.followed = false;
-          setFabiojr0Playlists([...fabiojr0Playlists]);
-        }
-      } else {
-        const response = await infosContext.followPlaylist(infos.id);
-        if (response) {
-          infos.followed = true;
-          setFabiojr0Playlists([...fabiojr0Playlists]);
-        }
-      }
+    if (fabiojr0_playlists && followedPlaylists) {
+      const updatedPlaylists = fabiojr0_playlists.map((playlist) => ({
+        ...playlist,
+        followed: followedPlaylists.some((item) => item.id === playlist?.id),
+      }));
+      setPlaylists(updatedPlaylists);
     }
-  };
+  }, [fabiojr0_playlists, followedPlaylists]);
 
   if (!authContext.accessToken) {
     return <Login />;
@@ -59,10 +38,10 @@ function Home() {
             The Playlists you will ever seen!
           </p>
         </span>
-        {fabiojr0Playlists.map((item, index) => {
+        {playlists?.map((item, index) => {
           return (
             <React.Fragment key={index}>
-              <Playlist infos={item} handleFollow={handleFollow} />
+              <Playlist infos={item} />
             </React.Fragment>
           );
         })}
