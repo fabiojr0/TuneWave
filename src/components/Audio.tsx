@@ -1,5 +1,6 @@
 import { Pause, Play } from "@phosphor-icons/react";
 import React, { useEffect, useState } from "react";
+import Logo from "./Logo";
 
 function Audio({ src }: { src: string }) {
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
@@ -18,7 +19,7 @@ function Audio({ src }: { src: string }) {
         });
       }
     };
-  }, []);
+  }, [src]);
 
   const playPause = () => {
     if (audioRef.current) {
@@ -33,11 +34,14 @@ function Audio({ src }: { src: string }) {
   };
 
   return (
-    <div className="flex items-center">
+    <div className="flex items-center justify-center min-h-8">
       <audio ref={audioRef} src={src}></audio>
       <button onClick={playPause} className="">
         {isPlaying ? (
-          <Pause size={20} color="#ffffff" weight="fill" />
+          <div className="flex items-center gap-2">
+            <Pause size={20} color="#ffffff" weight="fill" />
+            <Logo />
+          </div>
         ) : (
           <Play size={20} color="#ffffff" weight="fill" />
         )}

@@ -28,8 +28,9 @@ function Header() {
 
   const location = useLocation();
 
-  const handleShowNavbar = () => {
+  const handleShowNavbar = (e: React.MouseEvent<HTMLButtonElement>) => {
     setShowNavbar(!showNavbar);
+    e.stopPropagation();
   };
 
   const routeTitles = {
@@ -96,7 +97,7 @@ function Header() {
           <Logo />
           <h1 className="font-bold text-lg">Sound Scout</h1>
         </Link>
-        <button onClick={handleShowNavbar}>
+        <button onClick={(e) => handleShowNavbar(e)}>
           {showNavbar ? (
             <X size={32} color="#ffffff" weight="regular" />
           ) : (
@@ -111,7 +112,7 @@ function Header() {
         </p>
         <AuthUser />
       </div>
-      <Navbar handleShowNavbar={handleShowNavbar} showNavbar={showNavbar} />
+      <Navbar setShowNavbar={setShowNavbar} showNavbar={showNavbar} />
     </div>
   );
 }

@@ -89,7 +89,7 @@ function ShowTrack({ infos }: { infos?: Track }) {
       )}
 
       <span className="flex items-center justify-between">
-        <span className="flex items-start">
+        <span className="flex items-center gap-2">
           <p className="font-semibold">Preview</p>
           <Audio src={infos.preview_url} />
         </span>
