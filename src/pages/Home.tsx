@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import Playlist from "../components/Playlist";
 import { useAuth } from "../contexts/AuthContext";
 import Login from "../components/Login";
 import { useFetchPlaylists } from "../hooks/useFetchPlaylists";
 import { useFetchFollowPlaylists } from "../hooks/useFetchFollow";
+import Playlist from "../components/Playlist";
 
 function Home() {
   const [playlists, setPlaylists] = useState<Playlist[]>();

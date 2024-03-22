@@ -5,17 +5,18 @@ import { useMutateFollowPlaylists } from "../hooks/useMutateFollow";
 import { useState } from "react";
 
 function Playlist({ infos }: { infos: Playlist }) {
-  const [showTooltip, setShowTooltip] = useState<string>("");
+  const [showTooltip, setShowTooltip] = useState<TooltipProps>({ message: "" });
+
   const [follow, setFollow] = useState<boolean>(infos?.followed ? true : false);
 
   const { mutate: mutateFollow } = useMutateFollowPlaylists();
 
   const handleFollow = async (playlist_id: string) => {
     mutateFollow({ playlist_id, follow });
-    setShowTooltip(!follow ? "Followed" : "Unfollowed");
+    setShowTooltip({ message: !follow ? "Followed" : "Unfollowed", color: !follow ? "" : "darkgreen" });
     setFollow(!follow);
     setTimeout(() => {
-      setShowTooltip("");
+      setShowTooltip({ message: "" });
     }, 2000);
   };
 
@@ -64,7 +65,7 @@ function Playlist({ infos }: { infos: Playlist }) {
         </a>
       </div>
       <div className="flex flex-col items-center gap-2">
-        <Tooltip message={showTooltip}>
+        <Tooltip message={showTooltip.message} color={showTooltip?.color}>
           <HeartStraight
             size={24}
             weight={follow ? "fill" : "regular"}

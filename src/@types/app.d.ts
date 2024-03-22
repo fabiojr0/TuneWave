@@ -3,6 +3,11 @@ type RouteInfo = {
     icon: JSX.Element;
 };
 
+type TooltipProps = {
+    message: string;
+    color?: string;
+}
+
 type ShowsResponse<T> = {
     href: string;
     limit: number;
