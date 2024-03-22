@@ -117,7 +117,6 @@ type Playlist = {
     images: Image[];
     name: string;
     owner: User;
-    primary_color: null; // Assumindo que não há mais informações sobre o tipo de dado
     public: boolean;
     snapshot_id: string;
     tracks: {
