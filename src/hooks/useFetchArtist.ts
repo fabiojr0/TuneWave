@@ -21,7 +21,6 @@ export function useFetchArtist(id: string) {
         queryKey: ["artist", { id }],
         retry: 3,
         enabled: !!id,
-        refetchInterval: 1000 * 60 * 60,
         staleTime: 1000 * 60 * 60,
         placeholderData: undefined,
     });

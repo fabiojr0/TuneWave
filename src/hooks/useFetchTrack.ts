@@ -21,7 +21,6 @@ export function useFetchTrack(id: string) {
         queryKey: ["tracks", { id }],
         retry: 3,
         enabled: !!id,
-        refetchInterval: 1000 * 60 * 60,
         staleTime: 1000 * 60 * 60,
         placeholderData: undefined,
     });

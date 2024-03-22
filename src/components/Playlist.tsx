@@ -13,7 +13,10 @@ function Playlist({ infos }: { infos: Playlist }) {
 
   const handleFollow = async (playlist_id: string) => {
     mutateFollow({ playlist_id, follow });
-    setShowTooltip({ message: !follow ? "Followed" : "Unfollowed", color: !follow ? "" : "darkgreen" });
+    setShowTooltip({
+      message: !follow ? "Followed" : "Unfollowed",
+      color: !follow ? "" : "darkgreen",
+    });
     setFollow(!follow);
     setTimeout(() => {
       setShowTooltip({ message: "" });
@@ -43,17 +46,19 @@ function Playlist({ infos }: { infos: Playlist }) {
 
   return (
     <div className="flex items-center gap-4 justify-between">
-      <img
-        className="w-16 h-16 rounded aspect-square object-cover"
-        src={infos.images[0].url}
-        alt={`${infos.name} Playlist cover`}
-      />
+      {infos.images && (
+        <img
+          src={infos.images[0].url}
+          alt={`${infos.name} cover`}
+          className="w-16 h-16 aspect-square object-cover rounded"
+        />
+      )}
       <div className="w-full">
         <p className="text-sm font-semibold">{infos.name}</p>
         <p className="text-xs text-zinc-300 font-medium">{infos.description}</p>
         <a
           className="flex items-end gap-2"
-          href={infos.external_urls.spotify}
+          href={infos.external_urls?.spotify}
           target="_blank"
         >
           <p className="text-xs text-lightGreen">Open on Spotify </p>

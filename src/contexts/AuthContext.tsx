@@ -30,13 +30,13 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const client_secret = process.env.CLIENT_SECRET;
   const redirect_uri = process.env.REDIRECT_URI;
 
-  // useEffect(() => {
-  //   const temporizador = setTimeout(() => {
-  //     setAccessToken(null);
-  //   }, 3600000);
+  useEffect(() => {
+    const temporizador = setTimeout(() => {
+      setAccessToken(null);
+    }, 3600000);
 
-  //   return () => clearTimeout(temporizador);
-  // }, [accessToken]);
+    return () => clearTimeout(temporizador);
+  }, [accessToken]);
 
   useEffect(() => {
     const access_token = Cookies.get("access_token");

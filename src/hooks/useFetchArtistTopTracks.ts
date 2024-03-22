@@ -22,7 +22,6 @@ export function useFetchArtistTopTracks(id: string, limit: number = 10) {
         queryKey: ["artists-top-tracks", { id, limit }],
         retry: 3,
         enabled: !!id,
-        refetchInterval: 1000 * 60 * 60,
         staleTime: 1000 * 60 * 60,
         placeholderData: [...Array(10)] as Track[]
     });

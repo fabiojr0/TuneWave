@@ -19,7 +19,7 @@ export function useFetchFollowPlaylists(idArray: string[]) {
 
     const query = useQuery({
         queryFn: fetchData,
-        queryKey: ["fabiojr0-playlists-follow", { idArray }],
+        queryKey: ["playlists-follow", { idArray }],
         retry: 3,
         refetchInterval: 1000 * 60 * 1,
         enabled: !!idArray && idArray.length > 0,

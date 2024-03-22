@@ -6,6 +6,7 @@ import {
   MicrophoneStage,
   MusicNotes,
   MusicNotesPlus,
+  Record,
   VinylRecord,
   X,
 } from "@phosphor-icons/react";
@@ -42,7 +43,7 @@ function Header() {
     },
     "/TopArtists": {
       title: "Top Artists",
-      icon: <MicrophoneStage size={24} weight="fill" />,
+      icon: <Record size={24} weight="fill" />,
     },
     "/Discover": {
       title: "Discover",
@@ -55,6 +56,10 @@ function Header() {
     "/Track/:id": {
       title: "Track Details",
       icon: <VinylRecord size={24} weight="fill" />,
+    },
+    "/Artist/:id": {
+      title: "Track Details",
+      icon: <MicrophoneStage size={24} weight="fill" />,
     },
   };
 
@@ -69,6 +74,9 @@ function Header() {
 
     if (pathname.startsWith("/Track/")) {
       setRoute(routeTitles["/Track/:id"]);
+    }
+    if (pathname.startsWith("/Artist/")) {
+      setRoute(routeTitles["/Artist/:id"]);
     }
   }, [location.pathname]);
 

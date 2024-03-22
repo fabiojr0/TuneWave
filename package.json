@@ -12,7 +12,9 @@
   "dependencies": {
     "@phosphor-icons/react": "^2.0.15",
     "@rollup/plugin-replace": "^5.0.5",
+    "@tanstack/query-sync-storage-persister": "^5.28.6",
     "@tanstack/react-query": "^5.28.4",
+    "@tanstack/react-query-persist-client": "^5.28.6",
     "axios": "^1.6.7",
     "dotenv": "^16.4.5",
     "js-cookie": "^3.0.5",

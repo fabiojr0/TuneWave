@@ -33,10 +33,9 @@ export function useFetchRecommendations(seed_genres: string[] | null,
         queryFn: fetchData,
         queryKey: ["reccomendations", { seed_genres, seed_artists, seed_tracks, limit }],
         placeholderData: [...Array(10)] as Track[],
-        staleTime: 1000 * 60 * 60,
+        staleTime: 1000 * 60 * 1,
         refetchOnWindowFocus: false,
         refetchOnReconnect: false,
-        refetchInterval: false,
     });
 
     return query

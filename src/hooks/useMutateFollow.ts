@@ -14,7 +14,7 @@ export function useMutateFollowPlaylists() {
     const mutate = useMutation({
         mutationFn: putData,
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ["fabiojr0-playlists"] });
+            queryClient.invalidateQueries({ queryKey: ["playlists-follow"] });
         }
     });
 
