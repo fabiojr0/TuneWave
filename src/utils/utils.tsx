@@ -54,3 +54,21 @@ export const msToMinSeconds = (milliseconds: number) => {
   const seconds = totalSeconds % 60;
   return `${minutes}:${seconds.toString().padStart(2, "0")}`;
 };
+
+export const getTopGenres = (artists: Artist[], quantity: number) => {
+  const allGenres = (artists as Artist[]).flatMap((artist) => artist?.genres);
+
+  const genresObj = allGenres.reduce(
+    (acc: { [key: string]: number }, genre) => {
+      if (typeof genre === "string") {
+        acc[genre] = (acc[genre] || 0) + 1;
+      }
+      return acc;
+    },
+    {} as { [key: string]: number }
+  );
+
+  const topGenres = getTopKeys(genresObj, quantity);
+
+  return topGenres;
+};

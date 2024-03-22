@@ -1,15 +1,23 @@
 import { HeartStraight } from "@phosphor-icons/react";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import Tooltip from "./Tooltip";
+import { useMutateFollowPlaylists } from "../hooks/useMutateFollow";
+import { useState } from "react";
 
-function Playlist({
-  infos,
-  handleFollow,
-}: {
-  infos: Playlist;
-  handleFollow: (playlist_id: string) => void;
-}) {
-  const handleClickFollow = () => {
-    handleFollow(infos.id);
+function Playlist({ infos }: { infos: Playlist }) {
+  const [showTooltip, setShowTooltip] = useState<TooltipProps>({ message: "" });
+
+  const [follow, setFollow] = useState<boolean>(infos?.followed ? true : false);
+
+  const { mutate: mutateFollow } = useMutateFollowPlaylists();
+
+  const handleFollow = async (playlist_id: string) => {
+    mutateFollow({ playlist_id, follow });
+    setShowTooltip({ message: !follow ? "Followed" : "Unfollowed", color: !follow ? "" : "darkgreen" });
+    setFollow(!follow);
+    setTimeout(() => {
+      setShowTooltip({ message: "" });
+    }, 2000);
   };
 
   if (!infos) {
@@ -57,12 +65,14 @@ function Playlist({
         </a>
       </div>
       <div className="flex flex-col items-center gap-2">
-        <HeartStraight
-          size={24}
-          weight={infos.followed ? "fill" : "regular"}
-          color="#1ED760"
-          onClick={handleClickFollow}
-        />
+        <Tooltip message={showTooltip.message} color={showTooltip?.color}>
+          <HeartStraight
+            size={24}
+            weight={follow ? "fill" : "regular"}
+            color="#1ED760"
+            onClick={() => handleFollow(infos.id)}
+          />
+        </Tooltip>
       </div>
     </div>
   );

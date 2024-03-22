@@ -3,6 +3,11 @@ type RouteInfo = {
     icon: JSX.Element;
 };
 
+type TooltipProps = {
+    message: string;
+    color?: string;
+}
+
 type ShowsResponse<T> = {
     href: string;
     limit: number;
@@ -10,7 +15,7 @@ type ShowsResponse<T> = {
     offset: number;
     previous: string | null;
     total: number;
-    items: T[];
+    items: T;
 };
 
 type User = {

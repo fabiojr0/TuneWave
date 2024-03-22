@@ -1,14 +1,31 @@
 import { ListPlus } from "@phosphor-icons/react";
 import { msToMinSeconds } from "../utils/utils";
 import Audio from "./Audio";
-import { useInfos } from "../contexts/InfosContext";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import { useMutateAddToQueue } from "../hooks/useMutateAddToQueue";
+import { useState } from "react";
+import Tooltip from "./Tooltip";
 
 function ShowTrack({ infos }: { infos?: Track }) {
-  const infosContext = useInfos();
+  const [showTooltip, setShowTooltip] = useState<TooltipProps>({ message: "" });
+
+  const { mutate: mutateAddToQueue } = useMutateAddToQueue();
 
   const addToQueue = (uri: string) => {
-    infosContext.addTrackToQueue(uri);
+    mutateAddToQueue(uri, {
+      onSuccess: (data) => {
+        setShowTooltip({ message: data.message });
+        setTimeout(() => {
+          setShowTooltip({ message: "" });
+        }, 2000);
+      },
+      onError: (error) => {
+        setShowTooltip({ message: error.message, color: "red" });
+        setTimeout(() => {
+          setShowTooltip({ message: "" });
+        }, 2000);
+      },
+    });
   };
 
   if (!infos) {
@@ -76,13 +93,15 @@ function ShowTrack({ infos }: { infos?: Track }) {
           <p className="font-semibold">Preview</p>
           <Audio src={infos.preview_url} />
         </span>
-        <button
-          onClick={() => addToQueue(infos.uri)}
-          className="flex items-center gap-2"
-        >
-          <p>Add To Queue</p>
-          <ListPlus size={20} color="#ffffff" weight="fill" />
-        </button>
+        <Tooltip message={showTooltip.message} color={showTooltip.color}>
+          <button
+            onClick={() => addToQueue(infos.uri)}
+            className="flex items-center gap-2"
+          >
+            <p>Add To Queue</p>
+            <ListPlus size={20} color="#ffffff" weight="fill" />
+          </button>
+        </Tooltip>
       </span>
     </div>
   );

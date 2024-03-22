@@ -1,38 +1,17 @@
-import { useState, useEffect } from "react";
-import { useInfos } from "../contexts/InfosContext";
+import { useState } from "react";
 import Button from "../components/Button";
 import React from "react";
 import "react-loading-skeleton/dist/skeleton.css";
 import Artist from "../components/Artist";
 import Login from "../components/Login";
 import { useAuth } from "../contexts/AuthContext";
+import { useFetchTopArtists } from "../hooks/useFetchTopArtists";
 
 function TopArtists() {
-  const [userTopArtists, setUserTopArtists] = useState<Artist[]>([
-    ...Array(10),
-  ]);
   const [time_range, setTime_range] = useState<TimeRange>("medium_term");
-  const [loadingNewInfos, setLoadingNewInfos] = useState<boolean>(false);
-  const infosContext = useInfos();
   const authContext = useAuth();
 
-
-  useEffect(() => {
-    setLoadingNewInfos(true);
-    infosContext
-      .fetchTopUser("artists", time_range)
-      .then((data) => {
-        if (data) {
-          setUserTopArtists(data as Artist[]);
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-      .finally(() => {
-        setLoadingNewInfos(false);
-      });
-  }, [time_range]);
+  const { data: userTopArtists, isLoading } = useFetchTopArtists(time_range);
 
   if (!authContext.accessToken) {
     return <Login />;
@@ -44,7 +23,7 @@ function TopArtists() {
         <Button
           type="time_range"
           onClick={() => setTime_range("short_term")}
-          loading={time_range === "short_term" && loadingNewInfos}
+          loading={time_range === "short_term" && isLoading}
           selected={time_range === "short_term"}
         >
           4 Weeks ago
@@ -52,7 +31,7 @@ function TopArtists() {
         <Button
           type="time_range"
           onClick={() => setTime_range("medium_term")}
-          loading={time_range === "medium_term" && loadingNewInfos}
+          loading={time_range === "medium_term" && isLoading}
           selected={time_range === "medium_term"}
         >
           6 Months ago
@@ -60,7 +39,7 @@ function TopArtists() {
         <Button
           type="time_range"
           onClick={() => setTime_range("long_term")}
-          loading={time_range === "long_term" && loadingNewInfos}
+          loading={time_range === "long_term" && isLoading}
           selected={time_range === "long_term"}
         >
           All time
@@ -68,7 +47,7 @@ function TopArtists() {
       </div>
 
       <div className="space-y-4">
-        {userTopArtists.map((item, index) => {
+        {userTopArtists?.map((item, index) => {
           return (
             <React.Fragment key={index}>
               <Artist infos={item} index={index + 1} />
