@@ -21,7 +21,7 @@ function Track({
         height={"100%"}
       >
         <div className="flex flex-col w-24">
-          <Skeleton className="w-full aspect-square object-cover rounded"/>
+          <Skeleton className="w-full aspect-square object-cover rounded" />
           <Skeleton />
         </div>
       </SkeletonTheme>
@@ -36,6 +36,7 @@ function Track({
             src={infos.album.images[0].url}
             alt={`${infos.name} cover`}
             className="w-full aspect-square object-cover rounded"
+            loading="lazy"
           />
           <span className="flex items-center gap-2 w-full">
             <p className="text-xs font-semibold line-clamp-1 w-full">
@@ -80,6 +81,7 @@ function Track({
           src={infos.album.images[0].url}
           alt={`${infos.name} cover`}
           className="w-16 h-16 object-cover rounded"
+          loading="lazy"
         />
         <div className="w-full">
           <span className="flex items-center gap-2">

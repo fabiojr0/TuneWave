@@ -28,6 +28,7 @@ function ShowArtist({ infos }: { infos?: Artist }) {
           src={infos?.images[0].url}
           alt={`${infos?.name} cover`}
           className="w-full aspect-square object-cover rounded"
+          loading="lazy"
         />
       )}
 

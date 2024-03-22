@@ -30,6 +30,7 @@ function AuthUser() {
               className="rounded-full h-8 w-8 object-cover border-2 border-zinc-950"
               src={data?.data.images[0].url}
               alt={`${data?.data.display_name}'s avatar`}
+              loading="lazy"
             />
           </div>
           <div

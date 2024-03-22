@@ -33,6 +33,7 @@ function Artist({ infos, index }: { infos: Artist; index?: number }) {
             src={infos.images[0].url}
             alt={`${infos.name} cover`}
             className="w-16 h-16 aspect-square object-cover rounded"
+            loading="lazy"
           />
         )}
         <div className="w-full">
