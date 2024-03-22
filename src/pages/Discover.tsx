@@ -24,7 +24,7 @@ function Discover() {
   }
 
   return (
-    <div>
+    <main>
       <div className="space-y-4">
         <span className="flex items-center justify-between">
           <span>
@@ -42,7 +42,7 @@ function Discover() {
           );
         })}
       </div>
-    </div>
+    </main>
   );
 }
 

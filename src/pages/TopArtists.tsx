@@ -18,7 +18,7 @@ function TopArtists() {
   }
 
   return (
-    <div className="w-full h-full space-y-4">
+    <main className="w-full h-full space-y-4">
       <div className="flex items-center justify-center gap-4">
         <Button
           type="time_range"
@@ -55,7 +55,7 @@ function TopArtists() {
           );
         })}
       </div>
-    </div>
+    </main>
   );
 }
 

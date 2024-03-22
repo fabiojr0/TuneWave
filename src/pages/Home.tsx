@@ -30,7 +30,7 @@ function Home() {
   }
 
   return (
-    <div className="w-full h-full space-y-4">
+    <main className="w-full h-full space-y-4">
       <div className="space-y-4 gap-4">
         <span>
           <h2 className="font-semibold text-lg">DJ FB o Corte's Playlists</h2>
@@ -46,7 +46,7 @@ function Home() {
           );
         })}
       </div>
-    </div>
+    </main>
   );
 }
 

@@ -3,7 +3,7 @@ import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 function ShowArtist({ infos }: { infos?: Artist }) {
   if (!infos) {
     return (
-      <div>
+      <section>
         <SkeletonTheme
           baseColor="#585555"
           highlightColor="#444"
@@ -17,12 +17,12 @@ function ShowArtist({ infos }: { infos?: Artist }) {
             <Skeleton />
           </div>
         </SkeletonTheme>
-      </div>
+      </section>
     );
   }
 
   return (
-    <div className="space-y-2">
+    <section className="space-y-2">
       {infos.images && (
         <img
           src={infos?.images[0].url}
@@ -56,7 +56,7 @@ function ShowArtist({ infos }: { infos?: Artist }) {
           />
         </a>
       </span>
-    </div>
+    </section>
   );
 }
 

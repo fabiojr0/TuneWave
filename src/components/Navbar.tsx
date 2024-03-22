@@ -38,7 +38,7 @@ function Navbar({
   }, [showNavbar, navbarRef]);
 
   return (
-    <header
+    <nav
       className={`bg-black flex flex-col gap-4 w-full absolute bottom-0-0 left-0 z-50 px-4 border-b-[1px] border-white ${
         showNavbar ? "h-48 py-4" : "h-0 py-0"
       }
@@ -52,7 +52,7 @@ function Navbar({
           </Link>
         );
       })}
-    </header>
+    </nav>
   );
 }
 

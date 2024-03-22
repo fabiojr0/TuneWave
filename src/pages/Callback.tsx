@@ -24,7 +24,7 @@ function Callback() {
     login();
   }, [authContext, location.search, navigate]);
 
-  return <div>{loading && <p>Loading...</p>}</div>;
+  return <main>{loading && <p>Loading...</p>}</main>;
 }
 
 export default Callback;

@@ -30,7 +30,7 @@ function ShowTrack({ infos }: { infos?: Track }) {
 
   if (!infos) {
     return (
-      <div>
+      <section>
         <SkeletonTheme
           baseColor="#585555"
           highlightColor="#444"
@@ -44,12 +44,12 @@ function ShowTrack({ infos }: { infos?: Track }) {
             <Skeleton />
           </div>
         </SkeletonTheme>
-      </div>
+      </section>
     );
   }
 
   return (
-    <div className="space-y-2">
+    <section className="space-y-2">
       <img
         src={infos?.album.images[0].url}
         alt={`${infos?.name} cover`}
@@ -103,7 +103,7 @@ function ShowTrack({ infos }: { infos?: Track }) {
           </button>
         </Tooltip>
       </span>
-    </div>
+    </section>
   );
 }
 

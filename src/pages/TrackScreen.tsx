@@ -34,7 +34,7 @@ function TrackScreen() {
   }
 
   return (
-    <div>
+    <main>
       <div className="space-y-4">
         <ShowTrack infos={infos} />
         <div className="space-y-4">
@@ -46,7 +46,7 @@ function TrackScreen() {
           />
         </div>
       </div>
-    </div>
+    </main>
   );
 }
 

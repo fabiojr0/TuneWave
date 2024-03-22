@@ -31,7 +31,7 @@ function ArtistScreen() {
   }
 
   return (
-    <div>
+    <main>
       <div className="space-y-4">
         <ShowArtist infos={infos} />
         <div className="space-y-4">
@@ -43,7 +43,7 @@ function ArtistScreen() {
           />
         </div>
       </div>
-    </div>
+    </main>
   );
 }
 
