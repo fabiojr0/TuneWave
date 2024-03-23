@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import Login from "../components/Login";
 import { useFetchPlaylists } from "../hooks/useFetchPlaylists";
-import { useFetchFollowPlaylists } from "../hooks/useFetchFollow";
+import { useFetchFollowPlaylists } from "../hooks/useFetchFollowPlaylists";
 import Playlist from "../components/Playlist";
 
 function Home() {

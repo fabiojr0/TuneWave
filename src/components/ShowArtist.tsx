@@ -1,6 +1,40 @@
+import { HeartStraight } from "@phosphor-icons/react";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import { useMutateFollowArtist } from "../hooks/useMutateFollowArtist";
+import { useEffect, useState } from "react";
+import Tooltip from "./Tooltip";
+import { useFetchFollowArtist } from "../hooks/useFetchFollowArtist";
 
 function ShowArtist({ infos }: { infos?: Artist }) {
+  const [showTooltip, setShowTooltip] = useState<TooltipProps>({ message: "" });
+
+  const [follow, setFollow] = useState<boolean>(infos?.followed ? true : false);
+
+  const { data: followData } = useFetchFollowArtist([infos?.id || ""]);
+
+  useEffect(() => {
+    if (followData) {
+      setFollow(followData[0]);
+    }
+  }, [followData]);
+
+  const { mutate: mutateFollow } = useMutateFollowArtist();
+
+  const handleFollow = async (artist_id: string) => {
+    mutateFollow({ artist_id, follow });
+
+    setShowTooltip({
+      message: !follow ? "Followed" : "Unfollowed",
+      color: !follow ? "" : "darkgreen",
+    });
+
+    setFollow(!follow);
+
+    setTimeout(() => {
+      setShowTooltip({ message: "" });
+    }, 2000);
+  };
+
   if (!infos) {
     return (
       <section>
@@ -44,18 +78,27 @@ function ShowArtist({ infos }: { infos?: Artist }) {
             </p>
           )}
         </span>
-
-        <a
-          href={infos.external_urls.spotify}
-          target="_blank"
-          className="hover:scale-110 transition-all"
-        >
-          <img
-            src="../../Spotify_Icon_RGB_Green.png"
-            alt="Open in Spotify"
-            className="min-h-[24px] min-w-[24px] w-6 h-6"
-          />
-        </a>
+        <span className="">
+          <a
+            href={infos.external_urls.spotify}
+            target="_blank"
+            className="hover:scale-110 transition-all"
+          >
+            <img
+              src="../../Spotify_Icon_RGB_Green.png"
+              alt="Open in Spotify"
+              className="min-h-[24px] min-w-[24px] w-6 h-6"
+            />
+          </a>
+          <Tooltip message={showTooltip.message} color={showTooltip?.color}>
+            <HeartStraight
+              size={24}
+              weight={follow ? "fill" : "regular"}
+              color="#1ED760"
+              onClick={() => handleFollow(infos.id)}
+            />
+          </Tooltip>
+        </span>
       </span>
     </section>
   );

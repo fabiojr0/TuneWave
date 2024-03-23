@@ -1,7 +1,31 @@
+import { HeartStraight } from "@phosphor-icons/react";
+import { useState } from "react";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import { Link } from "react-router-dom";
+import { useMutateFollowArtist } from "../hooks/useMutateFollowArtist";
+import Tooltip from "./Tooltip";
 
 function Artist({ infos, index }: { infos: Artist; index?: number }) {
+  const [showTooltip, setShowTooltip] = useState<TooltipProps>({ message: "" });
+  const [follow, setFollow] = useState<boolean>(infos?.followed ? true : false);
+
+  const { mutate: mutateFollow } = useMutateFollowArtist();
+
+  const handleFollow = async (artist_id: string) => {
+    mutateFollow({ artist_id, follow });
+
+    setShowTooltip({
+      message: !follow ? "Followed" : "Unfollowed",
+      color: !follow ? "" : "darkgreen",
+    });
+
+    setFollow(!follow);
+
+    setTimeout(() => {
+      setShowTooltip({ message: "" });
+    }, 2000);
+  };
+
   if (!infos) {
     return (
       <SkeletonTheme
@@ -61,6 +85,14 @@ function Artist({ infos, index }: { infos: Artist; index?: number }) {
             className="min-h-[24px] min-w-[24px] w-6 h-6"
           />
         </a>
+        <Tooltip message={showTooltip.message} color={showTooltip?.color}>
+          <HeartStraight
+            size={24}
+            weight={follow ? "fill" : "regular"}
+            color="#1ED760"
+            onClick={() => handleFollow(infos.id)}
+          />
+        </Tooltip>
       </div>
     </div>
   );

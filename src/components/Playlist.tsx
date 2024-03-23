@@ -1,23 +1,26 @@
 import { HeartStraight } from "@phosphor-icons/react";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import Tooltip from "./Tooltip";
-import { useMutateFollowPlaylists } from "../hooks/useMutateFollow";
+import { useMutateFollowPlaylists } from "../hooks/useMutateFollowPlaylist";
 import { useState } from "react";
 
 function Playlist({ infos }: { infos: Playlist }) {
   const [showTooltip, setShowTooltip] = useState<TooltipProps>({ message: "" });
 
   const [follow, setFollow] = useState<boolean>(infos?.followed ? true : false);
-
+  
   const { mutate: mutateFollow } = useMutateFollowPlaylists();
 
   const handleFollow = async (playlist_id: string) => {
     mutateFollow({ playlist_id, follow });
+
     setShowTooltip({
       message: !follow ? "Followed" : "Unfollowed",
       color: !follow ? "" : "darkgreen",
     });
+    
     setFollow(!follow);
+
     setTimeout(() => {
       setShowTooltip({ message: "" });
     }, 2000);

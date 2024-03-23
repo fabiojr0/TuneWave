@@ -67,6 +67,8 @@ type Artist = {
     popularity?: number;
     type: string;
     uri: string;
+    followed?: boolean;
+
 };
 
 type Album = {
@@ -105,6 +107,8 @@ type Track = {
     track_number: number;
     type: string;
     uri: string;
+    followed?: boolean;
+
 };
 
 

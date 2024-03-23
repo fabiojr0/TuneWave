@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "../components/Button";
 import React from "react";
 import "react-loading-skeleton/dist/skeleton.css";
@@ -6,12 +6,33 @@ import Artist from "../components/Artist";
 import Login from "../components/Login";
 import { useAuth } from "../contexts/AuthContext";
 import { useFetchTopArtists } from "../hooks/useFetchTopArtists";
+import { useFetchFollowArtist } from "../hooks/useFetchFollowArtist";
 
 function TopArtists() {
+  const [userTopArtists, setUserTopArtists] = useState<Artist[]>();
   const [time_range, setTime_range] = useState<TimeRange>("medium_term");
   const authContext = useAuth();
 
-  const { data: userTopArtists, isLoading } = useFetchTopArtists(time_range);
+  const { data: userTopArtistsData, isLoading } =
+    useFetchTopArtists(time_range);
+
+  const { data: followData } = useFetchFollowArtist([
+    ...(userTopArtistsData?.slice(0, 50).map((item) => item.id) || ""),
+  ]);
+  const { data: followData2 } = useFetchFollowArtist([
+    ...(userTopArtistsData?.slice(50).map((item) => item.id) || ""),
+  ]);
+
+  useEffect(() => {
+    if (userTopArtistsData && (followData || followData2)) {
+      const updatedArtists = userTopArtistsData.map((artist, index) => {
+        const isFollowed =
+          index < 50 ? followData?.[index] : followData2?.[index - 50];
+        return { ...artist, followed: isFollowed };
+      });
+      setUserTopArtists(updatedArtists);
+    }
+  }, [userTopArtistsData, followData, followData2]);
 
   if (!authContext.accessToken) {
     return <Login />;
