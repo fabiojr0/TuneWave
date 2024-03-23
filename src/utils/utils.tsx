@@ -82,7 +82,7 @@ export const sortGenres = (genreData: ObjType) => {
     .map(([title, count]) => ({ title, count }))
     .sort((a, b) => b.count - a.count);
 
-  return sortedGenres;
+  return { data: sortedGenres, maxCount: Math.max(...sortedGenres.map(genre => genre.count)) };
 };
 
 export const capitalizeEachWord = (text: string) => {
