@@ -17,12 +17,7 @@ function ArtistScreen() {
 
   const { data: artistTracks } = useFetchArtistTopTracks(infos?.id || '', 10);
 
-  const { data: reccomendations } = useFetchRecommendations(
-    null,
-    infos?.id ? [infos.id] : null,
-    artistTracks?.slice(0, 4).map(a => a.id) || null,
-    10
-  );
+  const { data: reccomendations } = useFetchRecommendations(null, infos?.id ? [infos.id] : null, null, 10);
   ring2.register();
 
   if (!authContext.accessToken) {

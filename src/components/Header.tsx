@@ -1,6 +1,7 @@
 import {
   AlignLeft,
   CaretLeft,
+  Equalizer,
   House,
   List,
   MicrophoneStage,
@@ -44,6 +45,10 @@ function Header() {
       title: 'Top Artists',
       icon: <Record size={24} weight="fill" />,
     },
+    '/TopGenres/:time_range': {
+      title: 'Top Genres',
+      icon: <Equalizer size={24} weight="fill" />,
+    },
     '/Discover': {
       title: 'Discover',
       icon: <MusicNotesPlus size={24} weight="fill" />,
@@ -76,6 +81,9 @@ function Header() {
         break;
       case '/TopArtists/:time_range':
         setRoute(routeTitles['/TopArtists/:time_range']);
+        break;
+      case '/TopGenres/:time_range':
+        setRoute(routeTitles['/TopGenres/:time_range']);
         break;
       case '/Discover':
         setRoute(routeTitles['/Discover']);

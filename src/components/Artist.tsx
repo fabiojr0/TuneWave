@@ -4,6 +4,7 @@ import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import { Link } from 'react-router-dom';
 import { useMutateFollowArtist } from '../hooks/artist/useMutateFollowArtist';
 import Tooltip from './Tooltip';
+import { capitalizeEachWord } from '../utils/utils';
 
 function Artist({ infos, index }: { infos: Artist; index?: number }) {
   const [showTooltip, setShowTooltip] = useState<TooltipProps>({ message: '' });
@@ -11,7 +12,7 @@ function Artist({ infos, index }: { infos: Artist; index?: number }) {
 
   useEffect(() => {
     infos?.followed && setFollow(infos?.followed);
-  }, []);
+  }, [infos?.followed]);
 
   const { mutate: mutateFollow } = useMutateFollowArtist();
 
@@ -66,10 +67,12 @@ function Artist({ infos, index }: { infos: Artist; index?: number }) {
           </Link>
           {infos.genres && (
             <p className="text-sm font-medium text-zinc-300 line-clamp-1">
-              {infos.genres
-                .slice(0, 3)
-                .map(genre => genre)
-                .join(', ')}
+              {capitalizeEachWord(
+                infos.genres
+                  .slice(0, 3)
+                  .map(genre => genre)
+                  .join(', ')
+              )}
               {infos.genres.length > 3 && '...'}
             </p>
           )}
