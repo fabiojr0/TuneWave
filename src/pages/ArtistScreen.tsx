@@ -3,9 +3,9 @@ import { ring2 } from "ldrs";
 import Carousel from "../components/Carousel";
 import { useAuth } from "../contexts/AuthContext";
 import Login from "../components/Login";
-import { useFetchRecommendations } from "../hooks/useFetchRecommendations";
-import { useFetchArtistTopTracks } from "../hooks/useFetchArtistTopTracks";
-import { useFetchArtist } from "../hooks/useFetchArtist";
+import { useFetchRecommendations } from "../hooks/track/useFetchRecommendations";
+import { useFetchArtistTopTracks } from "../hooks/track/useFetchArtistTopTracks";
+import { useFetchArtist } from "../hooks/artist/useFetchArtist";
 import ShowArtist from "../components/ShowArtist";
 
 function ArtistScreen() {

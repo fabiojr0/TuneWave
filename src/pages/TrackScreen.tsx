@@ -4,9 +4,9 @@ import Carousel from "../components/Carousel";
 import ShowTrack from "../components/ShowTrack";
 import { useAuth } from "../contexts/AuthContext";
 import Login from "../components/Login";
-import { useFetchTrack } from "../hooks/useFetchTrack";
-import { useFetchRecommendations } from "../hooks/useFetchRecommendations";
-import { useFetchArtistTopTracks } from "../hooks/useFetchArtistTopTracks";
+import { useFetchTrack } from "../hooks/track/useFetchTrack";
+import { useFetchRecommendations } from "../hooks/track/useFetchRecommendations";
+import { useFetchArtistTopTracks } from "../hooks/track/useFetchArtistTopTracks";
 
 function TrackScreen() {
   const { id } = useParams();

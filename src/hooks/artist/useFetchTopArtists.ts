@@ -1,16 +1,16 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
-import api from "../setup/api";
+import api from "../../setup/api";
 
 
 interface FetchDataQueryKey {
     time_range: TimeRange;
 }
 
-const fetchData = async ({ queryKey }: QueryFunctionContext<[string, FetchDataQueryKey]>): Promise<Track[]> => {
+const fetchData = async ({ queryKey }: QueryFunctionContext<[string, FetchDataQueryKey]>): Promise<Artist[]> => {
     const [_, { time_range }] = queryKey;
 
-    const response = await api.get(`/me/top/tracks`, {
+    const response = await api.get(`/me/top/artists`, {
         params: {
             limit: 50,
             time_range
@@ -28,13 +28,13 @@ const fetchData = async ({ queryKey }: QueryFunctionContext<[string, FetchDataQu
     return response.data.items;
 };
 
-export function useFetchTopTracks(time_range: TimeRange) {
+export function useFetchTopArtists(time_range: TimeRange) {
     const query = useQuery({
         queryFn: fetchData,
-        queryKey: ["top-tracks", { time_range }],
+        queryKey: ["top-artists", { time_range }],
         retry: 3,
         staleTime: 1000 * 60 * 60,
-        placeholderData: [...Array(10)] as Track[]
+        placeholderData: [...Array(10)] as Artist[]
     });
 
     return query

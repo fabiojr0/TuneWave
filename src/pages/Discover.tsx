@@ -2,9 +2,9 @@ import React from "react";
 import Track from "../components/Track";
 import Login from "../components/Login";
 import { useAuth } from "../contexts/AuthContext";
-import { useFetchTopArtists } from "../hooks/useFetchTopArtists";
+import { useFetchTopArtists } from "../hooks/artist/useFetchTopArtists";
 import { getTopGenres } from "../utils/utils";
-import { useFetchRecommendations } from "../hooks/useFetchRecommendations";
+import { useFetchRecommendations } from "../hooks/track/useFetchRecommendations";
 
 function Discover() {
   const authContext = useAuth();

@@ -1,7 +1,7 @@
 import { HeartStraight } from "@phosphor-icons/react";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import Tooltip from "./Tooltip";
-import { useMutateFollowPlaylists } from "../hooks/useMutateFollowPlaylist";
+import { useMutateFollowPlaylists } from "../hooks/playlist/useMutateFollowPlaylist";
 import { useState } from "react";
 
 function Playlist({ infos }: { infos: Playlist }) {

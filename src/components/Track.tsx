@@ -1,25 +1,35 @@
-import { Link } from "react-router-dom";
-import Explicit from "./Explicit";
-import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import { Link } from 'react-router-dom';
+import Explicit from './Explicit';
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
+import { HeartStraight } from '@phosphor-icons/react';
+import { useState } from 'react';
+import Tooltip from './Tooltip';
+import { useMutateFollowTrack } from '../hooks/track/useMutateFollowTrack';
 
-function Track({
-  infos,
-  index,
-  collum,
-}: {
-  infos: Track;
-  index?: number;
-  collum?: boolean;
-}) {
+function Track({ infos, index, collum }: { infos: Track; index?: number; collum?: boolean }) {
+  const [showTooltip, setShowTooltip] = useState<TooltipProps>({ message: '' });
+  const [follow, setFollow] = useState<boolean>(infos?.followed ? true : false);
+
+  const { mutate: mutateFollow } = useMutateFollowTrack();
+
+  const handleFollow = async (track_id: string) => {
+    mutateFollow({ track_id, follow });
+
+    setShowTooltip({
+      message: !follow ? 'Saved' : 'Unsaved',
+      color: !follow ? '' : 'darkgreen',
+    });
+
+    setFollow(!follow);
+
+    setTimeout(() => {
+      setShowTooltip({ message: '' });
+    }, 2000);
+  };
+
   if (collum && !infos) {
     return (
-      <SkeletonTheme
-        baseColor="#585555"
-        highlightColor="#444"
-        key={index}
-        width={"100%"}
-        height={"100%"}
-      >
+      <SkeletonTheme baseColor="#585555" highlightColor="#444" key={index} width={'100%'} height={'100%'}>
         <div className="flex flex-col w-24">
           <Skeleton className="w-full aspect-square object-cover rounded" />
           <Skeleton />
@@ -39,9 +49,7 @@ function Track({
             loading="lazy"
           />
           <span className="flex items-center gap-2 w-full">
-            <p className="text-xs font-semibold line-clamp-1 w-full">
-              {infos.name}
-            </p>
+            <p className="text-xs font-semibold line-clamp-1 w-full">{infos.name}</p>
             {infos.explicit && <Explicit />}
           </span>
         </Link>
@@ -51,19 +59,13 @@ function Track({
 
   if (!infos) {
     return (
-      <SkeletonTheme
-        baseColor="#585555"
-        highlightColor="#444"
-        key={index}
-        width={"100%"}
-        height={"100%"}
-      >
+      <SkeletonTheme baseColor="#585555" highlightColor="#444" key={index} width={'100%'} height={'100%'}>
         <div className="flex items-center pl-4 gap-4 w-full">
           <Skeleton height={64} width={64} />
           <div className="w-full">
-            <Skeleton />
-            <Skeleton />
-            <Skeleton />
+            <Skeleton width={'70%'} />
+            <Skeleton width={'70%'} />
+            <Skeleton width={'70%'} />
           </div>
           <Skeleton height={24} width={24} circle />
         </div>
@@ -72,46 +74,43 @@ function Track({
   }
   return (
     <div className="flex items-center justify-between gap-4">
-      <Link
-        to={`/Track/${infos.id}`}
-        className="flex items-center justify-between gap-4"
-      >
+      <div className="flex items-center justify-between gap-4">
         {index && <p className="text-sm font-semibold min-w-7">{index}º</p>}
-        <img
-          src={infos.album.images[0].url}
-          alt={`${infos.name} cover`}
-          className="w-16 h-16 object-cover rounded"
-          loading="lazy"
-        />
+        <Link to={`/Track/${infos.id}`} className="w-16 h-16 aspect-square">
+          <img
+            src={infos.album.images[0].url}
+            alt={`${infos.name} cover`}
+            className="w-full h-fuw-full aspect-square object-cover rounded"
+            loading="lazy"
+          />
+        </Link>
         <div className="w-full">
-          <span className="flex items-center gap-2">
+          <Link to={`/Track/${infos.id}`} className="flex items-center gap-2">
             <p className="text-sm font-semibold line-clamp-1">{infos.name}</p>
             {infos.explicit && <Explicit />}
-          </span>
+          </Link>
           <p className="text-sm font-medium text-zinc-300 line-clamp-1">
-            {infos.artists
-              .slice(0, 3)
-              .map((artist) => artist.name)
-              .join(", ")}
-            {infos.artists.length > 3 && "..."}
+            {infos.artists[0].name} - {infos.album.name}
           </p>
-          <p className="text-sm font-medium text-zinc-300 line-clamp-1">
-            {infos.album.name}
-          </p>
+          <a className="flex items-end gap-2" href={infos.external_urls?.spotify} target="_blank">
+            <p className="text-xs text-lightGreen">Open on Spotify </p>
+            <img
+              src="./Spotify_Icon_RGB_Green.png"
+              alt="Open in Spotify"
+              className="min-h-[12px] min-w-[12px] w-3 h-3"
+            />
+          </a>
         </div>
-      </Link>
+      </div>
       <div>
-        <a
-          href={infos.external_urls.spotify}
-          target="_blank"
-          className="hover:scale-110 transition-all"
-        >
-          <img
-            src="../../Spotify_Icon_RGB_Green.png"
-            alt="Open in Spotify"
-            className="min-h-[24px] min-w-[24px] w-6 h-6"
+        <Tooltip message={showTooltip.message} color={showTooltip?.color}>
+          <HeartStraight
+            size={24}
+            weight={follow ? 'fill' : 'regular'}
+            color="#1ED760"
+            onClick={() => handleFollow(infos.id)}
           />
-        </a>
+        </Tooltip>
       </div>
     </div>
   );

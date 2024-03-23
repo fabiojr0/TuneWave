@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import api from "../setup/api";
+import api from "../../setup/api";
 
 const putData = async (data: { playlist_id: string, follow: boolean }) => {
     if (data.follow) {

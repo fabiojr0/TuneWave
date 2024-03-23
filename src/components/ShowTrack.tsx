@@ -2,7 +2,7 @@ import { ListPlus } from "@phosphor-icons/react";
 import { msToMinSeconds } from "../utils/utils";
 import Audio from "./Audio";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
-import { useMutateAddToQueue } from "../hooks/useMutateAddToQueue";
+import { useMutateAddToQueue } from "../hooks/track/useMutateAddToQueue";
 import { useState } from "react";
 import Tooltip from "./Tooltip";
 

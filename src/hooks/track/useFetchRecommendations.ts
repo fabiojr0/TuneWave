@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
-import api from "../setup/api";
+import api from "../../setup/api";
 
 
 interface FetchDataQueryKey {

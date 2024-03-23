@@ -1,9 +1,9 @@
 import { HeartStraight } from "@phosphor-icons/react";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
-import { useMutateFollowArtist } from "../hooks/useMutateFollowArtist";
+import { useMutateFollowArtist } from "../hooks/artist/useMutateFollowArtist";
 import { useEffect, useState } from "react";
 import Tooltip from "./Tooltip";
-import { useFetchFollowArtist } from "../hooks/useFetchFollowArtist";
+import { useFetchFollowArtist } from "../hooks/artist/useFetchFollowArtist";
 
 function ShowArtist({ infos }: { infos?: Artist }) {
   const [showTooltip, setShowTooltip] = useState<TooltipProps>({ message: "" });
