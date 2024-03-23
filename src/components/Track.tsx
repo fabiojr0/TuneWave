@@ -63,15 +63,16 @@ function Track({ infos, index, collum }: { infos: Track; index?: number; collum?
         <div className="flex items-center pl-4 gap-4 w-full">
           <Skeleton height={64} width={64} />
           <div className="w-full">
-            <Skeleton width={'70%'} />
-            <Skeleton width={'70%'} />
-            <Skeleton width={'70%'} />
+            <Skeleton />
+            <Skeleton />
+            <Skeleton />
           </div>
           <Skeleton height={24} width={24} circle />
         </div>
       </SkeletonTheme>
     );
   }
+
   return (
     <div className="flex items-center justify-between gap-4">
       <div className="flex items-center justify-between gap-4">

@@ -9,22 +9,20 @@ import {
   Record,
   VinylRecord,
   X,
-} from "@phosphor-icons/react";
-import AuthUser from "./AuthUser";
-import Navbar from "./Navbar";
-import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
-import { Link } from "react-router-dom";
-import Logo from "./Logo";
+} from '@phosphor-icons/react';
+import AuthUser from './AuthUser';
+import Navbar from './Navbar';
+import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import Logo from './Logo';
 
 function Header() {
   const [showNavbar, setShowNavbar] = useState(false);
   const [route, setRoute] = useState<RouteInfo>({
-    title: "Home",
+    title: 'Home',
     icon: <House size={24} weight="fill" />,
   });
-
-  type routes = "/" | "/TopTracks" | "/TopArtists" | "/Discover" | "/Track/:id";
 
   const location = useLocation();
 
@@ -34,50 +32,65 @@ function Header() {
   };
 
   const routeTitles = {
-    "/": {
-      title: "Home",
+    '/': {
+      title: 'Home',
       icon: <House size={24} weight="fill" />,
     },
-    "/TopTracks": {
-      title: "Top Tracks",
+    '/TopTracks/:time_range': {
+      title: 'Top Tracks',
       icon: <MusicNotes size={24} weight="fill" />,
     },
-    "/TopArtists": {
-      title: "Top Artists",
+    '/TopArtists/:time_range': {
+      title: 'Top Artists',
       icon: <Record size={24} weight="fill" />,
     },
-    "/Discover": {
-      title: "Discover",
+    '/Discover': {
+      title: 'Discover',
       icon: <MusicNotesPlus size={24} weight="fill" />,
     },
-    "/Callback": {
-      title: "Callback",
+    '/Callback': {
+      title: 'Callback',
       icon: <AlignLeft size={24} weight="fill" />,
     },
-    "/Track/:id": {
-      title: "Track Details",
+    '/Track/:id': {
+      title: 'Track Details',
       icon: <VinylRecord size={24} weight="fill" />,
     },
-    "/Artist/:id": {
-      title: "Track Details",
+    '/Artist/:id': {
+      title: 'Track Details',
       icon: <MicrophoneStage size={24} weight="fill" />,
     },
   };
 
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 
-    const pathname = location.pathname as routes;
+    const pathname = location.pathname;
 
-    if (routeTitles[pathname as routes]) {
-      setRoute(routeTitles[pathname as routes]);
-    }
-
-    if (pathname.startsWith("/Track/")) {
-      setRoute(routeTitles["/Track/:id"]);
-    }
-    if (pathname.startsWith("/Artist/")) {
-      setRoute(routeTitles["/Artist/:id"]);
+    switch (pathname) {
+      case '/':
+        setRoute(routeTitles['/']);
+        break;
+      case '/TopTracks/:time_range':
+        setRoute(routeTitles['/TopTracks/:time_range']);
+        break;
+      case '/TopArtists/:time_range':
+        setRoute(routeTitles['/TopArtists/:time_range']);
+        break;
+      case '/Discover':
+        setRoute(routeTitles['/Discover']);
+        break;
+      case '/Callback':
+        setRoute(routeTitles['/Callback']);
+        break;
+      case '/Track/:id':
+        setRoute(routeTitles['/Track/:id']);
+        break;
+      case '/Artist/:id':
+        setRoute(routeTitles['/Artist/:id']);
+        break;
+      default:
+        setRoute(routeTitles['/']);
     }
   }, [location.pathname]);
 
@@ -93,11 +106,11 @@ function Header() {
             <CaretLeft size={32} color="#ffffff" weight="regular" />
           </button>
         )}
-        <Link to={"/"} className="flex items-center gap-2">
+        <Link to={'/'} className="flex items-center gap-2">
           <Logo />
           <h1 className="font-bold text-lg">Sound Scout</h1>
         </Link>
-        <button onClick={(e) => handleShowNavbar(e)}>
+        <button onClick={e => handleShowNavbar(e)}>
           {showNavbar ? (
             <X size={32} color="#ffffff" weight="regular" />
           ) : (
