@@ -16,7 +16,7 @@ export function useMutateFollowTrack() {
     const mutate = useMutation({
         mutationFn: putData,
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ["artist-follow"] });
+            queryClient.invalidateQueries({ queryKey: ["tracks-follow"] });
         }
     });
 

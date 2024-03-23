@@ -78,7 +78,7 @@ function ShowArtist({ infos }: { infos?: Artist }) {
             </p>
           )}
         </span>
-        <span className="">
+        <span className="space-y-2">
           <a
             href={infos.external_urls.spotify}
             target="_blank"
