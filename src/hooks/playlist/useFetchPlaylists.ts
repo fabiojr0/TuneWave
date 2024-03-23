@@ -12,7 +12,7 @@ const fetchData = async ({ queryKey }: QueryFunctionContext<[string, FetchDataQu
     const [_, { user_id }] = queryKey;
 
     const response = await api.get(`/users/${user_id}/playlists`, { params: { limit: 50 } });
-
+    
     return response.data.items;
 };
 
@@ -20,9 +20,10 @@ export function useFetchPlaylists(user_id: string) {
     const query = useQuery({
         queryFn: fetchData,
         queryKey: ["my-playlists", { user_id }],
-        retry: 3,
+        retry: 1,
         staleTime: 1000 * 60 * 60,
-        placeholderData: [...Array(10)] as Playlist[]
+        enabled: !!user_id,
+        placeholderData: [...Array(10)] as Playlist[],
     });
 
     return query

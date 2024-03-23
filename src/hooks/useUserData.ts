@@ -13,7 +13,7 @@ export function useUserData() {
         queryFn: fetchData,
         queryKey: ["me"],
         staleTime: 1000 * 60 * 60,
-        retry: 3,
+        retry: 1,
         
     });
 

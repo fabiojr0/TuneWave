@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import React from 'react';
 import Track from '../components/Track';
 import 'react-loading-skeleton/dist/skeleton.css';
@@ -19,7 +19,6 @@ function TopTracks() {
     setTimeRange(time_range);
   };
 
-  const [userTopTracks, setUserTopTracks] = useState<Track[]>();
   const authContext = useAuth();
 
   const { data: userTopTracksData, isLoading } = useFetchTopTracks(timeRange);
@@ -30,18 +29,6 @@ function TopTracks() {
 
   const { data: followData2 } = useFetchFollowTracks(validTracksIds?.slice(50) || []);
 
-  useEffect(() => {
-    if (userTopTracksData && (followData || followData2)) {
-      const updatedArtists = userTopTracksData.map((artist, index) => {
-        const isFollowed = index < 50 ? followData?.[index] : followData2?.[index - 50];
-        return { ...artist, followed: isFollowed };
-      });
-      setUserTopTracks(updatedArtists);
-    } else {
-      setUserTopTracks(userTopTracksData);
-    }
-  }, [userTopTracksData, followData, followData2]);
-
   if (!authContext.accessToken) {
     return <Login />;
   }
@@ -50,7 +37,13 @@ function TopTracks() {
     <main className="w-full h-full space-y-4">
       <TimeRangeButtons chageTimeRange={chageTimeRange} time_range={timeRange} isLoading={isLoading} />
       <div className="space-y-4">
-        {userTopTracks?.map((item, index) => {
+        {userTopTracksData?.map((item, index) => {
+          if (item) {
+            item = {
+              ...item,
+              followed: index < 50 ? followData?.[index] : followData2?.[index - 50] ?? false,
+            };
+          }
           return (
             <React.Fragment key={index}>
               <Track infos={item} index={index + 1} />

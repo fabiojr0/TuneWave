@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import React from 'react';
 import 'react-loading-skeleton/dist/skeleton.css';
 import Artist from '../components/Artist';
@@ -19,7 +19,6 @@ function TopArtists() {
     setTimeRange(time_range);
   };
 
-  const [userTopArtists, setUserTopArtists] = useState<Artist[]>();
   const authContext = useAuth();
 
   const { data: userTopArtistsData, isLoading } = useFetchTopArtists(timeRange);
@@ -30,18 +29,6 @@ function TopArtists() {
 
   const { data: followData2 } = useFetchFollowArtist(validArtistIds?.slice(50) || []);
 
-  useEffect(() => {
-    if (userTopArtistsData && (followData || followData2)) {
-      const updatedArtists = userTopArtistsData.map((artist, index) => {
-        const isFollowed = index < 50 ? followData?.[index] : followData2?.[index - 50];
-        return { ...artist, followed: isFollowed };
-      });
-      setUserTopArtists(updatedArtists);
-    } else {
-      setUserTopArtists(userTopArtistsData);
-    }
-  }, [userTopArtistsData, followData, followData2]);
-
   if (!authContext.accessToken) {
     return <Login />;
   }
@@ -50,7 +37,13 @@ function TopArtists() {
     <main className="w-full h-full space-y-4">
       <TimeRangeButtons chageTimeRange={chageTimeRange} time_range={timeRange} isLoading={isLoading} />
       <div className="space-y-4">
-        {userTopArtists?.map((item, index) => {
+        {userTopArtistsData?.map((item, index) => {
+          if (item) {
+            item = {
+              ...item,
+              followed: index < 50 ? followData?.[index] : followData2?.[index - 50] ?? false,
+            };
+          }
           return (
             <React.Fragment key={index}>
               <Artist infos={item} index={index + 1} />

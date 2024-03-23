@@ -2,13 +2,17 @@ import { Link } from 'react-router-dom';
 import Explicit from './Explicit';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import { HeartStraight } from '@phosphor-icons/react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Tooltip from './Tooltip';
 import { useMutateFollowTrack } from '../hooks/track/useMutateFollowTrack';
 
 function Track({ infos, index, collum }: { infos: Track; index?: number; collum?: boolean }) {
   const [showTooltip, setShowTooltip] = useState<TooltipProps>({ message: '' });
-  const [follow, setFollow] = useState<boolean>(infos?.followed ? true : false);
+  const [follow, setFollow] = useState<boolean>(false);
+
+  useEffect(() => {
+    infos?.followed && setFollow(infos?.followed);
+  }, [infos?.followed]);
 
   const { mutate: mutateFollow } = useMutateFollowTrack();
 
@@ -57,7 +61,7 @@ function Track({ infos, index, collum }: { infos: Track; index?: number; collum?
     );
   }
 
-  if (!infos) {
+  if (!infos || infos === undefined) {
     return (
       <SkeletonTheme baseColor="#585555" highlightColor="#444" key={index} width={'100%'} height={'100%'}>
         <div className="flex items-center pl-4 gap-4 w-full">

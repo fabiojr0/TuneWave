@@ -1,5 +1,5 @@
 import { HeartStraight } from '@phosphor-icons/react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import { Link } from 'react-router-dom';
 import { useMutateFollowArtist } from '../hooks/artist/useMutateFollowArtist';
@@ -7,7 +7,11 @@ import Tooltip from './Tooltip';
 
 function Artist({ infos, index }: { infos: Artist; index?: number }) {
   const [showTooltip, setShowTooltip] = useState<TooltipProps>({ message: '' });
-  const [follow, setFollow] = useState<boolean>(infos?.followed ? true : false);
+  const [follow, setFollow] = useState<boolean>(false);
+
+  useEffect(() => {
+    infos?.followed && setFollow(infos?.followed);
+  }, []);
 
   const { mutate: mutateFollow } = useMutateFollowArtist();
 
