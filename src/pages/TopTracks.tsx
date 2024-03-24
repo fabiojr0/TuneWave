@@ -25,9 +25,7 @@ function TopTracks() {
 
   const validTracksIds = userTopTracksData?.filter(track => track && track.id).map(track => track.id);
 
-  const { data: followData } = useFetchFollowTracks(validTracksIds?.slice(0, 50) || []);
-
-  const { data: followData2 } = useFetchFollowTracks(validTracksIds?.slice(50) || []);
+  const { data: followData } = useFetchFollowTracks(validTracksIds || []);
 
   if (!authContext.accessToken) {
     return <Login />;
@@ -41,7 +39,7 @@ function TopTracks() {
           if (item) {
             item = {
               ...item,
-              followed: index < 50 ? followData?.[index] : followData2?.[index - 50] ?? false,
+              followed: followData?.[index] ?? false,
             };
           }
           return (

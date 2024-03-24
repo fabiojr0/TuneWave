@@ -3,7 +3,7 @@ import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import { useMutateFollowArtist } from "../hooks/artist/useMutateFollowArtist";
 import { useEffect, useState } from "react";
 import Tooltip from "./Tooltip";
-import { useFetchFollowArtist } from "../hooks/artist/useFetchFollowArtist";
+import { useFetchFollowArtist } from "../hooks/artist/useFetchFollowArtists";
 
 function ShowArtist({ infos }: { infos?: Artist }) {
   const [showTooltip, setShowTooltip] = useState<TooltipProps>({ message: "" });

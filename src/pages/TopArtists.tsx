@@ -5,9 +5,9 @@ import Artist from '../components/Artist';
 import Login from '../components/Login';
 import { useAuth } from '../contexts/AuthContext';
 import { useFetchTopArtists } from '../hooks/artist/useFetchTopArtists';
-import { useFetchFollowArtist } from '../hooks/artist/useFetchFollowArtist';
 import { useNavigate, useParams } from 'react-router-dom';
 import TimeRangeButtons from '../components/TimeRangeButtons';
+import { useFetchFollowArtists } from '../hooks/artist/useFetchFollowArtists';
 
 function TopArtists() {
   const { time_range = 'medium_term' } = useParams();
@@ -25,9 +25,7 @@ function TopArtists() {
 
   const validArtistIds = userTopArtistsData?.filter(artist => artist && artist.id).map(artist => artist.id);
 
-  const { data: followData } = useFetchFollowArtist(validArtistIds?.slice(0, 50) || []);
-
-  const { data: followData2 } = useFetchFollowArtist(validArtistIds?.slice(50) || []);
+  const { data: followData } = useFetchFollowArtists(validArtistIds || []);
 
   if (!authContext.accessToken) {
     return <Login />;
@@ -41,7 +39,7 @@ function TopArtists() {
           if (item) {
             item = {
               ...item,
-              followed: index < 50 ? followData?.[index] : followData2?.[index - 50] ?? false,
+              followed: followData?.[index] ?? false,
             };
           }
           return (

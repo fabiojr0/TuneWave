@@ -1,28 +1,28 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
+import { useQueries } from "@tanstack/react-query";
 import api from "../../setup/api";
 
-
-interface FetchDataQueryKey {
-    ids: string[];
-}
-
-const fetchData = async ({ queryKey }: QueryFunctionContext<[string, FetchDataQueryKey]>): Promise<boolean[]> => {
-    const [_, { ids }] = queryKey;
-
+const fetchData = async (ids: string[]): Promise<boolean[]> => {
     const response = await api.get(`/me/tracks/contains`, { params: { ids: ids.join(",") } });
-
     return response.data;
 };
 
-export function useFetchFollowTracks(ids: string[]) {
-    const query = useQuery({
-        queryFn: fetchData,
-        queryKey: ["tracks-follow", { ids }],
-        retry: 3,
-        refetchInterval: 1000 * 60 * 1,
-        enabled: !!ids && ids.length > 0,
+export const useFetchFollowTracks = (ids: string[]) => {
+    const idsChunks = [];
+    for (let i = 0; i < ids.length; i += 50) {
+        idsChunks.push(ids.slice(i, i + 50));
+    }
+
+    const results = useQueries({
+        queries: idsChunks.map((chunk) => ({
+            queryKey: ['tracks-follow', chunk],
+            queryFn: () => fetchData(chunk),
+            retry: 3,
+            refetchInterval: 1000 * 60 * 1,
+            enabled: !!chunk.length,
+        })),
     });
 
-    return query
-}
+    const data = results.flatMap(result => result.data || []);
+
+    return { data, isLoading: results.some(result => result.isLoading) };
+};
