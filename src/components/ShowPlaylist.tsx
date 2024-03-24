@@ -1,6 +1,6 @@
 import { HeartStraight } from '@phosphor-icons/react';
 import { useState, useEffect } from 'react';
-import { useFetchFollowPlaylists } from '../hooks/playlist/useFetchFollowPlaylists';
+import { useFetchUserPlaylists } from '../hooks/playlist/useFetchUserPlaylists';
 import { useMutateFollowPlaylists } from '../hooks/playlist/useMutateFollowPlaylist';
 import Tooltip from './Tooltip';
 import Track from './Track';
@@ -11,7 +11,7 @@ function ShowPlaylist({ infos }: { infos: Playlist }) {
 
   const [follow, setFollow] = useState<boolean>(infos?.followed ? true : false);
 
-  const { data: followData } = useFetchFollowPlaylists([infos?.id || '']);
+  const { data: followData } = useFetchUserPlaylists();
 
   const validTracksIds = infos?.tracks?.items
     ?.filter(track => track.track && track.track.id)

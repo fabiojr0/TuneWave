@@ -70,9 +70,13 @@ function Header() {
       title: 'Playlist Details',
       icon: <Playlist size={24} weight="fill" />,
     },
+    '/MyPlaylists': {
+      title: 'My Playlists',
+      icon: <Playlist size={24} weight="fill" />,
+    },
   };
 
-  console.log(location.pathname, route);
+  // console.log(location.pathname, route);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -97,6 +101,8 @@ function Header() {
       setRoute(routeTitles['/Artist/:id']);
     } else if (pathname.startsWith('/Playlist')) {
       setRoute(routeTitles['/Playlist/:id']);
+    } else if (pathname.startsWith('/MyPlaylists')) {
+      setRoute(routeTitles['/MyPlaylists']);
     } else {
       setRoute(routeTitles['/']);
     }

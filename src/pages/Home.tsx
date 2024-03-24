@@ -2,7 +2,7 @@ import React from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import Login from '../components/Login';
 import { useFetchPlaylistsByUser } from '../hooks/playlist/useFetchPlaylistsByUser';
-import { useFetchFollowPlaylists } from '../hooks/playlist/useFetchFollowPlaylists';
+import { useFetchUserPlaylists } from '../hooks/playlist/useFetchUserPlaylists';
 import Playlist from '../components/Playlist';
 
 function Home() {
@@ -12,9 +12,7 @@ function Home() {
 
   const { data: fabiojr0_playlists } = useFetchPlaylistsByUser(fabiojr0_id);
 
-  const playlistIds = fabiojr0_playlists?.map(playlist => playlist?.id) ?? [];
-
-  const { data: followedPlaylists } = useFetchFollowPlaylists(playlistIds);
+  const { data: followedPlaylists } = useFetchUserPlaylists();
 
   if (!authContext.accessToken) {
     return <Login />;

@@ -8,6 +8,7 @@ import TrackScreen from './pages/TrackScreen';
 import ArtistScreen from './pages/ArtistScreen';
 import TopGenres from './pages/TopGenres';
 import PlaylistScreen from './pages/PlaylistScreen';
+import UserPlaylists from './pages/UserPlaylists';
 
 function Root() {
   return (
@@ -21,6 +22,7 @@ function Root() {
       <Route path="/Track/:id" element={<TrackScreen />} />
       <Route path="/Artist/:id" element={<ArtistScreen />} />
       <Route path="/Playlist/:id" element={<PlaylistScreen />} />
+      <Route path="/MyPlaylists" element={<UserPlaylists />} />
     </Routes>
   );
 }

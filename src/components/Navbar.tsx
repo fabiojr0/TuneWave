@@ -13,6 +13,7 @@ function Navbar({ showNavbar, setShowNavbar }: { showNavbar: boolean; setShowNav
     { link: '/TopArtists', title: 'Top Artists' },
     { link: '/TopGenres', title: 'Top Genres' },
     { link: '/Discover', title: 'Discover' },
+    { link: '/MyPlaylists', title: 'My Playlists' },
   ];
 
   const navbarRef = useRef<HTMLElement>(null);
