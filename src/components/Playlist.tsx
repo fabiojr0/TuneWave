@@ -3,6 +3,7 @@ import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import Tooltip from './Tooltip';
 import { useMutateFollowPlaylists } from '../hooks/playlist/useMutateFollowPlaylist';
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 function Playlist({ infos }: { infos: Playlist }) {
   const [showTooltip, setShowTooltip] = useState<TooltipProps>({ message: '' });
@@ -49,15 +50,19 @@ function Playlist({ infos }: { infos: Playlist }) {
   return (
     <div className="flex items-center gap-4 justify-between">
       {infos.images && (
-        <img
-          src={infos.images[0].url}
-          alt={`${infos.name} cover`}
-          className="w-16 h-16 aspect-square object-cover rounded"
-          loading="lazy"
-        />
+        <Link to={`/Playlist/${infos.id}`} className="w-16 h-16 aspect-square">
+          <img
+            src={infos.images[0].url}
+            alt={`${infos.name} cover`}
+            className="w-full h-full aspect-square object-cover rounded"
+            loading="lazy"
+          />
+        </Link>
       )}
       <div className="w-full">
-        <p className="text-sm font-semibold">{infos.name}</p>
+        <Link to={`/Playlist/${infos.id}`} className="w-full">
+          <p className="text-sm font-semibold">{infos.name}</p>
+        </Link>
         <p className="text-xs text-zinc-300 font-medium">{infos.description}</p>
         <a className="flex items-end gap-2" href={infos.external_urls?.spotify} target="_blank">
           <p className="text-xs text-lightGreen">Open on Spotify </p>

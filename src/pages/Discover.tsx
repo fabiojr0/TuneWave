@@ -25,28 +25,26 @@ function Discover() {
   }
 
   return (
-    <main>
-      <div className="space-y-4">
-        <span className="flex items-center justify-between">
-          <span>
-            <h2 className="font-semibold text-lg">Reccomended tracks for you</h2>
-            <p className="text-zinc-300 text-sm">Based on your top genres</p>
-          </span>
+    <main className="space-y-4">
+      <span className="flex items-center justify-between">
+        <span>
+          <h2 className="font-semibold text-lg">Reccomended tracks for you</h2>
+          <p className="text-zinc-300 text-sm">Based on your top genres</p>
         </span>
-        {recommendations?.map((item, index) => {
-          if (item) {
-            item = {
-              ...item,
-              followed: followData?.[index] ?? false,
-            };
-          }
-          return (
-            <React.Fragment key={index}>
-              <Track infos={item} index={index + 1} />
-            </React.Fragment>
-          );
-        })}
-      </div>
+      </span>
+      {recommendations?.map((item, index) => {
+        if (item) {
+          item = {
+            ...item,
+            followed: followData?.[index] ?? false,
+          };
+        }
+        return (
+          <React.Fragment key={index}>
+            <Track infos={item} index={index + 1} />
+          </React.Fragment>
+        );
+      })}
     </main>
   );
 }

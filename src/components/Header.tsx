@@ -7,6 +7,7 @@ import {
   MicrophoneStage,
   MusicNotes,
   MusicNotesPlus,
+  Playlist,
   Record,
   VinylRecord,
   X,
@@ -65,6 +66,10 @@ function Header() {
       title: 'Track Details',
       icon: <MicrophoneStage size={24} weight="fill" />,
     },
+    '/Playlist/:id': {
+      title: 'Playlist Details',
+      icon: <Playlist size={24} weight="fill" />,
+    },
   };
 
   useEffect(() => {
@@ -96,6 +101,9 @@ function Header() {
         break;
       case '/Artist/:id':
         setRoute(routeTitles['/Artist/:id']);
+        break;
+      case '/Playlist/:id':
+        setRoute(routeTitles['/Playlist/:id']);
         break;
       default:
         setRoute(routeTitles['/']);

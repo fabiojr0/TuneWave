@@ -126,7 +126,14 @@ type Playlist = {
     tracks: {
         href: string;
         total: number;
+        items: [
+            { track: Track }
+        ]
     };
+    followers: {
+        href: string | null;
+        total: number;
+    }
     type: string;
     uri: string;
     followed?: boolean;

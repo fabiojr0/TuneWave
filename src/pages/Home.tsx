@@ -1,7 +1,7 @@
 import React from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import Login from '../components/Login';
-import { useFetchPlaylists } from '../hooks/playlist/useFetchPlaylists';
+import { useFetchPlaylistsByUser } from '../hooks/playlist/useFetchPlaylistsByUser';
 import { useFetchFollowPlaylists } from '../hooks/playlist/useFetchFollowPlaylists';
 import Playlist from '../components/Playlist';
 
@@ -10,7 +10,7 @@ function Home() {
 
   const fabiojr0_id = '21sgcpvydztoxlgbj7ay3u2la';
 
-  const { data: fabiojr0_playlists } = useFetchPlaylists(fabiojr0_id);
+  const { data: fabiojr0_playlists } = useFetchPlaylistsByUser(fabiojr0_id);
 
   const playlistIds = fabiojr0_playlists?.map(playlist => playlist?.id) ?? [];
 

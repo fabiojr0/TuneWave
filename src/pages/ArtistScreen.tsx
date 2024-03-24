@@ -25,14 +25,12 @@ function ArtistScreen() {
   }
 
   return (
-    <main>
+    <main className="space-y-4">
+      <ShowArtist infos={infos} />
       <div className="space-y-4">
-        <ShowArtist infos={infos} />
-        <div className="space-y-4">
-          <h2 className="font-semibold"></h2>
-          <Carousel infos={reccomendations} title="Reccomended Tracks" />
-          <Carousel infos={artistTracks} title={`${infos ? infos?.name : 'Artist'} Top Tracks`} />
-        </div>
+        <h2 className="font-semibold"></h2>
+        <Carousel infos={reccomendations} title="Reccomended Tracks" />
+        <Carousel infos={artistTracks} title={`${infos ? infos?.name : 'Artist'} Top Tracks`} />
       </div>
     </main>
   );

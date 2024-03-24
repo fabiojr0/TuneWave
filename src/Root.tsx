@@ -7,6 +7,7 @@ import TopTracks from './pages/TopTracks';
 import TrackScreen from './pages/TrackScreen';
 import ArtistScreen from './pages/ArtistScreen';
 import TopGenres from './pages/TopGenres';
+import PlaylistScreen from './pages/PlaylistScreen';
 
 function Root() {
   return (
@@ -19,6 +20,7 @@ function Root() {
       <Route path="/Callback" element={<Callback />} />
       <Route path="/Track/:id" element={<TrackScreen />} />
       <Route path="/Artist/:id" element={<ArtistScreen />} />
+      <Route path="/Playlist/:id" element={<PlaylistScreen />} />
     </Routes>
   );
 }
