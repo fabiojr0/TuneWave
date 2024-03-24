@@ -49,7 +49,7 @@ function Navbar({ showNavbar, setShowNavbar }: { showNavbar: boolean; setShowNav
   return (
     <nav
       className={`bg-black flex flex-col gap-4 w-full absolute bottom-0-0 left-0 z-50 px-4 border-b-[1px] border-white ${
-        showNavbar ? 'h-64 py-4' : 'h-0 py-0'
+        showNavbar ? 'h-72 py-4' : 'h-0 py-0'
       }
       transition-[height] duration-300 ease-in-out overflow-hidden`}
       ref={navbarRef}
