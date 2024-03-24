@@ -1,4 +1,4 @@
-import { HeartStraight, ListPlus } from '@phosphor-icons/react';
+import { HeartStraight, Queue } from '@phosphor-icons/react';
 import { msToMinSeconds } from '../utils/utils';
 import Audio from './Audio';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
@@ -123,7 +123,7 @@ function ShowTrack({ infos }: { infos?: Track }) {
         <Tooltip message={showTooltipQueue.message} color={showTooltipQueue.color}>
           <button onClick={() => addToQueue(infos.uri)} className="flex items-center gap-2">
             <p>Add To Queue</p>
-            <ListPlus size={20} color="#ffffff" weight="fill" />
+            <Queue size={20} color="#ffffff" weight="fill" />
           </button>
         </Tooltip>
       </span>

@@ -4,6 +4,7 @@ import {
   Equalizer,
   House,
   List,
+  ListPlus,
   MicrophoneStage,
   MusicNotes,
   MusicNotesPlus,
@@ -72,7 +73,7 @@ function Header() {
     },
     '/MyPlaylists': {
       title: 'My Playlists',
-      icon: <Playlist size={24} weight="fill" />,
+      icon: <ListPlus size={24} weight="fill" />,
     },
   };
 
