@@ -83,7 +83,7 @@ function Track({ infos, index, collum }: { infos: Track; index?: number; collum?
         {index && <p className="text-sm font-semibold min-w-7">{index}º</p>}
         <Link to={`/Track/${infos.id}`} className="w-16 h-16 aspect-square">
           <img
-            src={infos.album.images[0].url}
+            src={infos.album.images[0]?.url}
             alt={`${infos.name} cover`}
             className="w-full h-fuw-full aspect-square object-cover rounded"
             loading="lazy"

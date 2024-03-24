@@ -38,15 +38,15 @@ function Header() {
       title: 'Home',
       icon: <House size={24} weight="fill" />,
     },
-    '/TopTracks/:time_range': {
+    '/TopTracks/:time_range?': {
       title: 'Top Tracks',
       icon: <MusicNotes size={24} weight="fill" />,
     },
-    '/TopArtists/:time_range': {
+    '/TopArtists/:time_range?': {
       title: 'Top Artists',
       icon: <Record size={24} weight="fill" />,
     },
-    '/TopGenres/:time_range': {
+    '/TopGenres/:time_range?': {
       title: 'Top Genres',
       icon: <Equalizer size={24} weight="fill" />,
     },
@@ -63,7 +63,7 @@ function Header() {
       icon: <VinylRecord size={24} weight="fill" />,
     },
     '/Artist/:id': {
-      title: 'Track Details',
+      title: 'Artist Details',
       icon: <MicrophoneStage size={24} weight="fill" />,
     },
     '/Playlist/:id': {
@@ -72,41 +72,33 @@ function Header() {
     },
   };
 
+  console.log(location.pathname, route);
+
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 
     const pathname = location.pathname;
 
-    switch (pathname) {
-      case '/':
-        setRoute(routeTitles['/']);
-        break;
-      case '/TopTracks/:time_range':
-        setRoute(routeTitles['/TopTracks/:time_range']);
-        break;
-      case '/TopArtists/:time_range':
-        setRoute(routeTitles['/TopArtists/:time_range']);
-        break;
-      case '/TopGenres/:time_range':
-        setRoute(routeTitles['/TopGenres/:time_range']);
-        break;
-      case '/Discover':
-        setRoute(routeTitles['/Discover']);
-        break;
-      case '/Callback':
-        setRoute(routeTitles['/Callback']);
-        break;
-      case '/Track/:id':
-        setRoute(routeTitles['/Track/:id']);
-        break;
-      case '/Artist/:id':
-        setRoute(routeTitles['/Artist/:id']);
-        break;
-      case '/Playlist/:id':
-        setRoute(routeTitles['/Playlist/:id']);
-        break;
-      default:
-        setRoute(routeTitles['/']);
+    if (pathname === '/') {
+      setRoute(routeTitles['/']);
+    } else if (pathname.startsWith('/TopTracks')) {
+      setRoute(routeTitles['/TopTracks/:time_range?']);
+    } else if (pathname.startsWith('/TopArtists')) {
+      setRoute(routeTitles['/TopArtists/:time_range?']);
+    } else if (pathname.startsWith('/TopGenres')) {
+      setRoute(routeTitles['/TopGenres/:time_range?']);
+    } else if (pathname === '/Discover') {
+      setRoute(routeTitles['/Discover']);
+    } else if (pathname === '/Callback') {
+      setRoute(routeTitles['/Callback']);
+    } else if (pathname.startsWith('/Track')) {
+      setRoute(routeTitles['/Track/:id']);
+    } else if (pathname.startsWith('/Artist')) {
+      setRoute(routeTitles['/Artist/:id']);
+    } else if (pathname.startsWith('/Playlist')) {
+      setRoute(routeTitles['/Playlist/:id']);
+    } else {
+      setRoute(routeTitles['/']);
     }
   }, [location.pathname]);
 
