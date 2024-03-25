@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Track from '../components/Track';
 import Login from '../components/Login';
 import { useAuth } from '../contexts/AuthContext';
@@ -6,9 +6,12 @@ import { useFetchTopArtists } from '../hooks/artist/useFetchTopArtists';
 import { getTopGenres } from '../utils/utils';
 import { useFetchRecommendations } from '../hooks/track/useFetchRecommendations';
 import { useFetchFollowTracks } from '../hooks/track/useFetchFollowTracks';
+import CreatePlaylistModal from '../components/CreatePlaylistModal';
 
 function Discover() {
   const authContext = useAuth();
+
+  const [showModal, setShowModal] = useState<boolean>(false);
 
   const { data: topArtists } = useFetchTopArtists('long_term');
 
@@ -30,6 +33,9 @@ function Discover() {
         <span>
           <h2 className="font-semibold text-lg">Reccomended tracks for you</h2>
           <p className="text-zinc-300 text-sm">Based on your top genres</p>
+          <button className="text-lightGreen" onClick={() => setShowModal(!showModal)}>
+            Create Playlist Based on your Top Tracks
+          </button>
         </span>
       </span>
       {recommendations?.map((item, index) => {
@@ -45,6 +51,14 @@ function Discover() {
           </React.Fragment>
         );
       })}
+      {showModal && (
+        <CreatePlaylistModal
+          uris={recommendations?.map(track => track?.uri) || []}
+          name={`Discover Tracks`}
+          description={`Tracks to discover based on my hearing history. Created By FB Sound Scout.`}
+          setShowModal={setShowModal}
+        />
+      )}
     </main>
   );
 }
