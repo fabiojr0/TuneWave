@@ -8,10 +8,14 @@ import { useFetchTopTracks } from '../hooks/track/useFetchTopTracks';
 import { useFetchFollowTracks } from '../hooks/track/useFetchFollowTracks';
 import { useNavigate, useParams } from 'react-router-dom';
 import TimeRangeButtons from '../components/TimeRangeButtons';
+import CreatePlaylistModal from '../components/CreatePlaylistModal';
 
 function TopTracks() {
   const { time_range = 'medium_term' } = useParams();
   const [timeRange, setTimeRange] = useState<TimeRange>(time_range as TimeRange);
+
+  const [showModal, setShowModal] = useState<boolean>(false);
+
   const navigate = useNavigate();
 
   const chageTimeRange = (time_range: TimeRange) => {
@@ -34,6 +38,9 @@ function TopTracks() {
   return (
     <main className="w-full h-full space-y-4">
       <TimeRangeButtons chageTimeRange={chageTimeRange} time_range={timeRange} isLoading={isLoading} />
+      <button className="text-lightGreen" onClick={() => setShowModal(!showModal)}>
+        Create Playlist Based on your Top Tracks
+      </button>
       <div className="space-y-4">
         {userTopTracksData?.map((item, index) => {
           if (item) {
@@ -49,6 +56,14 @@ function TopTracks() {
           );
         })}
       </div>
+      {showModal && (
+        <CreatePlaylistModal
+          uris={userTopTracksData?.map(track => track?.uri) || []}
+          name={`My Top Tracks - ${timeRange === 'short_term' ? 'Last 4 Weeks' : timeRange === 'medium_term' ? 'Last 6 Months' : 'All Time'}`}
+          description={`My top tracks based on my listening history. Created By FB Sound Scout.`}
+          setShowModal={setShowModal}
+        />
+      )}
     </main>
   );
 }
