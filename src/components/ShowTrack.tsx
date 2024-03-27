@@ -29,7 +29,7 @@ function ShowTrack({ infos }: { infos?: Track }) {
     mutateFollow({ track_id, follow });
 
     setShowTooltip({
-      message: !follow ? 'Followed' : 'Unfollowed',
+      message: !follow ? 'Added to Liked Songs' : 'Removed from Liked Songs',
       color: !follow ? '' : 'darkgreen',
     });
 

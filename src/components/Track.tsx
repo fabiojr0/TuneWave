@@ -20,7 +20,7 @@ function Track({ infos, index, collum }: { infos: Track; index?: number; collum?
     mutateFollow({ track_id, follow });
 
     setShowTooltip({
-      message: !follow ? 'Saved' : 'Unsaved',
+      message: !follow ? 'Added to Liked Songs' : 'Removed from Liked Songs',
       color: !follow ? '' : 'darkgreen',
     });
 
