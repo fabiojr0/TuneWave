@@ -35,6 +35,7 @@ export function useFetchRecommendations(seed_genres: string[] | null,
         placeholderData: [...Array(10)] as Track[],
         staleTime: 1000 * 60 * 1,
         refetchOnWindowFocus: false,
+        enabled: !!seed_genres || !!seed_artists || !!seed_tracks,
         refetchOnReconnect: false,
     });
 
