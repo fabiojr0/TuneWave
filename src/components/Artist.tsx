@@ -5,6 +5,7 @@ import { useMutateFollowArtist } from '../hooks/artist/useMutateFollowArtist';
 import Tooltip from './Tooltip';
 import { capitalizeEachWord } from '../utils/utils';
 import SkeletonDefault from './Skeleton/SkeletonDefault';
+import ItemInfos from './ItemInfos';
 
 function Artist({ infos, index }: { infos: Artist; index: number }) {
   const [showTooltip, setShowTooltip] = useState<TooltipProps>({ message: '' });
@@ -49,30 +50,22 @@ function Artist({ infos, index }: { infos: Artist; index: number }) {
             />
           </Link>
         )}
-        <div className="w-full">
-          <Link to={`/Artist/${infos.id}`}>
-            <p className="text-sm font-semibold line-clamp-1">{infos.name}</p>
-          </Link>
-          {infos.genres && (
-            <p className="text-sm font-medium text-zinc-300 line-clamp-1">
-              {capitalizeEachWord(
-                infos.genres
-                  .slice(0, 3)
-                  .map(genre => genre)
-                  .join(', ')
-              )}
-              {infos.genres.length > 3 && '...'}
-            </p>
-          )}
-          <a className="flex items-end gap-2" href={infos.external_urls?.spotify} target="_blank">
-            <p className="text-xs text-lightGreen">Open on Spotify </p>
-            <img
-              src="./Spotify_Icon_RGB_Green.png"
-              alt="Open in Spotify"
-              className="min-h-[12px] min-w-[12px] w-3 h-3"
-            />
-          </a>
-        </div>
+        <ItemInfos
+          title={infos.name}
+          description={
+            infos.genres
+              ? `${capitalizeEachWord(
+                  infos.genres
+                    .slice(0, 3)
+                    .map(genre => genre)
+                    .join(', ')
+                )}
+          ${infos.genres.length > 3 ? '...' : ''}`
+              : ''
+          }
+          spotifyUrl={infos.external_urls.spotify}
+          redirectUrl={`/Artist/${infos.id}`}
+        />
       </div>
       <div>
         <Tooltip message={showTooltip.message} color={showTooltip?.color}>

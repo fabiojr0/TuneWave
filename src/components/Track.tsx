@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import Tooltip from './Tooltip';
 import { useMutateFollowTrack } from '../hooks/track/useMutateFollowTrack';
 import SkeletonDefault from './Skeleton/SkeletonDefault';
+import ItemInfos from './ItemInfos';
 
 function Track({ infos, index, collum }: { infos: Track; index: number; collum?: boolean }) {
   const [showTooltip, setShowTooltip] = useState<TooltipProps>({ message: '' });
@@ -66,23 +67,13 @@ function Track({ infos, index, collum }: { infos: Track; index: number; collum?:
             loading="lazy"
           />
         </Link>
-        <div className="w-full">
-          <Link to={`/Track/${infos.id}`} className="flex items-center gap-2">
-            <p className="text-sm font-semibold line-clamp-1">{infos.name}</p>
-            {infos.explicit && <Explicit />}
-          </Link>
-          <p className="text-sm font-medium text-zinc-300 line-clamp-1">
-            {infos.artists[0].name} - {infos.album.name}
-          </p>
-          <a className="flex items-end gap-2" href={infos.external_urls?.spotify} target="_blank">
-            <p className="text-xs text-lightGreen">Open on Spotify </p>
-            <img
-              src="./Spotify_Icon_RGB_Green.png"
-              alt="Open in Spotify"
-              className="min-h-[12px] min-w-[12px] w-3 h-3"
-            />
-          </a>
-        </div>
+        <ItemInfos
+          title={infos.name}
+          explicit={infos.explicit}
+          description={`${infos.artists[0].name} - ${infos.album.name}`}
+          spotifyUrl={infos.external_urls.spotify}
+          redirectUrl={`/Track/${infos.id}`}
+        />
       </div>
       <div>
         <Tooltip message={showTooltip.message} color={showTooltip?.color}>

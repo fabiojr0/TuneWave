@@ -4,6 +4,7 @@ import { useMutateFollowPlaylists } from '../hooks/playlist/useMutateFollowPlayl
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import SkeletonDefault from './Skeleton/SkeletonDefault';
+import ItemInfos from './ItemInfos';
 
 function Playlist({ infos }: { infos: Playlist }) {
   const [showTooltip, setShowTooltip] = useState<TooltipProps>({ message: '' });
@@ -47,16 +48,12 @@ function Playlist({ infos }: { infos: Playlist }) {
           />
         </Link>
       )}
-      <div className="w-full">
-        <Link to={`/Playlist/${infos.id}`} className="w-full">
-          <p className="text-sm font-semibold">{infos.name}</p>
-        </Link>
-        <p className="text-xs text-zinc-300 font-medium">{infos.description}</p>
-        <a className="flex items-end gap-2" href={infos.external_urls?.spotify} target="_blank">
-          <p className="text-xs text-lightGreen">Open on Spotify </p>
-          <img src="./Spotify_Icon_RGB_Green.png" alt="Open in Spotify" className="min-h-[12px] min-w-[12px] w-3 h-3" />
-        </a>
-      </div>
+      <ItemInfos
+        title={infos.name}
+        description={infos.description}
+        spotifyUrl={infos.external_urls.spotify}
+        redirectUrl={`/Playlist/${infos.id}`}
+      />
       <div className="flex flex-col items-center gap-2">
         <Tooltip message={showTooltip.message} color={showTooltip?.color}>
           <HeartStraight
