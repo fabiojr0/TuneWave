@@ -1,12 +1,12 @@
 import { HeartStraight } from '@phosphor-icons/react';
 import { useEffect, useState } from 'react';
-import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import { Link } from 'react-router-dom';
 import { useMutateFollowArtist } from '../hooks/artist/useMutateFollowArtist';
 import Tooltip from './Tooltip';
 import { capitalizeEachWord } from '../utils/utils';
+import SkeletonDefault from './Skeleton/SkeletonDefault';
 
-function Artist({ infos, index }: { infos: Artist; index?: number }) {
+function Artist({ infos, index }: { infos: Artist; index: number }) {
   const [showTooltip, setShowTooltip] = useState<TooltipProps>({ message: '' });
   const [follow, setFollow] = useState<boolean>(false);
 
@@ -32,19 +32,7 @@ function Artist({ infos, index }: { infos: Artist; index?: number }) {
   };
 
   if (!infos) {
-    return (
-      <SkeletonTheme baseColor="#585555" highlightColor="#444" key={index} width={'100%'} height={'100%'}>
-        <div className="flex items-center pl-4 gap-4 w-full">
-          <Skeleton height={64} width={64} />
-          <div className="w-full">
-            <Skeleton />
-            <Skeleton />
-            <Skeleton />
-          </div>
-          <Skeleton height={24} width={24} circle />
-        </div>
-      </SkeletonTheme>
-    );
+    return <SkeletonDefault index={index} />;
   }
 
   return (

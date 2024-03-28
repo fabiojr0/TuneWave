@@ -1,12 +1,12 @@
 import { Link } from 'react-router-dom';
 import Explicit from './Explicit';
-import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import { HeartStraight } from '@phosphor-icons/react';
 import { useEffect, useState } from 'react';
 import Tooltip from './Tooltip';
 import { useMutateFollowTrack } from '../hooks/track/useMutateFollowTrack';
+import SkeletonDefault from './Skeleton/SkeletonDefault';
 
-function Track({ infos, index, collum }: { infos: Track; index?: number; collum?: boolean }) {
+function Track({ infos, index, collum }: { infos: Track; index: number; collum?: boolean }) {
   const [showTooltip, setShowTooltip] = useState<TooltipProps>({ message: '' });
   const [follow, setFollow] = useState<boolean>(false);
 
@@ -31,15 +31,8 @@ function Track({ infos, index, collum }: { infos: Track; index?: number; collum?
     }, 2000);
   };
 
-  if (collum && !infos) {
-    return (
-      <SkeletonTheme baseColor="#585555" highlightColor="#444" key={index} width={'100%'} height={'100%'}>
-        <div className="flex flex-col w-24">
-          <Skeleton className="w-full aspect-square object-cover rounded" />
-          <Skeleton />
-        </div>
-      </SkeletonTheme>
-    );
+  if (!infos) {
+    return <SkeletonDefault collum={collum} index={index} />;
   }
 
   if (collum) {
@@ -58,22 +51,6 @@ function Track({ infos, index, collum }: { infos: Track; index?: number; collum?
           </span>
         </Link>
       </div>
-    );
-  }
-
-  if (!infos || infos === undefined) {
-    return (
-      <SkeletonTheme baseColor="#585555" highlightColor="#444" key={index} width={'100%'} height={'100%'}>
-        <div className="flex items-center pl-4 gap-4 w-full">
-          <Skeleton height={64} width={64} />
-          <div className="w-full">
-            <Skeleton />
-            <Skeleton />
-            <Skeleton />
-          </div>
-          <Skeleton height={24} width={24} circle />
-        </div>
-      </SkeletonTheme>
     );
   }
 

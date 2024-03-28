@@ -1,9 +1,9 @@
 import { HeartStraight } from '@phosphor-icons/react';
-import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import Tooltip from './Tooltip';
 import { useMutateFollowPlaylists } from '../hooks/playlist/useMutateFollowPlaylist';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import SkeletonDefault from './Skeleton/SkeletonDefault';
 
 function Playlist({ infos }: { infos: Playlist }) {
   const [showTooltip, setShowTooltip] = useState<TooltipProps>({ message: '' });
@@ -32,19 +32,7 @@ function Playlist({ infos }: { infos: Playlist }) {
   };
 
   if (!infos) {
-    return (
-      <SkeletonTheme baseColor="#585555" highlightColor="#444" width={'100%'} height={'100%'}>
-        <div className="flex items-center pl-4 gap-4 w-full">
-          <Skeleton height={64} width={64} />
-          <div className="w-full">
-            <Skeleton />
-            <Skeleton />
-            <Skeleton />
-          </div>
-          <Skeleton height={24} width={24} circle />
-        </div>
-      </SkeletonTheme>
-    );
+    return <SkeletonDefault />;
   }
 
   return (
