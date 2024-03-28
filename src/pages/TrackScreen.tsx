@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { ring2 } from 'ldrs';
 import Carousel from '../components/Carousel';
-import ShowTrack from '../components/ShowTrack';
+import ShowTrack from '../components/Items/ShowTrack';
 import { useAuth } from '../contexts/AuthContext';
 import Login from '../components/Login';
 import { useFetchTrack } from '../hooks/track/useFetchTrack';

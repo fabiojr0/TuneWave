@@ -3,7 +3,7 @@ import { useAuth } from '../contexts/AuthContext';
 import Login from '../components/Login';
 import { useFetchPlaylistsByUser } from '../hooks/playlist/useFetchPlaylistsByUser';
 import { useFetchUserPlaylists } from '../hooks/playlist/useFetchUserPlaylists';
-import Playlist from '../components/Playlist';
+import Playlist from '../components/Items/Playlist';
 
 function Home() {
   const authContext = useAuth();

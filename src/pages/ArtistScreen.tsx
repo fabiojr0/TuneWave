@@ -6,7 +6,7 @@ import Login from '../components/Login';
 import { useFetchRecommendations } from '../hooks/track/useFetchRecommendations';
 import { useFetchArtistTopTracks } from '../hooks/track/useFetchArtistTopTracks';
 import { useFetchArtist } from '../hooks/artist/useFetchArtist';
-import ShowArtist from '../components/ShowArtist';
+import ShowArtist from '../components/Items/ShowArtist';
 
 function ArtistScreen() {
   const { id } = useParams();

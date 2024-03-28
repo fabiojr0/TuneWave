@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import Explicit from './Explicit';
+import Explicit from './UI_Kit/Explicit';
 
 function ItemInfos({
   title,

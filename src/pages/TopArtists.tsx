@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import React from 'react';
 import 'react-loading-skeleton/dist/skeleton.css';
-import Artist from '../components/Artist';
+import Artist from '../components/Items/Artist';
 import Login from '../components/Login';
 import { useAuth } from '../contexts/AuthContext';
 import { useFetchTopArtists } from '../hooks/artist/useFetchTopArtists';
 import { useNavigate, useParams } from 'react-router-dom';
-import TimeRangeButtons from '../components/TimeRangeButtons';
+import TimeRangeButtons from '../components/UI_Kit/TimeRangeButtons';
 import { useFetchFollowArtists } from '../hooks/artist/useFetchFollowArtists';
 
 function TopArtists() {

@@ -1,14 +1,14 @@
 import { useState } from 'react';
 import React from 'react';
-import Track from '../components/Track';
+import Track from '../components/Items/Track';
 import 'react-loading-skeleton/dist/skeleton.css';
 import Login from '../components/Login';
 import { useAuth } from '../contexts/AuthContext';
 import { useFetchTopTracks } from '../hooks/track/useFetchTopTracks';
 import { useFetchFollowTracks } from '../hooks/track/useFetchFollowTracks';
 import { useNavigate, useParams } from 'react-router-dom';
-import TimeRangeButtons from '../components/TimeRangeButtons';
-import CreatePlaylistModal from '../components/CreatePlaylistModal';
+import TimeRangeButtons from '../components/UI_Kit/TimeRangeButtons';
+import CreatePlaylistModal from '../components/UI_Kit/CreatePlaylistModal';
 
 function TopTracks() {
   const { time_range = 'medium_term' } = useParams();

@@ -2,7 +2,7 @@ import { useParams } from 'react-router-dom';
 import Login from '../components/Login';
 import { useAuth } from '../contexts/AuthContext';
 import { useFetchPlaylist } from '../hooks/playlist/useFetchPlaylist';
-import ShowPlaylist from '../components/ShowPlaylist';
+import ShowPlaylist from '../components/Items/ShowPlaylist';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 
 function PlaylistScreen() {

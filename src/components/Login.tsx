@@ -1,5 +1,5 @@
 import { useAuth } from "../contexts/AuthContext";
-import Button from "./Button";
+import Button from "./UI_Kit/Button";
 
 function Login() {
   const authContext = useAuth();

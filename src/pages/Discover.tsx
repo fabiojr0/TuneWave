@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import Track from '../components/Track';
+import Track from '../components/Items/Track';
 import Login from '../components/Login';
 import { useAuth } from '../contexts/AuthContext';
 import { useFetchTopArtists } from '../hooks/artist/useFetchTopArtists';
 import { getTopGenres } from '../utils/utils';
 import { useFetchRecommendations } from '../hooks/track/useFetchRecommendations';
 import { useFetchFollowTracks } from '../hooks/track/useFetchFollowTracks';
-import CreatePlaylistModal from '../components/CreatePlaylistModal';
+import CreatePlaylistModal from '../components/UI_Kit/CreatePlaylistModal';
 
 function Discover() {
   const authContext = useAuth();

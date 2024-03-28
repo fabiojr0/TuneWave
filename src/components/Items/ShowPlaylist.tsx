@@ -1,10 +1,10 @@
 import { HeartStraight } from '@phosphor-icons/react';
 import { useState, useEffect } from 'react';
-import { useFetchUserPlaylists } from '../hooks/playlist/useFetchUserPlaylists';
-import { useMutateFollowPlaylists } from '../hooks/playlist/useMutateFollowPlaylist';
-import Tooltip from './Tooltip';
+import { useFetchUserPlaylists } from '../../hooks/playlist/useFetchUserPlaylists';
+import { useMutateFollowPlaylists } from '../../hooks/playlist/useMutateFollowPlaylist';
+import Tooltip from '../UI_Kit/Tooltip';
 import Track from './Track';
-import { useFetchFollowTracks } from '../hooks/track/useFetchFollowTracks';
+import { useFetchFollowTracks } from '../../hooks/track/useFetchFollowTracks';
 
 function ShowPlaylist({ infos }: { infos: Playlist }) {
   const [showTooltip, setShowTooltip] = useState<TooltipProps>({ message: '' });

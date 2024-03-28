@@ -1,6 +1,6 @@
 import { Pause, Play } from "@phosphor-icons/react";
 import React, { useEffect, useState } from "react";
-import Logo from "./Logo";
+import Logo from "./UI_Kit/Logo";
 
 function Audio({ src }: { src: string }) {
   const [isPlaying, setIsPlaying] = useState<boolean>(false);

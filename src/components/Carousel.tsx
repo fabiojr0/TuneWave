@@ -1,6 +1,6 @@
 import { SwiperSlide, Swiper } from "swiper/react";
 import { breakpointsSwiper } from "../utils/utils";
-import Track from "./Track";
+import Track from "./Items/Track";
 
 function Carousel({ infos, title }: { infos?: Track[]; title: string }) {
   return (

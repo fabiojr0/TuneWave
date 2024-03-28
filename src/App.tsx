@@ -1,10 +1,10 @@
 import { BrowserRouter as Router } from "react-router-dom";
 
-import Header from "./components/Header";
+import Header from "./components/UI_Kit/Header";
 import Root from "./Root";
 
 import "swiper/css";
-import BackToTop from "./components/BackToTop";
+import BackToTop from "./components/UI_Kit/BackToTop";
 import { useEffect, useState } from "react";
 
 function App() {

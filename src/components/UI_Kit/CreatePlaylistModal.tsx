@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { useMutateCreatePlaylist } from '../hooks/playlist/useMutateCreatePlaylist';
-import { useUserData } from '../hooks/useUserData';
+import { useMutateCreatePlaylist } from '../../hooks/playlist/useMutateCreatePlaylist';
+import { useUserData } from '../../hooks/useUserData';
 import Button from './Button';
 import { useNavigate } from 'react-router-dom';
 import { Check, X } from '@phosphor-icons/react';

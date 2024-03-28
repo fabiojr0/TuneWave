@@ -2,10 +2,10 @@ import { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Login from '../components/Login';
 import { useAuth } from '../contexts/AuthContext';
-import TimeRangeButtons from '../components/TimeRangeButtons';
+import TimeRangeButtons from '../components/UI_Kit/TimeRangeButtons';
 import { useFetchTopArtists } from '../hooks/artist/useFetchTopArtists';
 import { getTopGenresObj, sortGenres } from '../utils/utils';
-import Genre from '../components/Genre';
+import Genre from '../components/Items/Genre';
 import { ring2 } from 'ldrs';
 
 function TopGenres() {
