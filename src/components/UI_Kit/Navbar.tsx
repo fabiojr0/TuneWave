@@ -3,17 +3,18 @@ import { Link } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import { SignOut } from '@phosphor-icons/react';
 import { useQueryClient } from '@tanstack/react-query';
+import { routeTitles } from '../../utils/utils';
 
 function Navbar({ showNavbar, setShowNavbar }: { showNavbar: boolean; setShowNavbar: (showNavbar: boolean) => void }) {
   const queryClient = useQueryClient();
 
   const navbarItems = [
-    { link: '/', title: 'Home' },
-    { link: '/TopTracks', title: 'Top Tracks' },
-    { link: '/TopArtists', title: 'Top Artists' },
-    { link: '/TopGenres', title: 'Top Genres' },
-    { link: '/Discover', title: 'Discover' },
-    { link: '/MyPlaylists', title: 'My Playlists' },
+    { link: '/', item: routeTitles['/'] },
+    { link: '/TopTracks', item: routeTitles['/TopTracks/:time_range?'] },
+    { link: '/TopArtists', item: routeTitles['/TopArtists/:time_range?'] },
+    { link: '/TopGenres', item: routeTitles['/TopGenres/:time_range?'] },
+    { link: '/Discover', item: routeTitles['/Discover'] },
+    { link: '/MyPlaylists', item: routeTitles['/MyPlaylists'] },
   ];
 
   const navbarRef = useRef<HTMLElement>(null);
@@ -55,9 +56,13 @@ function Navbar({ showNavbar, setShowNavbar }: { showNavbar: boolean; setShowNav
       ref={navbarRef}
     >
       {navbarItems.map(item => {
+        const Icon = item.item.icon;
         return (
-          <Link to={item.link} key={item.title} onClick={onClickLink}>
-            <span className="font-semibold">{item.title}</span>
+          <Link to={item.link} key={item.item.title} onClick={onClickLink}>
+            <span className="font-semibold flex lg:gap-2">
+              <Icon size={24} weight="fill" color="#ffffff" />
+              {item.item.title}
+            </span>
           </Link>
         );
       })}

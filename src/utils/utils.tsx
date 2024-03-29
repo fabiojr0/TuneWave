@@ -1,3 +1,16 @@
+import {
+  House,
+  MusicNotes,
+  Record,
+  Equalizer,
+  MusicNotesPlus,
+  AlignLeft,
+  VinylRecord,
+  MicrophoneStage,
+  Playlist,
+  ListPlus,
+} from '@phosphor-icons/react';
+
 export const SCOPES = [
   'user-read-playback-state',
   'user-modify-playback-state',
@@ -16,6 +29,49 @@ export const SCOPES = [
   'user-follow-read',
   'user-follow-modify',
 ];
+
+export const routeTitles = {
+  '/': {
+    title: 'Home',
+    icon: House,
+  },
+  '/TopTracks/:time_range?': {
+    title: 'Top Tracks',
+    icon: MusicNotes,
+  },
+  '/TopArtists/:time_range?': {
+    title: 'Top Artists',
+    icon: Record,
+  },
+  '/TopGenres/:time_range?': {
+    title: 'Top Genres',
+    icon: Equalizer,
+  },
+  '/Discover': {
+    title: 'Discover',
+    icon: MusicNotesPlus,
+  },
+  '/Callback': {
+    title: 'Callback',
+    icon: AlignLeft,
+  },
+  '/Track/:id': {
+    title: 'Track Details',
+    icon: VinylRecord,
+  },
+  '/Artist/:id': {
+    title: 'Artist Details',
+    icon: MicrophoneStage,
+  },
+  '/Playlist/:id': {
+    title: 'Playlist Details',
+    icon: Playlist,
+  },
+  '/MyPlaylists': {
+    title: 'My Playlists',
+    icon: ListPlus,
+  },
+};
 
 export const breakpointsSwiper = {
   640: {

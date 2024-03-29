@@ -1,6 +1,6 @@
 type RouteInfo = {
     title: string;
-    icon: JSX.Element;
+    icon: Icon;
 };
 
 type TooltipProps = {
