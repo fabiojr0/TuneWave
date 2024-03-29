@@ -130,7 +130,7 @@ type Playlist = {
             { track: Track }
         ]
     };
-    followers: {
+    followers?: {
         href: string | null;
         total: number;
     }

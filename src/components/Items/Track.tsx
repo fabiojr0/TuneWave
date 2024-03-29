@@ -7,7 +7,7 @@ import { useMutateFollowTrack } from '../../hooks/track/useMutateFollowTrack';
 import SkeletonDefault from '../Skeleton/SkeletonDefault';
 import ItemInfos from '../ItemInfos';
 
-function Track({ infos, index, collum }: { infos: Track; index: number; collum?: boolean }) {
+function Track({ infos, index, collum }: { infos: Track; index?: number; collum?: boolean }) {
   const [showTooltip, setShowTooltip] = useState<TooltipProps>({ message: '' });
   const [follow, setFollow] = useState<boolean>(false);
 
