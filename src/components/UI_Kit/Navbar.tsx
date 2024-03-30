@@ -58,10 +58,13 @@ function Navbar({ showNavbar, setShowNavbar }: { showNavbar: boolean; setShowNav
       {navbarItems.map(item => {
         const Icon = item.item.icon;
         return (
-          <Link to={item.link} key={item.item.title} onClick={onClickLink}>
+          <Link to={item.link} key={item.item.title} onClick={onClickLink} className="group">
             <span className="font-semibold flex gap-2">
               <Icon size={24} weight="fill" color="#ffffff" />
-              {item.item.title}
+              <span className="flex flex-col group w-fit">
+                <p className="group-hover:">{item.item.title}</p>
+                <span className="w-0 h-[2px] bg-white group-hover:w-full transition-all" />
+              </span>
             </span>
           </Link>
         );
