@@ -1,12 +1,11 @@
 import { Link } from 'react-router-dom';
 import Explicit from '../UI_Kit/Explicit';
-import { HeartStraight } from '@phosphor-icons/react';
 import { useEffect, useState } from 'react';
-import Tooltip from '../UI_Kit/Tooltip';
 import { useMutateFollowTrack } from '../../hooks/track/useMutateFollowTrack';
 import SkeletonDefault from '../Skeleton/SkeletonDefault';
 import ItemInfos from '../UI_Kit/ItemInfos';
 import ItemImage from '../UI_Kit/ItemImage';
+import FollowHeart from '../UI_Kit/FollowHeart';
 
 function Track({ infos, index, collum }: { infos: Track; index?: number; collum?: boolean }) {
   const [showTooltip, setShowTooltip] = useState<TooltipProps>({ message: '' });
@@ -72,14 +71,12 @@ function Track({ infos, index, collum }: { infos: Track; index?: number; collum?
         />
       </div>
       <div>
-        <Tooltip message={showTooltip.message} color={showTooltip?.color}>
-          <HeartStraight
-            size={24}
-            weight={follow ? 'fill' : 'regular'}
-            color="#1ED760"
-            onClick={() => handleFollow(infos.id)}
-          />
-        </Tooltip>
+        <FollowHeart
+          follow={follow}
+          message={showTooltip.message}
+          color={showTooltip?.color}
+          onClick={() => handleFollow(infos.id)}
+        />
       </div>
     </div>
   );

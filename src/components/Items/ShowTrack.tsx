@@ -1,4 +1,4 @@
-import { HeartStraight, Queue } from '@phosphor-icons/react';
+import { Queue } from '@phosphor-icons/react';
 import { msToMinSeconds } from '../../utils/utils';
 import Audio from '../Audio';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import Tooltip from '../UI_Kit/Tooltip';
 import { useMutateFollowTrack } from '../../hooks/track/useMutateFollowTrack';
 import { useFetchFollowTracks } from '../../hooks/track/useFetchFollowTracks';
+import FollowHeart from '../UI_Kit/FollowHeart';
 
 function ShowTrack({ infos }: { infos?: Track }) {
   const [showTooltip, setShowTooltip] = useState<TooltipProps>({ message: '' });
@@ -100,14 +101,12 @@ function ShowTrack({ infos }: { infos?: Track }) {
             .join(', ')}
           {infos.artists.length > 3 && '...'}
         </p>
-        <Tooltip message={showTooltip.message} color={showTooltip?.color}>
-          <HeartStraight
-            size={24}
-            weight={follow ? 'fill' : 'regular'}
-            color="#1ED760"
-            onClick={() => handleFollow(infos.id)}
-          />
-        </Tooltip>
+        <FollowHeart
+          follow={follow}
+          message={showTooltip.message}
+          color={showTooltip?.color}
+          onClick={() => handleFollow(infos.id)}
+        />
       </span>
 
       <span className="flex items-center justify-between">

@@ -24,8 +24,8 @@ function ItemInfos({
         <span className="w-0 h-[1px] bg-white group-hover:w-full transition-all" />
       </Link>
       <p className="text-sm font-medium text-zinc-300 line-clamp-1">{description}</p>
-      <a className="flex items-end gap-2 group/spotify" href={spotifyUrl} target="_blank">
-        <span className="flex flex-col w-fit">
+      <a className="flex items-end gap-2 group/spotify w-fit" href={spotifyUrl} target="_blank">
+        <span className="flex flex-col">
           <p className="text-xs text-lightGreen">Open on Spotify </p>
           <span className="w-0 h-[1px] bg-lightGreen group-hover/spotify:w-full transition-all" />
         </span>

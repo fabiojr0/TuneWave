@@ -1,10 +1,9 @@
-import { HeartStraight } from '@phosphor-icons/react';
-import Tooltip from '../UI_Kit/Tooltip';
 import { useMutateFollowPlaylists } from '../../hooks/playlist/useMutateFollowPlaylist';
 import { useEffect, useState } from 'react';
 import SkeletonDefault from '../Skeleton/SkeletonDefault';
 import ItemInfos from '../UI_Kit/ItemInfos';
 import ItemImage from '../UI_Kit/ItemImage';
+import FollowHeart from '../UI_Kit/FollowHeart';
 
 function Playlist({ infos }: { infos: Playlist }) {
   const [showTooltip, setShowTooltip] = useState<TooltipProps>({ message: '' });
@@ -48,14 +47,12 @@ function Playlist({ infos }: { infos: Playlist }) {
         redirectUrl={`/Playlist/${infos.id}`}
       />
       <div className="flex flex-col items-center gap-2">
-        <Tooltip message={showTooltip.message} color={showTooltip?.color}>
-          <HeartStraight
-            size={24}
-            weight={follow ? 'fill' : 'regular'}
-            color="#1ED760"
-            onClick={() => handleFollow(infos.id)}
-          />
-        </Tooltip>
+        <FollowHeart
+          follow={follow}
+          message={showTooltip.message}
+          color={showTooltip?.color}
+          onClick={() => handleFollow(infos.id)}
+        />
       </div>
     </div>
   );

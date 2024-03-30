@@ -1,11 +1,10 @@
-import { HeartStraight } from '@phosphor-icons/react';
 import { useEffect, useState } from 'react';
 import { useMutateFollowArtist } from '../../hooks/artist/useMutateFollowArtist';
-import Tooltip from '../UI_Kit/Tooltip';
 import { capitalizeEachWord } from '../../utils/utils';
 import SkeletonDefault from '../Skeleton/SkeletonDefault';
 import ItemInfos from '../UI_Kit/ItemInfos';
 import ItemImage from '../UI_Kit/ItemImage';
+import FollowHeart from '../UI_Kit/FollowHeart';
 
 function Artist({ infos, index }: { infos: Artist; index: number }) {
   const [showTooltip, setShowTooltip] = useState<TooltipProps>({ message: '' });
@@ -61,14 +60,12 @@ function Artist({ infos, index }: { infos: Artist; index: number }) {
         />
       </div>
       <div>
-        <Tooltip message={showTooltip.message} color={showTooltip?.color}>
-          <HeartStraight
-            size={24}
-            weight={follow ? 'fill' : 'regular'}
-            color="#1ED760"
-            onClick={() => handleFollow(infos.id)}
-          />
-        </Tooltip>
+        <FollowHeart
+          follow={follow}
+          message={showTooltip.message}
+          color={showTooltip?.color}
+          onClick={() => handleFollow(infos.id)}
+        />
       </div>
     </div>
   );
