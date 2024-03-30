@@ -7,6 +7,12 @@
   --swiper-navigation-size: 32px;
 }
 
+@media (max-width: 1023px) {
+  .swiper-button-next, .swiper-button-prev {
+    display: none;
+  }
+}
+
 body {
   background-color: #000000;
 }
