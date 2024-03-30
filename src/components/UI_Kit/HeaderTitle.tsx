@@ -2,11 +2,12 @@ import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import AuthUser from './AuthUser';
 import { routeTitles } from '../../utils/utils';
+import { House } from '@phosphor-icons/react';
 
 function HeaderTitle() {
   const [route, setRoute] = useState<RouteInfo>({
     title: 'Home',
-    icon: 'House',
+    icon: House,
   });
 
   const location = useLocation();

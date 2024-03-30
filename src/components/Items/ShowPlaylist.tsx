@@ -55,8 +55,8 @@ function ShowPlaylist({ infos }: { infos?: Playlist }) {
               <Skeleton height={38} width={'30%'} />
             </SkeletonTheme>
           </div>
-          {Array.from({ length: 10 }).map(_ => (
-            <SkeletonDefault />
+          {Array.from({ length: 10 }).map((_, index) => (
+            <SkeletonDefault key={index} />
           ))}
         </div>
       </div>

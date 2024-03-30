@@ -61,7 +61,7 @@ function ShowTrack({ infos }: { infos?: Track }) {
 
   return (
     <section className="space-y-2">
-      <div className="flex flex-col  lg:flex-row lg:items-end w-full gap-2 lg:gap-8">
+      <div className="flex flex-col lg:flex-row lg:items-end w-full gap-2 lg:gap-8">
         {infos.album.images[0].url && <ShowImage image={infos?.album.images[0].url} alt={`${infos?.name} cover`} />}
 
         <ShowInfos

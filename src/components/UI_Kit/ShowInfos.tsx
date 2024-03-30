@@ -39,7 +39,7 @@ function ShowInfos({
   followers?: number;
 }) {
   return (
-    <span className="flex items-center justify-between lg:w-full lg:items-start">
+    <span className="flex items-center justify-between lg:w-full h-full lg:items-end">
       <span className="space-y-2 ">
         <p className="text-lg font-bold lg:text-5xl">{title}</p>
         <p className="text-zinc-300 text-sm font-medium lg:text-lg lg:font-normal">{subtitle}</p>
@@ -51,7 +51,7 @@ function ShowInfos({
           </span>
         )}
       </span>
-      <span className="flex flex-col items-end justify-between gap-2">
+      <span className="flex flex-col items-end justify-between gap-2 h-full">
         <a href={spotifyUrl} target="_blank" className="hover:scale-110 transition-all">
           <img
             src="../../Spotify_Icon_RGB_Green.png"
@@ -70,7 +70,7 @@ function ShowInfos({
         {trackData && (
           <Tooltip message={trackData.showTooltipQueue.message} color={trackData.showTooltipQueue.color}>
             <button onClick={() => trackData.addToQueue(trackData.uri)} className="flex items-center gap-2">
-              <p>Add To Queue</p>
+              <p className='whitespace-nowrap'>Add To Queue</p>
               <Queue size={20} color="#ffffff" weight="fill" />
             </button>
           </Tooltip>
