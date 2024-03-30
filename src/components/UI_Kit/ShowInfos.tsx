@@ -27,6 +27,7 @@ function ShowInfos({
   followData,
   trackData,
   duration_ms,
+  followers,
 }: {
   title: string;
   subtitle: string;
@@ -35,6 +36,7 @@ function ShowInfos({
   followData: FollowData;
   trackData?: TrackData;
   duration_ms?: number;
+  followers?: number;
 }) {
   return (
     <span className="flex items-center justify-between lg:w-full lg:items-start">
@@ -62,6 +64,7 @@ function ShowInfos({
           message={followData.showTooltip.message}
           color={followData.showTooltip?.color}
           onClick={() => followData.handleFollow(followData.id)}
+          followers={followers}
         />
         {duration_ms && <p className="text-zinc-300 text-sm font-medium">{msToMinSeconds(duration_ms)}</p>}
         {trackData && (

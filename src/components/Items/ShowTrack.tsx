@@ -1,10 +1,10 @@
-import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import { useMutateAddToQueue } from '../../hooks/track/useMutateAddToQueue';
 import { useEffect, useState } from 'react';
 import { useMutateFollowTrack } from '../../hooks/track/useMutateFollowTrack';
 import { useFetchFollowTracks } from '../../hooks/track/useFetchFollowTracks';
 import ShowImage from '../UI_Kit/ShowImage';
 import ShowInfos from '../UI_Kit/ShowInfos';
+import SkeletonShow from '../Skeleton/SkeletonShow';
 
 function ShowTrack({ infos }: { infos?: Track }) {
   const [showTooltip, setShowTooltip] = useState<TooltipProps>({ message: '' });
@@ -56,18 +56,7 @@ function ShowTrack({ infos }: { infos?: Track }) {
   };
 
   if (!infos) {
-    return (
-      <section>
-        <SkeletonTheme baseColor="#585555" highlightColor="#444" width={'100%'} height={'100%'}>
-          <div className="space-y-4">
-            <Skeleton width={'100%'} className="aspect-square" />
-            <Skeleton />
-            <Skeleton />
-            <Skeleton />
-          </div>
-        </SkeletonTheme>
-      </section>
-    );
+    return <SkeletonShow />;
   }
 
   return (

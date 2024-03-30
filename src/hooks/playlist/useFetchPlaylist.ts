@@ -12,7 +12,7 @@ const fetchData = async ({ queryKey }: QueryFunctionContext<[string, FetchDataQu
     const [_, { playlist_id }] = queryKey;
 
     const response = await api.get(`/playlists/${playlist_id}`);
-    
+
     return response.data;
 };
 
@@ -23,6 +23,7 @@ export function useFetchPlaylist(playlist_id: string) {
         retry: 1,
         staleTime: 1000 * 60 * 60,
         enabled: !!playlist_id,
+        placeholderData: undefined
     });
 
     return query

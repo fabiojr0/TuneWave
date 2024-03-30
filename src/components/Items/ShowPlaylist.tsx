@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useState, useEffect } from 'react';
 import { useFetchUserPlaylists } from '../../hooks/playlist/useFetchUserPlaylists';
 import { useMutateFollowPlaylists } from '../../hooks/playlist/useMutateFollowPlaylist';
@@ -5,8 +6,11 @@ import Track from './Track';
 import { useFetchFollowTracks } from '../../hooks/track/useFetchFollowTracks';
 import ShowImage from '../UI_Kit/ShowImage';
 import ShowInfos from '../UI_Kit/ShowInfos';
+import SkeletonShow from '../Skeleton/SkeletonShow';
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
+import SkeletonDefault from '../Skeleton/SkeletonDefault';
 
-function ShowPlaylist({ infos }: { infos: Playlist }) {
+function ShowPlaylist({ infos }: { infos?: Playlist }) {
   const [showTooltip, setShowTooltip] = useState<TooltipProps>({ message: '' });
 
   const [follow, setFollow] = useState<boolean>(infos?.followed ? true : false);
@@ -21,7 +25,7 @@ function ShowPlaylist({ infos }: { infos: Playlist }) {
 
   useEffect(() => {
     if (followData) {
-      setFollow(followData.some(playlist => playlist.id === infos.id));
+      setFollow(followData.some(playlist => playlist.id === infos?.id));
     }
   }, [followData]);
 
@@ -41,6 +45,23 @@ function ShowPlaylist({ infos }: { infos: Playlist }) {
       setShowTooltip({ message: '' });
     }, 2000);
   };
+  if (!infos) {
+    return (
+      <div className="space-y-4">
+        <SkeletonShow />
+        <div>
+          <div className="w-full">
+            <SkeletonTheme baseColor="#585555" highlightColor="#444" width={'100%'} height={'100%'}>
+              <Skeleton height={38} width={'30%'} />
+            </SkeletonTheme>
+          </div>
+          {Array.from({ length: 10 }).map(_ => (
+            <SkeletonDefault />
+          ))}
+        </div>
+      </div>
+    );
+  }
 
   return (
     <section className="space-y-2 ">
@@ -58,6 +79,7 @@ function ShowPlaylist({ infos }: { infos: Playlist }) {
             handleFollow: handleFollow,
             id: infos.id,
           }}
+          followers={infos?.followers?.total || 0}
         />
       </div>
       <div className="space-y-4 pt-4">

@@ -59,7 +59,7 @@ function Track({ infos, index, collum }: { infos: Track; index?: number; collum?
     <div className="flex items-center justify-between gap-4">
       <div className="flex items-center justify-between gap-4">
         {index && <p className="text-sm font-semibold min-w-7">{index}º</p>}
-        {infos.album.images[0].url && (
+        {infos.album.images[0]?.url && (
           <ItemImage image={infos.album.images[0].url} alt={`${infos.name} cover`} link={`/Track/${infos.id}`} />
         )}
         <ItemInfos

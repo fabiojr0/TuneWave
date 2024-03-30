@@ -1,10 +1,10 @@
-import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import { useMutateFollowArtist } from '../../hooks/artist/useMutateFollowArtist';
 import { useEffect, useState } from 'react';
 import { useFetchFollowArtists } from '../../hooks/artist/useFetchFollowArtists';
 import ShowInfos from '../UI_Kit/ShowInfos';
 import ShowImage from '../UI_Kit/ShowImage';
 import { capitalizeEachWord } from '../../utils/utils';
+import SkeletonShow from '../Skeleton/SkeletonShow';
 
 function ShowArtist({ infos }: { infos?: Artist }) {
   const [showTooltip, setShowTooltip] = useState<TooltipProps>({ message: '' });
@@ -37,18 +37,7 @@ function ShowArtist({ infos }: { infos?: Artist }) {
   };
 
   if (!infos) {
-    return (
-      <section>
-        <SkeletonTheme baseColor="#585555" highlightColor="#444" width={'100%'} height={'100%'}>
-          <div className="space-y-4">
-            <Skeleton width={'100%'} className="aspect-square" />
-            <Skeleton />
-            <Skeleton />
-            <Skeleton />
-          </div>
-        </SkeletonTheme>
-      </section>
-    );
+    return <SkeletonShow />;
   }
 
   return (
