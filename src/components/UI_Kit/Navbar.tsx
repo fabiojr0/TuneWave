@@ -66,7 +66,7 @@ function Navbar({ showNavbar, setShowNavbar }: { showNavbar: boolean; setShowNav
           </Link>
         );
       })}
-      <div className={`w-full flex justify-end`}>
+      <div className="w-full flex justify-end pt-20">
         <button onClick={logout} className="flex items-center gap-1">
           <SignOut size={20} weight="fill" />
           Logout
