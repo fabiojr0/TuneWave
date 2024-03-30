@@ -15,9 +15,9 @@ function ArtistScreen() {
 
   const { data: infos } = useFetchArtist(id || '');
 
-  const { data: artistTracks } = useFetchArtistTopTracks(infos?.id || '', 10);
+  const { data: artistTracks } = useFetchArtistTopTracks(infos?.id || '');
 
-  const { data: reccomendations } = useFetchRecommendations(null, infos?.id ? [infos.id] : null, null, 10);
+  const { data: reccomendations } = useFetchRecommendations(null, infos?.id ? [infos.id] : null, null, 20);
   ring2.register();
 
   if (!authContext.accessToken) {

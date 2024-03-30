@@ -4,6 +4,8 @@ import Header from './components/UI_Kit/Header';
 import Root from './Root';
 
 import 'swiper/css';
+import 'swiper/css/navigation';
+
 import BackToTop from './components/UI_Kit/BackToTop';
 import { useEffect, useState } from 'react';
 import HeaderTitle from './components/UI_Kit/HeaderTitle';

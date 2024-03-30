@@ -19,10 +19,10 @@ function TrackScreen() {
     null,
     infos?.artists.slice(0, 4).map(a => a.id) || null,
     infos?.id ? [infos.id] : null,
-    10
+    20
   );
 
-  const { data: artistTracks } = useFetchArtistTopTracks(infos?.artists[0].id || '', 10);
+  const { data: artistTracks } = useFetchArtistTopTracks(infos?.artists[0].id || '');
 
   ring2.register();
 

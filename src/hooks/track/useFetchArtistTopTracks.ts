@@ -5,7 +5,6 @@ import api from "../../setup/api";
 
 interface FetchDataQueryKey {
     id: string;
-    limit?: number
 }
 
 const fetchData = async ({ queryKey }: QueryFunctionContext<[string, FetchDataQueryKey]>): Promise<Track[]> => {
@@ -16,10 +15,10 @@ const fetchData = async ({ queryKey }: QueryFunctionContext<[string, FetchDataQu
     return response.data.tracks;
 };
 
-export function useFetchArtistTopTracks(id: string, limit: number = 10) {
+export function useFetchArtistTopTracks(id: string) {
     const query = useQuery({
         queryFn: fetchData,
-        queryKey: ["artists-top-tracks", { id, limit }],
+        queryKey: ["artists-top-tracks", { id }],
         retry: 3,
         enabled: !!id,
         staleTime: 1000 * 60 * 60,
