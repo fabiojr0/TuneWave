@@ -4,7 +4,7 @@ import Track from "./Items/Track";
 
 function Carousel({ infos, title }: { infos?: Track[]; title: string }) {
   return (
-    <div className="space-y-2">
+    <div className="space-y-2 lg:max-w-[80vw]">
       <h2 className="font-semibold">{title}</h2>
       <Swiper slidesPerView={3} breakpoints={breakpointsSwiper}>
         {infos?.map((track, index) => (

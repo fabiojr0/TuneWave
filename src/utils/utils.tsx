@@ -74,19 +74,25 @@ export const routeTitles = {
 };
 
 export const breakpointsSwiper = {
-  640: {
-    slidesPerView: 3,
+  440: {
+    slidesPerView: 4,
     spaceBetween: 20,
   },
-  // Quando a largura da tela é >= 768px
-  768: {
-    slidesPerView: 4,
-    spaceBetween: 30,
-  },
-  // Quando a largura da tela é >= 1024px
-  1024: {
+  600: {
     slidesPerView: 5,
-    spaceBetween: 40,
+    spaceBetween: 20,
+  },
+  720: {
+    slidesPerView: 6,
+    spaceBetween: 20,
+  },
+  860: {
+    slidesPerView: 7,
+    spaceBetween: 20,
+  },
+  1024: {
+    slidesPerView: 8,
+    spaceBetween: 20,
   },
 };
 

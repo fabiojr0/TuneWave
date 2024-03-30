@@ -2,7 +2,9 @@ import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import { useMutateFollowArtist } from '../../hooks/artist/useMutateFollowArtist';
 import { useEffect, useState } from 'react';
 import { useFetchFollowArtists } from '../../hooks/artist/useFetchFollowArtists';
-import FollowHeart from '../UI_Kit/FollowHeart';
+import ShowInfos from '../UI_Kit/ShowInfos';
+import ShowImage from '../UI_Kit/ShowImage';
+import { capitalizeEachWord } from '../../utils/utils';
 
 function ShowArtist({ infos }: { infos?: Artist }) {
   const [showTooltip, setShowTooltip] = useState<TooltipProps>({ message: '' });
@@ -51,43 +53,31 @@ function ShowArtist({ infos }: { infos?: Artist }) {
 
   return (
     <section className="space-y-2">
-      {infos.images && (
-        <img
-          src={infos?.images[0].url}
-          alt={`${infos?.name} cover`}
-          className="w-full aspect-square object-cover rounded"
-          loading="lazy"
+      <div className="flex flex-col  lg:flex-row lg:items-end w-full gap-2 lg:gap-8">
+        {infos.images && <ShowImage image={infos?.images[0].url} alt={`${infos?.name} image`} />}
+        <ShowInfos
+          title={infos.name}
+          subtitle={
+            infos.genres
+              ? `${capitalizeEachWord(
+                  infos.genres
+                    .slice(0, 3)
+                    .map(genre => genre)
+                    .join(', ')
+                )}
+          ${infos.genres.length > 3 ? '...' : ''}`
+              : ''
+          }
+          spotifyUrl={infos.external_urls.spotify}
+          followData={{
+            follow: false,
+            setFollow: setFollow,
+            showTooltip: showTooltip,
+            handleFollow: handleFollow,
+            id: infos.id,
+          }}
         />
-      )}
-
-      <span className="flex items-center justify-between">
-        <span className="">
-          <p className="text-lg font-bold">{infos.name}</p>
-          {infos.genres && (
-            <p className="text-zinc-300 text-sm font-medium">
-              {infos?.genres
-                .slice(0, 3)
-                .map(genre => genre)
-                .join(', ')}
-            </p>
-          )}
-        </span>
-        <span className="space-y-2">
-          <a href={infos.external_urls.spotify} target="_blank" className="hover:scale-110 transition-all">
-            <img
-              src="../../Spotify_Icon_RGB_Green.png"
-              alt="Open in Spotify"
-              className="min-h-[24px] min-w-[24px] w-6 h-6"
-            />
-          </a>
-          <FollowHeart
-            follow={follow}
-            message={showTooltip.message}
-            color={showTooltip?.color}
-            onClick={() => handleFollow(infos.id)}
-          />
-        </span>
-      </span>
+      </div>
     </section>
   );
 }

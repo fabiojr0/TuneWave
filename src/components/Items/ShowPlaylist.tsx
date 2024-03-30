@@ -3,7 +3,8 @@ import { useFetchUserPlaylists } from '../../hooks/playlist/useFetchUserPlaylist
 import { useMutateFollowPlaylists } from '../../hooks/playlist/useMutateFollowPlaylist';
 import Track from './Track';
 import { useFetchFollowTracks } from '../../hooks/track/useFetchFollowTracks';
-import FollowHeart from '../UI_Kit/FollowHeart';
+import ShowImage from '../UI_Kit/ShowImage';
+import ShowInfos from '../UI_Kit/ShowInfos';
 
 function ShowPlaylist({ infos }: { infos: Playlist }) {
   const [showTooltip, setShowTooltip] = useState<TooltipProps>({ message: '' });
@@ -42,39 +43,25 @@ function ShowPlaylist({ infos }: { infos: Playlist }) {
   };
 
   return (
-    <section className="space-y-2">
-      {infos.images && (
-        <img
-          src={infos?.images[0].url}
-          alt={`${infos?.name} cover`}
-          className="w-full aspect-square object-cover rounded"
-          loading="lazy"
+    <section className="space-y-2 ">
+      <div className="flex flex-col  lg:flex-row lg:items-end w-full gap-2 lg:gap-8">
+        {infos.images && <ShowImage image={infos.images[0].url} alt={`${infos.name}'s image`} />}
+        <ShowInfos
+          title={infos.name}
+          subtitle={infos.description}
+          description={infos.owner.display_name}
+          spotifyUrl={infos.external_urls.spotify}
+          followData={{
+            follow: follow,
+            setFollow: setFollow,
+            showTooltip: showTooltip,
+            handleFollow: handleFollow,
+            id: infos.id,
+          }}
         />
-      )}
-      <span className="flex items-center justify-between ">
-        <span className="space-y-2">
-          <p className="text-lg font-bold">{infos.name}</p>
-          <p className="text-zinc-300 text-sm font-medium">{infos.description}</p>
-          <p className="text-zinc-300 text-sm font-medium">{infos.owner.display_name}</p>
-        </span>
-        <span className="flex flex-col items-end justify-between space-y-4">
-          <a href={infos.external_urls.spotify} target="_blank" className="hover:scale-110 transition-all">
-            <img
-              src="../../Spotify_Icon_RGB_Green.png"
-              alt="Open in Spotify"
-              className="min-h-[24px] min-w-[24px] w-6 h-6"
-            />
-          </a>
-          <FollowHeart
-            follow={follow}
-            message={showTooltip.message}
-            color={showTooltip?.color}
-            onClick={() => handleFollow(infos.id)}
-          />
-        </span>
-      </span>
+      </div>
       <div className="space-y-4 pt-4">
-        <h4 className="font-semibold">Playlist Tracks</h4>
+        <h4 className="font-semibold lg:text-3xl">Playlist Tracks</h4>
         {infos?.tracks &&
           infos.tracks?.items.map((track, index) => {
             track.track = {
