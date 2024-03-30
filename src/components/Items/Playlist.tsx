@@ -2,9 +2,9 @@ import { HeartStraight } from '@phosphor-icons/react';
 import Tooltip from '../UI_Kit/Tooltip';
 import { useMutateFollowPlaylists } from '../../hooks/playlist/useMutateFollowPlaylist';
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import SkeletonDefault from '../Skeleton/SkeletonDefault';
-import ItemInfos from '../ItemInfos';
+import ItemInfos from '../UI_Kit/ItemInfos';
+import ItemImage from '../UI_Kit/ItemImage';
 
 function Playlist({ infos }: { infos: Playlist }) {
   const [showTooltip, setShowTooltip] = useState<TooltipProps>({ message: '' });
@@ -39,14 +39,7 @@ function Playlist({ infos }: { infos: Playlist }) {
   return (
     <div className="flex items-center gap-4 justify-between">
       {infos.images && (
-        <Link to={`/Playlist/${infos.id}`} className="w-16 h-16 aspect-square">
-          <img
-            src={infos.images[0].url}
-            alt={`${infos.name} cover`}
-            className="w-full h-full aspect-square object-cover rounded"
-            loading="lazy"
-          />
-        </Link>
+        <ItemImage image={infos.images[0].url} alt={`${infos.name} image`} link={`/Playlist/${infos.id}`} />
       )}
       <ItemInfos
         title={infos.name}

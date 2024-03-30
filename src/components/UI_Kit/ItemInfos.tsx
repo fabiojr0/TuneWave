@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import Explicit from './UI_Kit/Explicit';
+import Explicit from './Explicit';
 
 function ItemInfos({
   title,
@@ -16,9 +16,12 @@ function ItemInfos({
 }) {
   return (
     <div className="w-full">
-      <Link to={redirectUrl} className="flex items-center gap-2">
-        <p className="text-sm font-semibold line-clamp-1">{title}</p>
-        {explicit && <Explicit />}
+      <Link to={redirectUrl} className="flex flex-col group w-fit">
+        <span className="flex items-center gap-2">
+          <p className="text-sm font-semibold line-clamp-1">{title}</p>
+          {explicit && <Explicit />}
+        </span>
+        <span className="w-0 h-[1px] bg-white group-hover:w-full transition-all"></span>
       </Link>
       <p className="text-sm font-medium text-zinc-300 line-clamp-1">{description}</p>
       <a className="flex items-end gap-2" href={spotifyUrl} target="_blank">

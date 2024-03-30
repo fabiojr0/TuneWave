@@ -59,7 +59,7 @@ function Navbar({ showNavbar, setShowNavbar }: { showNavbar: boolean; setShowNav
         const Icon = item.item.icon;
         return (
           <Link to={item.link} key={item.item.title} onClick={onClickLink}>
-            <span className="font-semibold flex lg:gap-2">
+            <span className="font-semibold flex gap-2">
               <Icon size={24} weight="fill" color="#ffffff" />
               {item.item.title}
             </span>

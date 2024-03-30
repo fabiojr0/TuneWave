@@ -5,7 +5,8 @@ import { useEffect, useState } from 'react';
 import Tooltip from '../UI_Kit/Tooltip';
 import { useMutateFollowTrack } from '../../hooks/track/useMutateFollowTrack';
 import SkeletonDefault from '../Skeleton/SkeletonDefault';
-import ItemInfos from '../ItemInfos';
+import ItemInfos from '../UI_Kit/ItemInfos';
+import ItemImage from '../UI_Kit/ItemImage';
 
 function Track({ infos, index, collum }: { infos: Track; index?: number; collum?: boolean }) {
   const [showTooltip, setShowTooltip] = useState<TooltipProps>({ message: '' });
@@ -59,14 +60,9 @@ function Track({ infos, index, collum }: { infos: Track; index?: number; collum?
     <div className="flex items-center justify-between gap-4">
       <div className="flex items-center justify-between gap-4">
         {index && <p className="text-sm font-semibold min-w-7">{index}º</p>}
-        <Link to={`/Track/${infos.id}`} className="w-16 h-16 aspect-square">
-          <img
-            src={infos.album.images[0]?.url}
-            alt={`${infos.name} cover`}
-            className="w-full h-fuw-full aspect-square object-cover rounded"
-            loading="lazy"
-          />
-        </Link>
+        {infos.album.images[0].url && (
+          <ItemImage image={infos.album.images[0].url} alt={`${infos.name} cover`} link={`/Track/${infos.id}`} />
+        )}
         <ItemInfos
           title={infos.name}
           explicit={infos.explicit}
