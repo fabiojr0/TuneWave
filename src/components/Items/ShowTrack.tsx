@@ -1,13 +1,10 @@
-import { Queue } from '@phosphor-icons/react';
-import { msToMinSeconds } from '../../utils/utils';
-import Audio from '../Audio';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import { useMutateAddToQueue } from '../../hooks/track/useMutateAddToQueue';
 import { useEffect, useState } from 'react';
-import Tooltip from '../UI_Kit/Tooltip';
 import { useMutateFollowTrack } from '../../hooks/track/useMutateFollowTrack';
 import { useFetchFollowTracks } from '../../hooks/track/useFetchFollowTracks';
-import FollowHeart from '../UI_Kit/FollowHeart';
+import ShowImage from '../UI_Kit/ShowImage';
+import ShowInfos from '../UI_Kit/ShowInfos';
 
 function ShowTrack({ infos }: { infos?: Track }) {
   const [showTooltip, setShowTooltip] = useState<TooltipProps>({ message: '' });
@@ -75,57 +72,34 @@ function ShowTrack({ infos }: { infos?: Track }) {
 
   return (
     <section className="space-y-2">
-      <img
-        src={infos?.album.images[0].url}
-        alt={`${infos?.name} cover`}
-        className="w-full aspect-square object-cover rounded"
-        loading="lazy"
-      />
+      <div className="flex flex-col  lg:flex-row lg:items-end w-full gap-2 lg:gap-8">
+        {infos.album.images[0].url && <ShowImage image={infos?.album.images[0].url} alt={`${infos?.name} cover`} />}
 
-      <span className="flex items-center justify-between">
-        <p className="text-lg font-bold">{infos.name}</p>
-        <a href={infos.external_urls.spotify} target="_blank" className="hover:scale-110 transition-all">
-          <img
-            src="../../Spotify_Icon_RGB_Green.png"
-            alt="Open in Spotify"
-            className="min-h-[24px] min-w-[24px] w-6 h-6"
-          />
-        </a>
-      </span>
-
-      <span className="flex items-center justify-between">
-        <p className="text-sm text-zinc-300 font-medium line-clamp-1">
-          {infos?.artists
+        <ShowInfos
+          title={infos.name}
+          subtitle={infos.album.name}
+          description={`${infos?.artists
             .slice(0, 3)
             .map(artist => artist.name)
             .join(', ')}
-          {infos.artists.length > 3 && '...'}
-        </p>
-        <FollowHeart
-          follow={follow}
-          message={showTooltip.message}
-          color={showTooltip?.color}
-          onClick={() => handleFollow(infos.id)}
+  ${infos.artists.length > 3 ? '...' : ''}`}
+          spotifyUrl={infos.external_urls.spotify}
+          followData={{
+            follow: follow,
+            setFollow: setFollow,
+            showTooltip: showTooltip,
+            handleFollow: handleFollow,
+            id: infos.id,
+          }}
+          duration_ms={infos.duration_ms}
+          trackData={{
+            preview_url: infos.preview_url,
+            showTooltipQueue: showTooltipQueue,
+            uri: infos.uri,
+            addToQueue: addToQueue,
+          }}
         />
-      </span>
-
-      <span className="flex items-center justify-between">
-        <p className="text-sm text-zinc-300 font-medium">{infos.album.name}</p>
-        <p className="text-zinc-300 text-sm font-medium">{msToMinSeconds(infos.duration_ms)}</p>
-      </span>
-
-      <span className="flex items-center justify-between">
-        <span className="flex items-center gap-2">
-          <p className="font-semibold">Preview</p>
-          <Audio src={infos.preview_url} />
-        </span>
-        <Tooltip message={showTooltipQueue.message} color={showTooltipQueue.color}>
-          <button onClick={() => addToQueue(infos.uri)} className="flex items-center gap-2">
-            <p>Add To Queue</p>
-            <Queue size={20} color="#ffffff" weight="fill" />
-          </button>
-        </Tooltip>
-      </span>
+      </div>
     </section>
   );
 }
