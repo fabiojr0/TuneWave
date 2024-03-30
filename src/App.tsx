@@ -28,12 +28,12 @@ function App() {
   }, []);
 
   return (
-    <div className="bg-black text-white w-screen min-h-screen">
+    <div className="bg-black text-white w-full min-h-screen max-h-screen">
       <Router>
         <div className="p-4 w-full h-full">
-          <div className="w-full h-full max-lg:space-y-8 max-lg:pb-10 lg:flex lg:gap-4">
+          <div className="w-full max-lg:space-y-8 max-lg:pb-10 lg:flex lg:gap-4">
             <Header />
-            <div className="lg:bg-blackfy lg:p-4 lg:rounded-lg lg:w-full">
+            <div className="lg:bg-blackfy lg:p-4 lg:rounded-lg lg:w-full lg:min-h-[95vh] lg:space-y-4">
               <span className="max-lg:hidden">
                 <HeaderTitle />
               </span>

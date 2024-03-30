@@ -6,7 +6,7 @@ import { routeTitles } from '../../utils/utils';
 function HeaderTitle() {
   const [route, setRoute] = useState<RouteInfo>({
     title: 'Home',
-    icon: 'Home',
+    icon: 'House',
   });
 
   const location = useLocation();

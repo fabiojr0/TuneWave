@@ -41,7 +41,7 @@ function TopTracks() {
       <button className="text-lightGreen" onClick={() => setShowModal(!showModal)}>
         Create Playlist Based on your Top Tracks
       </button>
-      <div className="space-y-4">
+      <div className="space-y-4 lg:overflow-y-scroll">
         {userTopTracksData?.map((item, index) => {
           if (item) {
             item = {
