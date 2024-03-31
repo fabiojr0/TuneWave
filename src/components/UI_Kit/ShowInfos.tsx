@@ -46,7 +46,7 @@ function ShowInfos({
         {description && <p className="text-zinc-300 text-sm font-medium lg:text-lg lg:font-normal">{description}</p>}
         {trackData && (
           <span className="flex items-center gap-2">
-            <p className="font-semibold">Preview</p>
+            <p className="font-semibold text-white">Preview</p>
             <Audio src={trackData.preview_url} />
           </span>
         )}
@@ -69,9 +69,12 @@ function ShowInfos({
         {duration_ms && <p className="text-zinc-300 text-sm font-medium">{msToMinSeconds(duration_ms)}</p>}
         {trackData && (
           <Tooltip message={trackData.showTooltipQueue.message} color={trackData.showTooltipQueue.color}>
-            <button onClick={() => trackData.addToQueue(trackData.uri)} className="flex items-center gap-2">
-              <p className='whitespace-nowrap'>Add To Queue</p>
-              <Queue size={20} color="#ffffff" weight="fill" />
+            <button
+              onClick={() => trackData.addToQueue(trackData.uri)}
+              className="flex items-center gap-2 group active:text-lightGreen transition-all"
+            >
+              <p className="whitespace-nowrap ">Add To Queue</p>
+              <Queue size={20} weight="fill" className="group-hover:scale-125 transition-all" />
             </button>
           </Tooltip>
         )}

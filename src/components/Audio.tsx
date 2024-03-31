@@ -1,6 +1,6 @@
-import { Pause, Play } from "@phosphor-icons/react";
-import React, { useEffect, useState } from "react";
-import Logo from "./UI_Kit/Logo";
+import { Pause, Play } from '@phosphor-icons/react';
+import React, { useEffect, useState } from 'react';
+import Logo from './UI_Kit/Logo';
 
 function Audio({ src }: { src: string }) {
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
@@ -8,13 +8,13 @@ function Audio({ src }: { src: string }) {
 
   useEffect(() => {
     if (audioRef.current) {
-      audioRef.current.addEventListener("ended", () => {
+      audioRef.current.addEventListener('ended', () => {
         setIsPlaying(false);
       });
     }
     return () => {
       if (audioRef.current) {
-        audioRef.current.removeEventListener("ended", () => {
+        audioRef.current.removeEventListener('ended', () => {
           setIsPlaying(false);
         });
       }
@@ -34,16 +34,16 @@ function Audio({ src }: { src: string }) {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-8">
+    <div className="flex items-center justify-center min-h-8 active:text-lightGreen hover:scale-125 transition-all">
       <audio ref={audioRef} src={src}></audio>
       <button onClick={playPause} className="">
         {isPlaying ? (
           <div className="flex items-center gap-2">
-            <Pause size={20} color="#ffffff" weight="fill" />
+            <Pause size={20} weight="fill" />
             <Logo />
           </div>
         ) : (
-          <Play size={20} color="#ffffff" weight="fill" />
+          <Play size={20} weight="fill" />
         )}
       </button>
     </div>
