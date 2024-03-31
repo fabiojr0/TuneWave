@@ -47,7 +47,7 @@ function Track({ infos, index, collum }: { infos: Track; index?: number; collum?
             loading="lazy"
           />
           <span className="flex items-center gap-2 w-full">
-            <p className="text-xs font-semibold line-clamp-1 w-full group-active:text-lightGreen">{infos.name}</p>
+            <p className="text-xs font-semibold line-clamp-2 w-full group-active:text-lightGreen">{infos.name}</p>
             {infos.explicit && <Explicit />}
           </span>
         </Link>
