@@ -22,8 +22,8 @@ function Button({
   const variants = {
     primary:
       "bg-darkGreen rounded-full p-2 flex items-center justify-center gap-2 text-white font-semibold hover:scale-110 transition-all min-w-20 min-h-9 ",
-    time_range: `bg-zinc-800 rounded-lg py-2 px-4 flex items-center justify-center gap-2 font-semibold hover:scale-110 transition-all text-sm min-w-20 min-h-9 whitespace-nowrap ${
-      selected ? "text-lightGreen" : "text-white"
+    time_range: `bg-zinc-800 rounded-lg py-2 px-4 flex items-center justify-center gap-2 font-semibold hover:scale-110 transition-all text-sm min-w-20 min-h-9 whitespace-nowrap hover:text-lightGreen ${
+      selected ? "text-darkGreen" : "text-white"
     }`,
   };
 
