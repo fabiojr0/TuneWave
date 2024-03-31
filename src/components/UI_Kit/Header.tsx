@@ -25,9 +25,9 @@ function Header() {
             <CaretLeft size={32} color="#ffffff" weight="regular" />
           </button>
         )}
-        <Link to={'/'} className="flex items-center gap-2 min-w-48">
+        <Link to={'/'} className="flex items-center gap-2 min-w-48 group">
           <Logo />
-          <h1 className="font-bold text-lg">Sound Scout</h1>
+          <h1 className="font-bold text-lg group-active:text-lightGreen">Sound Scout</h1>
         </Link>
         <button onClick={e => handleShowNavbar(e)} className="lg:hidden">
           {showNavbar ? (

@@ -18,10 +18,10 @@ function ItemInfos({
     <div className="w-full">
       <Link to={redirectUrl} className="flex flex-col group w-fit">
         <span className="flex items-center gap-2">
-          <p className="text-sm font-semibold line-clamp-1">{title}</p>
+          <p className="text-sm font-semibold line-clamp-1 group-active:text-lightGreen">{title}</p>
           {explicit && <Explicit />}
         </span>
-        <span className="w-0 h-[1px] bg-white group-hover:w-full transition-all" />
+        <span className="w-0 h-[1px] bg-white group-hover:w-full transition-all group-active:bg-lightGreen" />
       </Link>
       <p className="text-sm font-medium text-zinc-300 line-clamp-1">{description}</p>
       <a className="flex items-end gap-2 group/spotify w-fit" href={spotifyUrl} target="_blank">

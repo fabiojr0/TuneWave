@@ -1,9 +1,9 @@
 import { useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import { SignOut } from '@phosphor-icons/react';
 import { useQueryClient } from '@tanstack/react-query';
 import { routeTitles } from '../../utils/utils';
+import NavbarLink from './NavbarLink';
 
 function Navbar({ showNavbar, setShowNavbar }: { showNavbar: boolean; setShowNavbar: (showNavbar: boolean) => void }) {
   const queryClient = useQueryClient();
@@ -59,21 +59,11 @@ function Navbar({ showNavbar, setShowNavbar }: { showNavbar: boolean; setShowNav
       <div className="flex flex-col gap-4">
         {navbarItems.map(item => {
           const Icon = item.item.icon;
-          return (
-            <Link to={item.link} key={item.item.title} onClick={onClickLink} className="group">
-              <span className="font-semibold flex gap-2">
-                <Icon size={24} weight="fill" color="#ffffff" />
-                <span className="flex flex-col group w-fit">
-                  <p className="group-hover:">{item.item.title}</p>
-                  <span className="w-0 h-[2px] bg-white group-hover:w-full transition-all" />
-                </span>
-              </span>
-            </Link>
-          );
+          return <NavbarLink item={item} Icon={Icon} onClickLink={onClickLink} key={item.item.title} />;
         })}
       </div>
       <div className="w-full flex items-end justify-end h-full">
-        <button onClick={logout} className="flex items-center gap-1">
+        <button onClick={logout} className="flex items-center gap-1 active:text-lightGreen">
           <SignOut size={20} weight="fill" />
           Logout
         </button>
