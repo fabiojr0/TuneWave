@@ -12,7 +12,7 @@ function TimeRangeButtons({
   return (
     <div className="flex items-center justify-center gap-4">
       <Button
-        type="time_range"
+        buttonType="time_range"
         onClick={() => chageTimeRange('short_term')}
         loading={time_range === 'short_term' && isLoading}
         selected={time_range === 'short_term'}
@@ -20,7 +20,7 @@ function TimeRangeButtons({
         4 Weeks ago
       </Button>
       <Button
-        type="time_range"
+        buttonType="time_range"
         onClick={() => chageTimeRange('medium_term')}
         loading={time_range === 'medium_term' && isLoading}
         selected={time_range === 'medium_term'}
@@ -28,7 +28,7 @@ function TimeRangeButtons({
         6 Months ago
       </Button>
       <Button
-        type="time_range"
+        buttonType="time_range"
         onClick={() => chageTimeRange('long_term')}
         loading={time_range === 'long_term' && isLoading}
         selected={time_range === 'long_term'}
