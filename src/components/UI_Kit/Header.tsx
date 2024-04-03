@@ -18,7 +18,7 @@ function Header() {
   };
 
   return (
-    <div className="space-y-2 bg-black lg:flex lg:flex-col lg:bg-blackfy lg:rounded-lg lg:p-4 max-h-[95vh]">
+    <div className="space-y-4 bg-black lg:flex lg:flex-col lg:bg-blackfy lg:rounded-lg lg:gap-4 lg:p-4 max-h-[95vh]">
       <div className="flex items-center justify-between">
         {window.history.state.idx !== 0 && (
           <button onClick={backPage} className="lg:hidden">
@@ -37,9 +37,9 @@ function Header() {
           )}
         </button>
       </div>
-      <span className="lg:hidden">
+      <div className="lg:hidden">
         <HeaderTitle />
-      </span>
+      </div>
       <Navbar setShowNavbar={setShowNavbar} showNavbar={showNavbar} />
     </div>
   );
