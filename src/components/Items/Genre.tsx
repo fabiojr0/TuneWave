@@ -2,6 +2,7 @@ import { useMemo } from 'react';
 import { capitalizeEachWord } from '../../utils/utils';
 
 function Genre({ title, count, maxCount }: { title: string; count: number; maxCount: number }) {
+  
   const widthPercentage = useMemo(() => {
     return Math.min(100, (count / maxCount) * 100);
   }, [count, maxCount]);
