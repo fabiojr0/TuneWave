@@ -1,30 +1,34 @@
-# React + TypeScript + Vite
+# Sound Scout
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Sound Scout is a web application integrated with Spotify, designed to help you explore and discover music based on your listening habits. With Sound Scout, you can:
 
-Currently, two official plugins are available:
+- View your top tracks, artists, and genres over different time periods.
+- Discover new music recommendations based on your listening history.
+- Create playlists from your top tracks or curated recommendations.
+- Explore detailed information about tracks, artists, and playlists.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## Expanding the ESLint configuration
+- **Top Tracks, Artists, and Genres:** See your most-listened-to tracks, artists, and genres over the last 4 weeks, 6 months, or all time.
+- **Discovery:** Discover new music recommendations tailored to your tastes.
+- Playlist Creation: Create playlists from your top tracks or curated recommendations.
+- Detailed Information: Get detailed information about tracks, artists, and playlists.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Technologies Used
 
-- Configure the top-level `parserOptions` property like this:
+- Frontend: React.js, Tailwind CSS
+- Authentication: OAuth 2.0 with Spotify
+- API Integration: Spotify Web API
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+## Setup
+
+1. Clone the repository: git clone https://github.com/fabiojr0/sound-scout.git
+2. Install dependencies: npm install
+3. Create a .env file in the root directory and add your Spotify API credentials:
 ```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+SPOTIFY_CLIENT_ID=your-client-id
+SPOTIFY_CLIENT_SECRET=your-client-secret
+REDIRECT_URI=http://localhost:5173/callback
+```
+4. Start the development server: npm run dev
+5. Open http://localhost:5173 to view Sound Scout in your browser.
