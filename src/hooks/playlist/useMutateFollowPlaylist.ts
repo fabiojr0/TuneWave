@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import api from "../../setup/api";
+import { QueryKeys } from "../../utils/QueryKeys";
 
 const putData = async (data: { playlist_id: string, follow: boolean }) => {
     if (data.follow) {
@@ -14,7 +15,9 @@ export function useMutateFollowPlaylists() {
     const mutate = useMutation({
         mutationFn: putData,
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ["playlists-follow"] });
+            queryClient.invalidateQueries({ queryKey: [QueryKeys.Playlists] });
+            queryClient.invalidateQueries({ queryKey: [QueryKeys.MePlaylists] });
+            queryClient.invalidateQueries({ queryKey: [QueryKeys.UserPlaylists] });
         }
     });
 

@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useQueries } from "@tanstack/react-query";
 import api from "../../setup/api";
+import { QueryKeys } from "../../utils/QueryKeys";
 
 const fetchData = async (ids: string[]): Promise<boolean[]> => {
     const response = await api.get(`/me/following/contains`, { params: { type: "artist", ids: ids.join(",") } });
@@ -16,7 +17,7 @@ export const useFetchFollowArtists = (ids: string[]) => {
 
     const results = useQueries({
         queries: idsChunks.map((chunk) => ({
-            queryKey: ['artist-follow', chunk],
+            queryKey: [QueryKeys.ArtistsFollow, chunk],
             queryFn: () => fetchData(chunk),
             retry: 3,
             refetchInterval: 1000 * 60 * 1,

@@ -1,5 +1,6 @@
 import { useQueries } from "@tanstack/react-query";
 import api from "../../setup/api";
+import { QueryKeys } from "../../utils/QueryKeys";
 
 const fetchData = async (ids: string[]): Promise<boolean[]> => {
     const response = await api.get(`/me/tracks/contains`, { params: { ids: ids.join(",") } });
@@ -14,7 +15,7 @@ export const useFetchFollowTracks = (ids: string[]) => {
 
     const results = useQueries({
         queries: idsChunks.map((chunk) => ({
-            queryKey: ['tracks-follow', chunk],
+            queryKey: [QueryKeys.TracksFollow, chunk],
             queryFn: () => fetchData(chunk),
             retry: 3,
             refetchInterval: 1000 * 60 * 1,

@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
 import api from "../../setup/api";
+import { QueryKeys } from "../../utils/QueryKeys";
 
 
 interface FetchDataQueryKey {
@@ -19,7 +20,7 @@ const fetchData = async ({ queryKey }: QueryFunctionContext<[string, FetchDataQu
 export function useFetchPlaylist(playlist_id: string) {
     const query = useQuery({
         queryFn: fetchData,
-        queryKey: ["playlist", { playlist_id }],
+        queryKey: [QueryKeys.Playlists, { playlist_id }],
         retry: 1,
         staleTime: 1000 * 60 * 60,
         enabled: !!playlist_id,

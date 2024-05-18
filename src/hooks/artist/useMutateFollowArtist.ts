@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import api from "../../setup/api";
+import { QueryKeys } from "../../utils/QueryKeys";
 
 const putData = async (data: { artist_id: string, follow: boolean }) => {
     if (data.follow) {
@@ -16,7 +17,7 @@ export function useMutateFollowArtist() {
     const mutate = useMutation({
         mutationFn: putData,
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ["artist-follow"] });
+            queryClient.invalidateQueries({ queryKey: [QueryKeys.ArtistsFollow] });
         }
     });
 

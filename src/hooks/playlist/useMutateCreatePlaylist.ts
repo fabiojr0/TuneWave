@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import api from "../../setup/api";
+import { QueryKeys } from "../../utils/QueryKeys";
 
 const putData = async (data: {
     user_id: string, uris: string[],
@@ -20,8 +21,12 @@ const putData = async (data: {
 };
 
 export function useMutateCreatePlaylist() {
+    const queryClient = useQueryClient();
     const mutate = useMutation({
         mutationFn: putData,
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: [QueryKeys.MePlaylists] });
+        }
     });
 
     return mutate

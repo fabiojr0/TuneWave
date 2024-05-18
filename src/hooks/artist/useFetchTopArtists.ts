@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
 import api from "../../setup/api";
+import { QueryKeys } from "../../utils/QueryKeys";
 
 
 interface FetchDataQueryKey {
@@ -31,7 +32,7 @@ const fetchData = async ({ queryKey }: QueryFunctionContext<[string, FetchDataQu
 export function useFetchTopArtists(time_range: TimeRange) {
     const query = useQuery({
         queryFn: fetchData,
-        queryKey: ["top-artists", { time_range }],
+        queryKey: [QueryKeys.UserTopArtists, { time_range }],
         retry: 3,
         staleTime: 1000 * 60 * 60,
         placeholderData: [...Array(10)] as Artist[]

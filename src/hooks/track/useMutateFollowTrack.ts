@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import api from "../../setup/api";
+import { QueryKeys } from "../../utils/QueryKeys";
 
 const putData = async (data: { track_id: string, follow: boolean }) => {
     if (data.follow) {
@@ -16,7 +17,7 @@ export function useMutateFollowTrack() {
     const mutate = useMutation({
         mutationFn: putData,
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ["tracks-follow"] });
+            queryClient.invalidateQueries({ queryKey: [QueryKeys.TracksFollow] });
         }
     });
 

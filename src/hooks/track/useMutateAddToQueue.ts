@@ -7,7 +7,6 @@ type mutateAddToQueueRespose = {
     message: string
 }
 
-
 const postData = async (uri: string): Promise<mutateAddToQueueRespose> => {
     try {
         const response = await api.post(`/me/player/queue?uri=${uri}`);

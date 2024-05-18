@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
 import api from "../../setup/api";
+import { QueryKeys } from "../../utils/QueryKeys";
 
 
 interface FetchDataQueryKey {
@@ -18,7 +19,7 @@ const fetchData = async ({ queryKey }: QueryFunctionContext<[string, FetchDataQu
 export function useFetchTrack(id: string) {
     const query = useQuery({
         queryFn: fetchData,
-        queryKey: ["tracks", { id }],
+        queryKey: [QueryKeys.Tracks, { id }],
         retry: 3,
         enabled: !!id,
         staleTime: 1000 * 60 * 60,

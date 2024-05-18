@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
 import api from "../../setup/api";
+import { QueryKeys } from "../../utils/QueryKeys";
 
 
 interface FetchDataQueryKey {
@@ -31,7 +32,7 @@ export function useFetchRecommendations(seed_genres: string[] | null,
     limit: number = 50) {
     const query = useQuery({
         queryFn: fetchData,
-        queryKey: ["reccomendations", { seed_genres, seed_artists, seed_tracks, limit }],
+        queryKey: [QueryKeys.Reccomendations, { seed_genres, seed_artists, seed_tracks, limit }],
         placeholderData: [...Array(10)] as Track[],
         staleTime: 1000 * 60 * 10,
         refetchOnWindowFocus: false,
