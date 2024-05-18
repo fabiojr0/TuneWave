@@ -26,8 +26,8 @@ Sound Scout is a web application integrated with Spotify, designed to help you e
 2. Install dependencies: npm install
 3. Create a .env file in the root directory and add your Spotify API credentials:
 ```
-SPOTIFY_CLIENT_ID=your-client-id
-SPOTIFY_CLIENT_SECRET=your-client-secret
+CLIENT_ID=your-client-id
+CLIENT_SECRET=your-client-secret
 REDIRECT_URI=http://localhost:5173/callback
 ```
 4. Start the development server: npm run dev
