@@ -1,6 +1,6 @@
-# Sound Scout
+# Tune Wave
 
-Sound Scout is a web application integrated with Spotify, designed to help you explore and discover music based on your listening habits. With Sound Scout, you can:
+Tune Wave is a web application integrated with Spotify, designed to help you explore and discover music based on your listening habits. With Tune Wave, you can:
 
 - View your top tracks, artists, and genres over different time periods.
 - Discover new music recommendations based on your listening history.
@@ -22,7 +22,7 @@ Sound Scout is a web application integrated with Spotify, designed to help you e
 
 ## Setup
 
-1. Clone the repository: git clone https://github.com/fabiojr0/sound-scout.git
+1. Clone the repository: git clone https://github.com/fabiojr0/TuneWave.git
 2. Install dependencies: npm install
 3. Create a .env file in the root directory and add your Spotify API credentials:
 ```
@@ -31,4 +31,4 @@ CLIENT_SECRET=your-client-secret
 REDIRECT_URI=http://localhost:5173/callback
 ```
 4. Start the development server: npm run dev
-5. Open http://localhost:5173 to view Sound Scout in your browser.
+5. Open http://localhost:5173 to view Tune Wave in your browser.

@@ -55,7 +55,7 @@ function Discover() {
         <CreatePlaylistModal
           uris={recommendations?.map(track => track?.uri) || []}
           name={`Discover Tracks`}
-          description={`Tracks to discover based on my hearing history. Created By FB Sound Scout.`}
+          description={`Tracks to discover based on my hearing history. Created By FB Tune Wave.`}
           setShowModal={setShowModal}
         />
       )}

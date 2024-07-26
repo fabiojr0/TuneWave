@@ -60,7 +60,7 @@ function TopTracks() {
         <CreatePlaylistModal
           uris={userTopTracksData?.map(track => track?.uri) || []}
           name={`My Top Tracks - ${timeRange === 'short_term' ? 'Last 4 Weeks' : timeRange === 'medium_term' ? 'Last 6 Months' : 'All Time'}`}
-          description={`My top tracks based on my listening history. Created By FB Sound Scout.`}
+          description={`My top tracks based on my listening history. Created By FB Tune Wave.`}
           setShowModal={setShowModal}
         />
       )}

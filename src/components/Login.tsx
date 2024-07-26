@@ -17,7 +17,7 @@ function Login() {
       />
       <span className="flex flex-col justify-center items-center">
         <h2 className="font-semibold text-lg flex gap-1">
-          Welcome To Sound Scout!
+          Welcome To Tune Wave!
         </h2>
         <p className="font-medium">Log in to access your information.</p>
       </span>
