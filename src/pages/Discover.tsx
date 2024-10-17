@@ -28,7 +28,7 @@ function Discover() {
   }
 
   return (
-    <main className="space-y-4">
+    <main className="space-y-4 max-h-[85vh] overflow-auto">
       <span className="flex items-center justify-between">
         <span>
           <h2 className="font-semibold text-lg">Reccomended tracks for you</h2>

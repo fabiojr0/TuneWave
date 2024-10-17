@@ -19,7 +19,7 @@ function Home() {
   }
 
   return (
-    <main className="w-full h-full space-y-4">
+    <main className="w-full h-full space-y-4 max-h-[85vh] overflow-auto">
       <div className="space-y-4 ">
         <span>
           <h2 className="font-semibold text-lg">DJ FB o Corte's Playlists</h2>

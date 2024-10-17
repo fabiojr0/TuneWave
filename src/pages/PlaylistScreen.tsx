@@ -16,7 +16,7 @@ function PlaylistScreen() {
   }
 
   return (
-    <main className="space-y-4">
+    <main className="space-y-4 max-h-[85vh] overflow-auto">
       <ShowPlaylist infos={playlistData} />
     </main>
   );

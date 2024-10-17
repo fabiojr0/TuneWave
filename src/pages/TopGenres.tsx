@@ -33,7 +33,7 @@ function TopGenres() {
   ring2.register();
 
   return (
-    <main className="w-full h-full space-y-4">
+    <main className="w-full h-full space-y-4 max-h-[85vh] overflow-auto">
       <TimeRangeButtons chageTimeRange={chageTimeRange} time_range={timeRange} isLoading={false} />
       <div className="space-y-4 border-l-4 border-darkGreen">
         {topGenres?.data?.map((genre, index) => {

@@ -32,7 +32,7 @@ function TopArtists() {
   }
 
   return (
-    <main className="w-full h-full space-y-4">
+    <main className="w-full h-full space-y-4 max-h-[85vh] overflow-auto">
       <TimeRangeButtons chageTimeRange={chageTimeRange} time_range={timeRange} isLoading={isLoading} />
       <div className="space-y-4">
         {userTopArtistsData?.map((item, index) => {

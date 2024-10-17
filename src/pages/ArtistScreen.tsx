@@ -25,7 +25,7 @@ function ArtistScreen() {
   }
 
   return (
-    <main className="space-y-4">
+    <main className="space-y-4 max-h-[85vh] overflow-auto">
       <ShowArtist infos={infos} />
       <div className="space-y-4">
         <h2 className="font-semibold"></h2>

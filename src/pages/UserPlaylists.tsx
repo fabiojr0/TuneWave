@@ -14,7 +14,7 @@ function UserPlaylists() {
   }
 
   return (
-    <main className="w-full h-full space-y-4">
+    <main className="w-full h-full space-y-4 max-h-[85vh] overflow-auto">
       <h2 className="font-semibold text-lg">My Playlists</h2>
       {userPlaylists?.map((item, index) => {
         if (item) {
