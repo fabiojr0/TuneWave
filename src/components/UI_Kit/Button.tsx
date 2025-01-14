@@ -5,15 +5,19 @@ import { tv, VariantProps } from 'tailwind-variants';
 import { twMerge } from 'tailwind-merge';
 
 const buttonStyles = tv({
-  base: 'font-semibold hover:scale-110 transition-all flex items-center justify-center gap-2 min-w-20 min-h-9 whitespace-nowrap',
+  base: 'font-semibold transition-all flex items-center justify-center gap-2 min-w-20 min-h-9 whitespace-nowrap',
   variants: {
     color: {
       green: 'bg-darkGreen text-white',
-      black: 'bg-zinc-800 hover:text-lightGreen',
+      black: 'hover:text-lightGreen',
+      selectedBlack: 'bg-zinc-900 text-lightGreen hover:text-darkGreen',
     },
     format: {
       roundedFull: 'rounded-full p-2',
       rounded: 'rounded-lg py-2 px-4 text-sm',
+    },
+    hover: {
+      scale: 'hover:scale-110',
     },
   },
   defaultVariants: {
@@ -39,8 +43,9 @@ function Button({ buttonType = 'primary', loading, selected, children, ...props 
 
   const buttonClass = twMerge(
     buttonStyles({
-      color: buttonType === 'time_range' ? 'black' : 'green',
+      color: buttonType === 'time_range' ? (selected ? 'selectedBlack' : 'black') : 'green',
       format: buttonType === 'primary' ? 'roundedFull' : 'rounded',
+      hover: buttonType === 'time_range' ? undefined : 'scale',
     }),
     selected && 'text-darkGreen'
   );

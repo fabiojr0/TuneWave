@@ -8,6 +8,8 @@ import NavbarLink from './NavbarLink';
 function Navbar({ showNavbar, setShowNavbar }: { showNavbar: boolean; setShowNavbar: (showNavbar: boolean) => void }) {
   const queryClient = useQueryClient();
 
+  const { accessToken } = useAuth();
+
   const navbarItems = [
     { link: '/', item: routeTitles['/'] },
     { link: '/TopTracks', item: routeTitles['/TopTracks/:time_range?'] },
@@ -62,12 +64,14 @@ function Navbar({ showNavbar, setShowNavbar }: { showNavbar: boolean; setShowNav
           return <NavbarLink item={item} Icon={Icon} onClickLink={onClickLink} key={item.item.title} />;
         })}
       </div>
-      <div className="w-full flex items-end justify-end h-full">
-        <button onClick={logout} className="flex items-center gap-1 active:text-lightGreen">
-          <SignOut size={20} weight="fill" />
-          Logout
-        </button>
-      </div>
+      {accessToken && (
+        <div className="w-full flex items-end justify-end h-full">
+          <button onClick={logout} className="flex items-center gap-1 active:text-lightGreen">
+            <SignOut size={20} weight="fill" />
+            Logout
+          </button>
+        </div>
+      )}
     </nav>
   );
 }

@@ -25,19 +25,21 @@ function Home() {
           <h2 className="font-semibold text-lg">DJ FB o Corte's Playlists</h2>
           <p className="text-zinc-300 text-sm">The Playlists you will ever seen!</p>
         </span>
-        {fabiojr0_playlists?.map((item, index) => {
-          if (item) {
-            item = {
-              ...item,
-              followed: followedPlaylists?.some(follow => follow?.id && follow?.id === item.id) ?? false,
-            };
-          }
-          return (
-            <React.Fragment key={index}>
-              <Playlist infos={item} />
-            </React.Fragment>
-          );
-        })}
+        <div className="space-y-4 px-4">
+          {fabiojr0_playlists?.map((item, index) => {
+            if (item) {
+              item = {
+                ...item,
+                followed: followedPlaylists?.some(follow => follow?.id && follow?.id === item.id) ?? false,
+              };
+            }
+            return (
+              <React.Fragment key={index}>
+                <Playlist infos={item} />
+              </React.Fragment>
+            );
+          })}
+        </div>
       </div>
     </main>
   );

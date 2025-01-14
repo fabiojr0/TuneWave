@@ -16,19 +16,21 @@ function UserPlaylists() {
   return (
     <main className="w-full h-full space-y-4 max-h-[85vh] overflow-auto">
       <h2 className="font-semibold text-lg">My Playlists</h2>
-      {userPlaylists?.map((item, index) => {
-        if (item) {
-          item = {
-            ...item,
-            followed: true,
-          };
-        }
-        return (
-          <React.Fragment key={index}>
-            <Playlist infos={item} />
-          </React.Fragment>
-        );
-      })}
+      <div className="px-4 space-y-4">
+        {userPlaylists?.map((item, index) => {
+          if (item) {
+            item = {
+              ...item,
+              followed: true,
+            };
+          }
+          return (
+            <React.Fragment key={index}>
+              <Playlist infos={item} />
+            </React.Fragment>
+          );
+        })}
+      </div>
     </main>
   );
 }
