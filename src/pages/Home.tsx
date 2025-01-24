@@ -23,7 +23,7 @@ function Home() {
       <div className="space-y-4 ">
         <span>
           <h2 className="font-semibold text-lg">DJ FB o Corte's Playlists</h2>
-          <p className="text-zinc-300 text-sm">The Playlists you will ever seen!</p>
+          <p className="text-zinc-300 text-sm">The Best Playlists you will ever seen!</p>
         </span>
         <div className="space-y-4 px-4">
           {fabiojr0_playlists?.map((item, index) => {
