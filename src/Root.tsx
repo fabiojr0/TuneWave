@@ -9,6 +9,7 @@ import ArtistScreen from './pages/ArtistScreen';
 import TopGenres from './pages/TopGenres';
 import PlaylistScreen from './pages/PlaylistScreen';
 import UserPlaylists from './pages/UserPlaylists';
+import MyStats from './pages/MyStats';
 
 function Root() {
   return (
@@ -16,6 +17,7 @@ function Root() {
       <Route path="/" element={<Home />} />
       <Route path="/TopTracks/:time_range?" element={<TopTracks />} />
       <Route path="/TopArtists/:time_range?" element={<TopArtists />} />
+      <Route path="/MyStats/:time_range?" element={<MyStats />} />
       <Route path="/TopGenres/:time_range?" element={<TopGenres />} />
       <Route path="/Discover" element={<Discover />} />
       <Route path="/Callback" element={<Callback />} />

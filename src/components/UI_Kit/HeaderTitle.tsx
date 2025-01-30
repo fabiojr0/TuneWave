@@ -16,29 +16,44 @@ function HeaderTitle() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 
     const pathname = location.pathname;
-
-    if (pathname === '/') {
-      setRoute(routeTitles['/']);
-    } else if (pathname.startsWith('/TopTracks')) {
-      setRoute(routeTitles['/TopTracks/:time_range?']);
-    } else if (pathname.startsWith('/TopArtists')) {
-      setRoute(routeTitles['/TopArtists/:time_range?']);
-    } else if (pathname.startsWith('/TopGenres')) {
-      setRoute(routeTitles['/TopGenres/:time_range?']);
-    } else if (pathname === '/Discover') {
-      setRoute(routeTitles['/Discover']);
-    } else if (pathname === '/Callback') {
-      setRoute(routeTitles['/Callback']);
-    } else if (pathname.startsWith('/Track')) {
-      setRoute(routeTitles['/Track/:id']);
-    } else if (pathname.startsWith('/Artist')) {
-      setRoute(routeTitles['/Artist/:id']);
-    } else if (pathname.startsWith('/Playlist')) {
-      setRoute(routeTitles['/Playlist/:id']);
-    } else if (pathname.startsWith('/MyPlaylists')) {
-      setRoute(routeTitles['/MyPlaylists']);
-    } else {
-      setRoute(routeTitles['/']);
+    
+    switch (pathname) {
+      case '/':
+        setRoute(routeTitles['/']);
+        break;
+      case '/TopTracks':
+        setRoute(routeTitles['/TopTracks/:time_range?']);
+        break;
+      case '/TopArtists':
+        setRoute(routeTitles['/TopArtists/:time_range?']);
+        break;
+      case '/TopGenres':
+        setRoute(routeTitles['/TopGenres/:time_range?']);
+        break;
+      case '/MyStats':
+        setRoute(routeTitles['/MyStats/:time_range?']);
+        break;
+      case '/Discover':
+        setRoute(routeTitles['/Discover']);
+        break;
+      case '/Callback':
+        setRoute(routeTitles['/Callback']);
+        break;
+      case '/Track':
+        setRoute(routeTitles['/Track/:id']);
+        break;
+      case '/Artist':
+        setRoute(routeTitles['/Artist/:id']);
+        break;
+      case '/Playlist':
+        setRoute(routeTitles['/Playlist/:id']);
+        break;
+      case '/MyPlaylists':
+        setRoute(routeTitles['/MyPlaylists']);
+        break;
+      default:
+        setRoute(routeTitles['/']);
+        break;
     }
   }, [location.pathname]);
 

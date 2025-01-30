@@ -10,8 +10,9 @@ function Navbar({ showNavbar, setShowNavbar }: { showNavbar: boolean; setShowNav
 
   const { accessToken } = useAuth();
 
-  const navbarItems = [
+  const navbarItems = [ 
     { link: '/', item: routeTitles['/'] },
+    { link: '/MyStats', item: routeTitles['/MyStats/:time_range?'] },
     { link: '/TopTracks', item: routeTitles['/TopTracks/:time_range?'] },
     { link: '/TopArtists', item: routeTitles['/TopArtists/:time_range?'] },
     { link: '/TopGenres', item: routeTitles['/TopGenres/:time_range?'] },

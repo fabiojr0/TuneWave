@@ -9,6 +9,7 @@ import {
   MicrophoneStage,
   Playlist,
   ListPlus,
+  ChartBarHorizontal,
 } from '@phosphor-icons/react';
 
 export const SCOPES = [
@@ -29,6 +30,10 @@ export const routeTitles = {
   '/': {
     title: 'Home',
     icon: House,
+  },
+  '/MyStats/:time_range?': {
+    title: 'My Stats',
+    icon: ChartBarHorizontal,
   },
   '/TopTracks/:time_range?': {
     title: 'Top Tracks',
