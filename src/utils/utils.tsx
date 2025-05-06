@@ -12,16 +12,35 @@ import {
 } from '@phosphor-icons/react';
 
 export const SCOPES = [
+  //Add Item to Playback Queue
   'user-modify-playback-state',
+
+  //Get Current User's Profile
   'user-read-private',
+
+  //Get Playlist Items
   'playlist-read-collaborative',
-  'playlist-modify-public',
   'playlist-read-private',
+  
+  //Follow Playlist
+  'playlist-modify-public',
   'playlist-modify-private',
+
+  //Save Tracks for Current User
+  //Remove User's Saved Tracks
   'user-library-modify',
+  
+  //Get User's Saved Tracks
   'user-library-read',
+  
+  //Get User's Top Items
   'user-top-read',
+
+  //Check If User Follows Artists or Users
   'user-follow-read',
+
+  //Follow Artists or Users
+  //Unfollow Artists or Users
   'user-follow-modify',
 ];
 
